@@ -95,8 +95,17 @@ aplicar_spicetify() {
         return 0
     fi
     _info "Spicetify: delegando para Spellbook-OS"
-    _run "'$setup'"
-    _ok "Spicetify aplicado via Spellbook-OS"
+    # Spicetify pode falhar por incompatibilidade de versao do Spotify.
+    # Nao e fatal para o tema geral do sistema — continuar.
+    if [[ $DRY_RUN -eq 0 ]]; then
+        if "$setup"; then
+            _ok "Spicetify aplicado via Spellbook-OS"
+        else
+            _warn "Spicetify retornou erro (possivel incompatibilidade de versao do Spotify — nao fatal)"
+        fi
+    else
+        echo "  [dry-run] $setup"
+    fi
 }
 
 # ─── Obsidian (instala em cada vault detectado) ───

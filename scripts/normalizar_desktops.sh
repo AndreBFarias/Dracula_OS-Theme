@@ -47,19 +47,14 @@ processar_desktop() {
         return 0
     fi
 
-    # Pega nome-base sem extensão como novo Icon
-    local basename_icon
-    basename_icon=$(basename "$icon_atual")
-    local nome_novo="${basename_icon%.*}"
-
-    # Sanitizar: espaços e caracteres estranhos → nome do .desktop
+    # REGRA: sempre usar o app_id como novo Icon — o build.sh garante que
+    # existe um arquivo com esse nome no tema instalado (ou cai no upstream).
+    # Isso é mais robusto que derivar do basename do arquivo-fonte, porque
+    # muitos projetos usam nome genérico (icon.png, logo.png) ou sem relação
+    # com o app.
     local app_id
     app_id=$(basename "$f" .desktop)
-
-    # Se o nome-novo tem espaços, acentos ou "|", usa o app_id
-    if [[ "$nome_novo" =~ [\ \|] ]] || [[ -z "$nome_novo" ]]; then
-        nome_novo="$app_id"
-    fi
+    local nome_novo="$app_id"
 
     _info "$app_id: Icon='$icon_atual' → Icon='$nome_novo'"
 
