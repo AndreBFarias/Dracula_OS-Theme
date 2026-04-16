@@ -71,8 +71,14 @@ processar_desktop() {
     mkdir -p "$BACKUP_DIR"
     cp "$f" "$BACKUP_DIR/$(basename "$f")"
 
-    # Reescrever in-place
-    sed -i "s|^Icon=$(printf '%s' "$icon_atual" | sed 's/[.[\*^$()+?{|\\/]/\\&/g')|Icon=$nome_novo|" "$f" || _warn "sed falhou em $f"
+    # Escapa caracteres regex no LADO ESQUERDO (match)
+    local icon_esc
+    icon_esc=$(printf '%s' "$icon_atual" | sed 's/[.[\*^$()+?{|\\/]/\\&/g')
+    # Escapa & e \ no LADO DIREITO (replacement) — sed substitui & pelo match inteiro
+    local nome_esc
+    nome_esc=$(printf '%s' "$nome_novo" | sed 's/[&\\/]/\\&/g')
+
+    sed -i "s|^Icon=${icon_esc}|Icon=${nome_esc}|" "$f" || _warn "sed falhou em $f"
 }
 
 main() {

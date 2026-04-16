@@ -331,15 +331,6 @@
     "name": "Visual Studio Code - URL Handler",
     "origem": "current-nome"
   },
-  "data-toolkit": {
-    "aliases": [
-      "data-toolkit"
-    ],
-    "fonte": null,
-    "icon_original": "/home/andrefarias/Desenvolvimento/Python-Data-Toolkit/assets/icon.png",
-    "name": "Data Toolkit",
-    "origem": "path-quebrado"
-  },
   "display-im6.q16": {
     "aliases": [
       "display-im6.q16"

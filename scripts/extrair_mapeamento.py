@@ -254,6 +254,12 @@ def localizar_fonte(nome_icone: str) -> tuple[str | None, str | None]:
     return nome_icone, "nao-encontrado"
 
 
+# Apps cujo repo/path-fonte nao existe mais — descartar do mapping
+APPS_DESCARTADOS = {
+    "data-toolkit",  # /home/andrefarias/Desenvolvimento/Python-Data-Toolkit/ removido
+}
+
+
 def main() -> None:
     mapeamento: dict[str, dict[str, Any]] = {}
     vistos_icones: dict[str, list[str]] = {}
@@ -267,6 +273,8 @@ def main() -> None:
             name = campos.get("Name", "")
             app_id = f.stem
             if not icon:
+                continue
+            if app_id in APPS_DESCARTADOS:
                 continue
             # Override manual (usa SVG dos 295 novos)
             if app_id in OVERRIDES_NOVOS:
