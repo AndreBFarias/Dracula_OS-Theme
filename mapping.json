@@ -1,0 +1,1940 @@
+{
+  "LinuxToys": {
+    "aliases": [
+      "LinuxToys"
+    ],
+    "fonte": "new-sessao-atual/toolbox.svg",
+    "icon_original": "linuxtoys",
+    "name": "LinuxToys",
+    "origem": "override-novo"
+  },
+  "Ubuntu": {
+    "aliases": [
+      "Ubuntu"
+    ],
+    "fonte": "projects/ubuntu-distrobox.png",
+    "icon_original": "/home/andrefarias/.local/share/icons/distrobox/ubuntu.png",
+    "name": "Ubuntu",
+    "origem": "alias-heuristico"
+  },
+  "Ubuntu-configmgr": {
+    "aliases": [
+      "Ubuntu-configmgr"
+    ],
+    "fonte": "/home/andrefarias/.local/share/icons/utility.png",
+    "icon_original": "/home/andrefarias/.local/share/icons/utility.png",
+    "name": "Citrix Workspace (configmgr) (on Ubuntu)",
+    "origem": "path-externo"
+  },
+  "Ubuntu-conncenter": {
+    "aliases": [
+      "Ubuntu-conncenter"
+    ],
+    "fonte": "/home/andrefarias/.local/share/icons/utility.png",
+    "icon_original": "/home/andrefarias/.local/share/icons/utility.png",
+    "name": "Citrix Workspace (conncenter) (on Ubuntu)",
+    "origem": "path-externo"
+  },
+  "Ubuntu-fido2_llt": {
+    "aliases": [
+      "Ubuntu-fido2_llt"
+    ],
+    "fonte": "/home/andrefarias/.local/share/icons/utility.png",
+    "icon_original": "/home/andrefarias/.local/share/icons/utility.png",
+    "name": "Citrix Workspace Launcher (on Ubuntu)",
+    "origem": "path-externo"
+  },
+  "Ubuntu-logmgr": {
+    "aliases": [
+      "Ubuntu-logmgr"
+    ],
+    "fonte": "/home/andrefarias/.local/share/icons/utility.png",
+    "icon_original": "/home/andrefarias/.local/share/icons/utility.png",
+    "name": "Citrix Workspace (logmgr) (on Ubuntu)",
+    "origem": "path-externo"
+  },
+  "Ubuntu-nfcui": {
+    "aliases": [
+      "Ubuntu-nfcui"
+    ],
+    "fonte": "/home/andrefarias/.local/share/icons/utility.png",
+    "icon_original": "/home/andrefarias/.local/share/icons/utility.png",
+    "name": "Citrix Workspace (nfcui) (on Ubuntu)",
+    "origem": "path-externo"
+  },
+  "Ubuntu-receiver": {
+    "aliases": [
+      "Ubuntu-receiver"
+    ],
+    "fonte": "/home/andrefarias/.local/share/icons/utility.png",
+    "icon_original": "/home/andrefarias/.local/share/icons/utility.png",
+    "name": "Citrix Workspace Launcher (on Ubuntu)",
+    "origem": "path-externo"
+  },
+  "Ubuntu-receiver_fido2": {
+    "aliases": [
+      "Ubuntu-receiver_fido2"
+    ],
+    "fonte": "/home/andrefarias/.local/share/icons/utility.png",
+    "icon_original": "/home/andrefarias/.local/share/icons/utility.png",
+    "name": "Citrix Workspace Launcher (on Ubuntu)",
+    "origem": "path-externo"
+  },
+  "Ubuntu-selfservice": {
+    "aliases": [
+      "Ubuntu-selfservice"
+    ],
+    "fonte": "/home/andrefarias/.local/share/icons/utility.png",
+    "icon_original": "/home/andrefarias/.local/share/icons/utility.png",
+    "name": "Citrix Workspace (on Ubuntu)",
+    "origem": "path-externo"
+  },
+  "Ubuntu-sendfeedback": {
+    "aliases": [
+      "Ubuntu-sendfeedback"
+    ],
+    "fonte": "/home/andrefarias/.local/share/icons/utility.png",
+    "icon_original": "/home/andrefarias/.local/share/icons/utility.png",
+    "name": "Citrix Workspace (sendfeedback) (on Ubuntu)",
+    "origem": "path-externo"
+  },
+  "Ubuntu-wfica": {
+    "aliases": [
+      "Ubuntu-wfica"
+    ],
+    "fonte": "/home/andrefarias/.local/share/icons/utility.png",
+    "icon_original": "/home/andrefarias/.local/share/icons/utility.png",
+    "name": "Citrix Workspace Engine (on Ubuntu)",
+    "origem": "path-externo"
+  },
+  "antigravity": {
+    "aliases": [
+      "antigravity"
+    ],
+    "fonte": "src/icons/current/scalable/apps/Antigravity.png",
+    "icon_original": "/home/andrefarias/.icons/Dracula-Icones/scalable/apps/Antigravity.png",
+    "name": "Antigravity",
+    "origem": "current"
+  },
+  "antigravity-url-handler": {
+    "aliases": [
+      "antigravity-url-handler"
+    ],
+    "fonte": "src/icons/current/scalable/apps/Antigravity.png",
+    "icon_original": "/home/andrefarias/.icons/Dracula-Icones/scalable/apps/Antigravity.png",
+    "name": "Antigravity - URL Handler",
+    "origem": "current"
+  },
+  "bauh": {
+    "aliases": [
+      "bauh"
+    ],
+    "fonte": "/home/andrefarias/.local/share/icons/hicolor/scalable/apps/bauh.svg",
+    "icon_original": "/home/andrefarias/.local/share/icons/hicolor/scalable/apps/bauh.svg",
+    "name": "bauh",
+    "origem": "path-externo"
+  },
+  "be.alexandervanhee.gradia": {
+    "aliases": [
+      "be.alexandervanhee.gradia"
+    ],
+    "fonte": "current/scalable/apps/gradia.png",
+    "icon_original": "be.alexandervanhee.gradia",
+    "name": "Gradia",
+    "origem": "alias-heuristico"
+  },
+  "best.ellie.StartupConfiguration": {
+    "aliases": [
+      "best.ellie.StartupConfiguration"
+    ],
+    "fonte": "new-sessao-atual/gate.svg",
+    "icon_original": "best.ellie.StartupConfiguration",
+    "name": "Startup Configuration",
+    "origem": "override-novo"
+  },
+  "bluetooth-sendto": {
+    "aliases": [
+      "bluetooth-sendto",
+      "bluetooth"
+    ],
+    "fonte": "upstream/dracula-icons-circle/scalable/apps/bluetooth.svg",
+    "icon_original": "bluetooth",
+    "name": "Bluetooth Transfer",
+    "origem": "upstream"
+  },
+  "chrome-gjcmcplpgihbecacndmmbaenpfgimlec-Default": {
+    "aliases": [
+      "chrome-gjcmcplpgihbecacndmmbaenpfgimlec-Default"
+    ],
+    "fonte": "chrome-gjcmcplpgihbecacndmmbaenpfgimlec-Default",
+    "icon_original": "chrome-gjcmcplpgihbecacndmmbaenpfgimlec-Default",
+    "name": "NotebookLM",
+    "origem": "nao-encontrado"
+  },
+  "com.beholder.app": {
+    "aliases": [
+      "com.beholder.app"
+    ],
+    "fonte": "projects/beholder.png",
+    "icon_original": "com.beholder.app",
+    "name": "Beholder",
+    "origem": "alias-heuristico"
+  },
+  "com.discordapp.Discord": {
+    "aliases": [
+      "com.discordapp.Discord"
+    ],
+    "fonte": "current/scalable/apps/discord.png",
+    "icon_original": "com.discordapp.Discord",
+    "name": "Discord",
+    "origem": "alias-heuristico"
+  },
+  "com.freerdp.FreeRDP": {
+    "aliases": [
+      "com.freerdp.FreeRDP"
+    ],
+    "fonte": "new-sessao-atual/gate.svg",
+    "icon_original": "com.freerdp.FreeRDP",
+    "name": "FreeRDP",
+    "origem": "override-novo"
+  },
+  "com.github.donadigo.eddy": {
+    "aliases": [
+      "com.github.donadigo.eddy"
+    ],
+    "fonte": "upstream/dracula-icons-circle/scalable/apps/com.github.donadigo.eddy.svg",
+    "icon_original": "com.github.donadigo.eddy",
+    "name": "Eddy",
+    "origem": "upstream"
+  },
+  "com.github.rafostar.Clapper": {
+    "aliases": [
+      "com.github.rafostar.Clapper"
+    ],
+    "fonte": "current/scalable/apps/Clapper.png",
+    "icon_original": "com.github.rafostar.Clapper",
+    "name": "Clapper",
+    "origem": "alias-heuristico"
+  },
+  "com.github.tchx84.Flatseal": {
+    "aliases": [
+      "com.github.tchx84.Flatseal"
+    ],
+    "fonte": "new-sessao-atual/chest.svg",
+    "icon_original": "com.github.tchx84.Flatseal",
+    "name": "Flatseal",
+    "origem": "override-novo"
+  },
+  "com.google.Chrome": {
+    "aliases": [
+      "com.google.Chrome"
+    ],
+    "fonte": "current/scalable/apps/chrome2.svg",
+    "icon_original": "/home/andrefarias/.icons/Dracula-Icones/scalable/apps/chrome2.svg",
+    "name": "Google Chrome",
+    "origem": "alias-heuristico"
+  },
+  "com.jwestall.Forecast": {
+    "aliases": [
+      "com.jwestall.Forecast"
+    ],
+    "fonte": "new-sessao-atual/full-moon.svg",
+    "icon_original": "com.jwestall.Forecast",
+    "name": "Meteorologia",
+    "origem": "override-novo"
+  },
+  "com.mattjakeman.ExtensionManager": {
+    "aliases": [
+      "com.mattjakeman.ExtensionManager"
+    ],
+    "fonte": "new-sessao-atual/toolbox.svg",
+    "icon_original": "com.mattjakeman.ExtensionManager",
+    "name": "Extension Manager",
+    "origem": "override-novo"
+  },
+  "com.microsoft.Edge": {
+    "aliases": [
+      "com.microsoft.Edge"
+    ],
+    "fonte": "current/scalable/apps/edge.png",
+    "icon_original": "com.microsoft.Edge",
+    "name": "Microsoft Edge",
+    "origem": "alias-heuristico"
+  },
+  "com.obsproject.Studio": {
+    "aliases": [
+      "com.obsproject.Studio"
+    ],
+    "fonte": "current/scalable/apps/Obs-Studio.png",
+    "icon_original": "com.obsproject.Studio",
+    "name": "OBS Studio",
+    "origem": "alias-heuristico"
+  },
+  "com.opera.Opera": {
+    "aliases": [
+      "com.opera.Opera"
+    ],
+    "fonte": "current/scalable/apps/opera.png",
+    "icon_original": "com.opera.Opera",
+    "name": "Opera",
+    "origem": "alias-heuristico"
+  },
+  "com.rtosta.zapzap": {
+    "aliases": [
+      "com.rtosta.zapzap"
+    ],
+    "fonte": "current/scalable/apps/Whatsapp.png",
+    "icon_original": "com.rtosta.zapzap",
+    "name": "ZapZap",
+    "origem": "alias-heuristico",
+    "override_desktop": {
+      "Icon": "whatsapp-linux-app",
+      "Name": "WhatsApp",
+      "Name[pt_BR]": "WhatsApp"
+    }
+  },
+  "com.spotify.Client": {
+    "aliases": [
+      "com.spotify.Client"
+    ],
+    "fonte": "current/scalable/apps/spotify.png",
+    "icon_original": "com.spotify.Client",
+    "name": "Spotify",
+    "origem": "alias-heuristico"
+  },
+  "com.system76.Popsicle": {
+    "aliases": [
+      "com.system76.Popsicle"
+    ],
+    "fonte": "new-sessao-atual/lollipop.svg",
+    "icon_original": "com.system76.Popsicle",
+    "name": "Popsicle USB Flasher",
+    "origem": "override-novo"
+  },
+  "com.visualstudio.code": {
+    "aliases": [
+      "com.visualstudio.code",
+      "vscode"
+    ],
+    "fonte": "current/scalable/apps/vscode.png",
+    "icon_original": "vscode",
+    "name": "Visual Studio Code",
+    "origem": "current-nome"
+  },
+  "com.visualstudio.code-url-handler": {
+    "aliases": [
+      "com.visualstudio.code-url-handler",
+      "vscode"
+    ],
+    "fonte": "current/scalable/apps/vscode.png",
+    "icon_original": "vscode",
+    "name": "Visual Studio Code - URL Handler",
+    "origem": "current-nome"
+  },
+  "data-toolkit": {
+    "aliases": [
+      "data-toolkit"
+    ],
+    "fonte": null,
+    "icon_original": "/home/andrefarias/Desenvolvimento/Python-Data-Toolkit/assets/icon.png",
+    "name": "Data Toolkit",
+    "origem": "path-quebrado"
+  },
+  "display-im6.q16": {
+    "aliases": [
+      "display-im6.q16"
+    ],
+    "fonte": "display-im6.q16",
+    "icon_original": "display-im6.q16",
+    "name": "ImageMagick (color depth=q16)",
+    "origem": "nao-encontrado"
+  },
+  "elden-ring-tracker": {
+    "aliases": [
+      "elden-ring-tracker"
+    ],
+    "fonte": "projects/elden-ring-tracker.png",
+    "icon_original": "/opt/elden-ring-tracker/assets/icons/icon.png",
+    "name": "Elden Ring Tracker",
+    "origem": "alias-heuristico"
+  },
+  "extase-em-4r73": {
+    "aliases": [
+      "extase-em-4r73"
+    ],
+    "fonte": "projects/conversor-video-ascii.png",
+    "icon_original": "extase-em-4r73",
+    "name": "Extase em 4R73",
+    "origem": "alias-heuristico"
+  },
+  "flatpak-installer": {
+    "aliases": [
+      "flatpak-installer",
+      "repoman"
+    ],
+    "fonte": "repoman",
+    "icon_original": "repoman",
+    "name": "Flatpak Installer",
+    "origem": "nao-encontrado"
+  },
+  "fogstripper": {
+    "aliases": [
+      "fogstripper"
+    ],
+    "fonte": "projects/fogstripper.png",
+    "icon_original": "fogstripper",
+    "name": "FogStripper",
+    "origem": "alias-heuristico"
+  },
+  "foundryvtt": {
+    "aliases": [
+      "foundryvtt"
+    ],
+    "fonte": "new-sessao-atual/dice.svg",
+    "icon_original": "/home/andrefarias/foundry/resources/app/public/icons/vtt-512.png",
+    "name": "Foundry VTT",
+    "origem": "override-novo"
+  },
+  "gcr-prompter": {
+    "aliases": [
+      "gcr-prompter",
+      "security-medium"
+    ],
+    "fonte": "upstream/dracula-icons-circle/scalable/apps/security-medium.svg",
+    "icon_original": "security-medium",
+    "name": "Access Prompt",
+    "origem": "upstream"
+  },
+  "geoclue-demo-agent": {
+    "aliases": [
+      "geoclue-demo-agent",
+      "mark-location-symbolic"
+    ],
+    "fonte": "upstream/dracula-icons-circle/scalable/apps/mark-location-symbolic.svg",
+    "icon_original": "mark-location-symbolic",
+    "name": "Geoclue Demo agent",
+    "origem": "upstream"
+  },
+  "gkbd-keyboard-display": {
+    "aliases": [
+      "gkbd-keyboard-display",
+      "preferences-desktop-keyboard"
+    ],
+    "fonte": "upstream/dracula-icons-circle/scalable/apps/preferences-desktop-keyboard.svg",
+    "icon_original": "preferences-desktop-keyboard",
+    "name": "Keyboard Layout",
+    "origem": "upstream"
+  },
+  "gnome-analytics-panel": {
+    "aliases": [
+      "gnome-analytics-panel",
+      "pop-analytics"
+    ],
+    "fonte": "pop-analytics",
+    "icon_original": "pop-analytics",
+    "name": "HP Analytics",
+    "origem": "nao-encontrado"
+  },
+  "gnome-applications-panel": {
+    "aliases": [
+      "gnome-applications-panel",
+      "preferences-desktop-apps-symbolic"
+    ],
+    "fonte": "current/scalable/apps/preferences-desktop-apps-symbolic.svg",
+    "icon_original": "preferences-desktop-apps-symbolic",
+    "name": "Applications",
+    "origem": "current-nome"
+  },
+  "gnome-background-panel": {
+    "aliases": [
+      "gnome-background-panel",
+      "preferences-desktop-wallpaper"
+    ],
+    "fonte": "upstream/dracula-icons-circle/scalable/apps/preferences-desktop-wallpaper.svg",
+    "icon_original": "preferences-desktop-wallpaper",
+    "name": "Background",
+    "origem": "upstream"
+  },
+  "gnome-bluetooth-panel": {
+    "aliases": [
+      "gnome-bluetooth-panel",
+      "bluetooth"
+    ],
+    "fonte": "upstream/dracula-icons-circle/scalable/apps/bluetooth.svg",
+    "icon_original": "bluetooth",
+    "name": "Bluetooth",
+    "origem": "upstream"
+  },
+  "gnome-color-panel": {
+    "aliases": [
+      "gnome-color-panel",
+      "preferences-color"
+    ],
+    "fonte": "upstream/dracula-icons-circle/scalable/apps/preferences-color.svg",
+    "icon_original": "preferences-color",
+    "name": "Color",
+    "origem": "upstream"
+  },
+  "gnome-connectivity-panel": {
+    "aliases": [
+      "gnome-connectivity-panel",
+      "network-workgroup"
+    ],
+    "fonte": "current/scalable/apps/network-workgroup.svg",
+    "icon_original": "network-workgroup",
+    "name": "Connectivity",
+    "origem": "current-nome"
+  },
+  "gnome-control-center": {
+    "aliases": [
+      "gnome-control-center",
+      "org.gnome.Settings"
+    ],
+    "fonte": "upstream/dracula-icons-main/scalable/apps/org.gnome.Settings.svg",
+    "icon_original": "org.gnome.Settings",
+    "name": "Configurações",
+    "origem": "upstream"
+  },
+  "gnome-datetime-panel": {
+    "aliases": [
+      "gnome-datetime-panel",
+      "preferences-system-time"
+    ],
+    "fonte": "upstream/dracula-icons-circle/scalable/apps/preferences-system-time.svg",
+    "icon_original": "preferences-system-time",
+    "name": "Date & Time",
+    "origem": "upstream"
+  },
+  "gnome-default-apps-panel": {
+    "aliases": [
+      "gnome-default-apps-panel",
+      "starred"
+    ],
+    "fonte": "current/scalable/apps/starred.svg",
+    "icon_original": "starred",
+    "name": "Default Applications",
+    "origem": "current-nome"
+  },
+  "gnome-desktop-appearance-panel": {
+    "aliases": [
+      "gnome-desktop-appearance-panel",
+      "preferences-pop-desktop-appearance"
+    ],
+    "fonte": "preferences-pop-desktop-appearance",
+    "icon_original": "preferences-pop-desktop-appearance",
+    "name": "Appearance",
+    "origem": "nao-encontrado"
+  },
+  "gnome-desktop-dock-panel": {
+    "aliases": [
+      "gnome-desktop-dock-panel",
+      "preferences-pop-desktop-dock"
+    ],
+    "fonte": "preferences-pop-desktop-dock",
+    "icon_original": "preferences-pop-desktop-dock",
+    "name": "Dock",
+    "origem": "nao-encontrado"
+  },
+  "gnome-desktop-main-panel": {
+    "aliases": [
+      "gnome-desktop-main-panel",
+      "video-display"
+    ],
+    "fonte": "current/scalable/apps/video-display.svg",
+    "icon_original": "video-display",
+    "name": "Desktop Options",
+    "origem": "current-nome"
+  },
+  "gnome-desktop-workspaces-panel": {
+    "aliases": [
+      "gnome-desktop-workspaces-panel",
+      "preferences-pop-desktop-workspaces"
+    ],
+    "fonte": "preferences-pop-desktop-workspaces",
+    "icon_original": "preferences-pop-desktop-workspaces",
+    "name": "Workspaces",
+    "origem": "nao-encontrado"
+  },
+  "gnome-disk-image-mounter": {
+    "aliases": [
+      "gnome-disk-image-mounter",
+      "drive-removable-media"
+    ],
+    "fonte": "upstream/dracula-icons-main/scalable/apps/drive-removable-media.svg",
+    "icon_original": "drive-removable-media",
+    "name": "Disk Image Mounter",
+    "origem": "upstream"
+  },
+  "gnome-disk-image-writer": {
+    "aliases": [
+      "gnome-disk-image-writer",
+      "drive-removable-media"
+    ],
+    "fonte": "upstream/dracula-icons-main/scalable/apps/drive-removable-media.svg",
+    "icon_original": "drive-removable-media",
+    "name": "Disk Image Writer",
+    "origem": "upstream"
+  },
+  "gnome-display-panel": {
+    "aliases": [
+      "gnome-display-panel",
+      "preferences-desktop-display"
+    ],
+    "fonte": "upstream/dracula-icons-circle/scalable/apps/preferences-desktop-display.svg",
+    "icon_original": "preferences-desktop-display",
+    "name": "Displays",
+    "origem": "upstream"
+  },
+  "gnome-firmware-panel": {
+    "aliases": [
+      "gnome-firmware-panel",
+      "firmware-manager"
+    ],
+    "fonte": "upstream/dracula-icons-circle/scalable/apps/firmware-manager.svg",
+    "icon_original": "firmware-manager",
+    "name": "Firmware",
+    "origem": "upstream"
+  },
+  "gnome-info-overview-panel": {
+    "aliases": [
+      "gnome-info-overview-panel",
+      "help-about"
+    ],
+    "fonte": "current/scalable/apps/help-about.svg",
+    "icon_original": "help-about",
+    "name": "About",
+    "origem": "current-nome"
+  },
+  "gnome-initial-setup": {
+    "aliases": [
+      "gnome-initial-setup",
+      "preferences-system"
+    ],
+    "fonte": "upstream/dracula-icons-main/scalable/apps/preferences-system.svg",
+    "icon_original": "preferences-system",
+    "name": "Initial Setup",
+    "origem": "upstream"
+  },
+  "gnome-keyboard-panel": {
+    "aliases": [
+      "gnome-keyboard-panel",
+      "input-keyboard"
+    ],
+    "fonte": "upstream/dracula-icons-circle/scalable/apps/input-keyboard.svg",
+    "icon_original": "input-keyboard",
+    "name": "Keyboard",
+    "origem": "upstream"
+  },
+  "gnome-language-selector": {
+    "aliases": [
+      "gnome-language-selector",
+      "preferences-desktop-locale"
+    ],
+    "fonte": "upstream/dracula-icons-circle/scalable/apps/preferences-desktop-locale.svg",
+    "icon_original": "preferences-desktop-locale",
+    "name": "Suporte a idiomas",
+    "origem": "upstream"
+  },
+  "gnome-location-panel": {
+    "aliases": [
+      "gnome-location-panel",
+      "location-services-active"
+    ],
+    "fonte": "upstream/dracula-icons-circle/scalable/apps/location-services-active.svg",
+    "icon_original": "location-services-active",
+    "name": "Location Services",
+    "origem": "upstream"
+  },
+  "gnome-lock-panel": {
+    "aliases": [
+      "gnome-lock-panel",
+      "video-display-symbolic"
+    ],
+    "fonte": "video-display-symbolic",
+    "icon_original": "video-display-symbolic",
+    "name": "Screen",
+    "origem": "nao-encontrado"
+  },
+  "gnome-mouse-panel": {
+    "aliases": [
+      "gnome-mouse-panel",
+      "input-mouse"
+    ],
+    "fonte": "upstream/dracula-icons-circle/scalable/apps/input-mouse.svg",
+    "icon_original": "input-mouse",
+    "name": "Mouse & Touchpad",
+    "origem": "upstream"
+  },
+  "gnome-network-panel": {
+    "aliases": [
+      "gnome-network-panel",
+      "network-workgroup"
+    ],
+    "fonte": "current/scalable/apps/network-workgroup.svg",
+    "icon_original": "network-workgroup",
+    "name": "Network",
+    "origem": "current-nome"
+  },
+  "gnome-notifications-panel": {
+    "aliases": [
+      "gnome-notifications-panel",
+      "preferences-system-notifications"
+    ],
+    "fonte": "upstream/dracula-icons-circle/scalable/apps/preferences-system-notifications.svg",
+    "icon_original": "preferences-system-notifications",
+    "name": "Notifications",
+    "origem": "upstream"
+  },
+  "gnome-online-accounts-panel": {
+    "aliases": [
+      "gnome-online-accounts-panel",
+      "goa-panel"
+    ],
+    "fonte": "upstream/dracula-icons-circle/scalable/apps/goa-panel.svg",
+    "icon_original": "goa-panel",
+    "name": "Online Accounts",
+    "origem": "upstream"
+  },
+  "gnome-power-panel": {
+    "aliases": [
+      "gnome-power-panel",
+      "gnome-power-manager"
+    ],
+    "fonte": "upstream/dracula-icons-circle/scalable/apps/gnome-power-manager.svg",
+    "icon_original": "gnome-power-manager",
+    "name": "Power",
+    "origem": "upstream"
+  },
+  "gnome-printers-panel": {
+    "aliases": [
+      "gnome-printers-panel",
+      "printer"
+    ],
+    "fonte": "upstream/dracula-icons-main/scalable/apps/printer.svg",
+    "icon_original": "printer",
+    "name": "Printers",
+    "origem": "upstream"
+  },
+  "gnome-region-panel": {
+    "aliases": [
+      "gnome-region-panel",
+      "preferences-desktop-locale"
+    ],
+    "fonte": "upstream/dracula-icons-circle/scalable/apps/preferences-desktop-locale.svg",
+    "icon_original": "preferences-desktop-locale",
+    "name": "Region & Language",
+    "origem": "upstream"
+  },
+  "gnome-removable-media-panel": {
+    "aliases": [
+      "gnome-removable-media-panel",
+      "media-removable"
+    ],
+    "fonte": "current/scalable/apps/media-removable.svg",
+    "icon_original": "media-removable",
+    "name": "Removable Media",
+    "origem": "current-nome"
+  },
+  "gnome-session-properties": {
+    "aliases": [
+      "gnome-session-properties"
+    ],
+    "fonte": "new-sessao-atual/gate.svg",
+    "icon_original": "session-properties",
+    "name": "Aplicativos iniciais de sessão",
+    "origem": "override-novo"
+  },
+  "gnome-sharing-panel": {
+    "aliases": [
+      "gnome-sharing-panel",
+      "preferences-system-sharing"
+    ],
+    "fonte": "upstream/dracula-icons-main/scalable/apps/preferences-system-sharing.svg",
+    "icon_original": "preferences-system-sharing",
+    "name": "Sharing",
+    "origem": "upstream"
+  },
+  "gnome-sound-panel": {
+    "aliases": [
+      "gnome-sound-panel",
+      "multimedia-volume-control"
+    ],
+    "fonte": "current/scalable/apps/multimedia-volume-control.svg",
+    "icon_original": "multimedia-volume-control",
+    "name": "Sound",
+    "origem": "current-nome"
+  },
+  "gnome-support-panel": {
+    "aliases": [
+      "gnome-support-panel",
+      "pop-support"
+    ],
+    "fonte": "pop-support",
+    "icon_original": "pop-support",
+    "name": "Support",
+    "origem": "nao-encontrado"
+  },
+  "gnome-system-monitor": {
+    "aliases": [
+      "gnome-system-monitor"
+    ],
+    "fonte": "new-sessao-atual/hourglass.svg",
+    "icon_original": "org.gnome.SystemMonitor",
+    "name": "System Monitor",
+    "origem": "override-novo"
+  },
+  "gnome-system-monitor-kde": {
+    "aliases": [
+      "gnome-system-monitor-kde"
+    ],
+    "fonte": "new-sessao-atual/hourglass.svg",
+    "icon_original": "org.gnome.SystemMonitor",
+    "name": "GNOME System Monitor",
+    "origem": "override-novo"
+  },
+  "gnome-thunderbolt-panel": {
+    "aliases": [
+      "gnome-thunderbolt-panel",
+      "thunderbolt"
+    ],
+    "fonte": "upstream/dracula-icons-circle/scalable/apps/thunderbolt.svg",
+    "icon_original": "thunderbolt",
+    "name": "Thunderbolt",
+    "origem": "upstream"
+  },
+  "gnome-ubuntu-panel": {
+    "aliases": [
+      "gnome-ubuntu-panel",
+      "preferences-ubuntu-panel"
+    ],
+    "fonte": "preferences-ubuntu-panel",
+    "icon_original": "preferences-ubuntu-panel",
+    "name": "Appearance",
+    "origem": "nao-encontrado"
+  },
+  "gnome-universal-access-panel": {
+    "aliases": [
+      "gnome-universal-access-panel",
+      "preferences-desktop-accessibility"
+    ],
+    "fonte": "upstream/dracula-icons-circle/scalable/apps/preferences-desktop-accessibility.svg",
+    "icon_original": "preferences-desktop-accessibility",
+    "name": "Accessibility",
+    "origem": "upstream"
+  },
+  "gnome-upgrade-panel": {
+    "aliases": [
+      "gnome-upgrade-panel",
+      "software-update-available-symbolic"
+    ],
+    "fonte": "software-update-available-symbolic",
+    "icon_original": "software-update-available-symbolic",
+    "name": "OS Upgrade & Recovery",
+    "origem": "nao-encontrado"
+  },
+  "gnome-usage-panel": {
+    "aliases": [
+      "gnome-usage-panel",
+      "system-file-manager"
+    ],
+    "fonte": "upstream/dracula-icons-circle/scalable/apps/system-file-manager.svg",
+    "icon_original": "system-file-manager",
+    "name": "File History & Trash",
+    "origem": "upstream"
+  },
+  "gnome-user-accounts-panel": {
+    "aliases": [
+      "gnome-user-accounts-panel",
+      "system-users"
+    ],
+    "fonte": "upstream/dracula-icons-circle/scalable/apps/system-users.svg",
+    "icon_original": "system-users",
+    "name": "Users",
+    "origem": "upstream"
+  },
+  "gnome-wacom-panel": {
+    "aliases": [
+      "gnome-wacom-panel",
+      "input-tablet"
+    ],
+    "fonte": "upstream/dracula-icons-circle/scalable/apps/input-tablet.svg",
+    "icon_original": "input-tablet",
+    "name": "Wacom Tablet",
+    "origem": "upstream"
+  },
+  "gnome-wifi-panel": {
+    "aliases": [
+      "gnome-wifi-panel",
+      "network-wireless"
+    ],
+    "fonte": "network-wireless",
+    "icon_original": "network-wireless",
+    "name": "Wi-Fi",
+    "origem": "nao-encontrado"
+  },
+  "gnome-wwan-panel": {
+    "aliases": [
+      "gnome-wwan-panel",
+      "network-cellular-signal-excellent"
+    ],
+    "fonte": "current/scalable/apps/network-cellular-signal-excellent.svg",
+    "icon_original": "network-cellular-signal-excellent",
+    "name": "Mobile Network",
+    "origem": "current-nome"
+  },
+  "google-chrome": {
+    "aliases": [
+      "google-chrome"
+    ],
+    "fonte": "current/scalable/apps/chrome2.svg",
+    "icon_original": "/home/andrefarias/.icons/Dracula-Icones/scalable/apps/chrome2.svg",
+    "name": "Google Chrome",
+    "origem": "alias-heuristico"
+  },
+  "gparted": {
+    "aliases": [
+      "gparted"
+    ],
+    "fonte": "new-sessao-atual/saw.svg",
+    "icon_original": "gparted",
+    "name": "GParted",
+    "origem": "override-novo"
+  },
+  "gucharmap": {
+    "aliases": [
+      "gucharmap",
+      "accessories-character-map"
+    ],
+    "fonte": "upstream/dracula-icons-circle/scalable/apps/accessories-character-map.svg",
+    "icon_original": "accessories-character-map",
+    "name": "Mapa de caracteres",
+    "origem": "upstream"
+  },
+  "guvcview": {
+    "aliases": [
+      "guvcview"
+    ],
+    "fonte": "/usr/share/pixmaps/guvcview/guvcview.png",
+    "icon_original": "/usr/share/pixmaps/guvcview/guvcview.png",
+    "name": "Visualizador de vídeo GTK UVC",
+    "origem": "path-externo"
+  },
+  "hplj1020": {
+    "aliases": [
+      "hplj1020"
+    ],
+    "fonte": "/usr/share/pixmaps/hplj1020_icon.png",
+    "icon_original": "/usr/share/pixmaps/hplj1020_icon.png",
+    "name": "Reactivate HP LaserJet 1018/1020 after reloading paper",
+    "origem": "path-externo"
+  },
+  "ibus-setup-chewing": {
+    "aliases": [
+      "ibus-setup-chewing"
+    ],
+    "fonte": "upstream/dracula-icons-main/scalable/apps/ibus-setup-chewing.svg",
+    "icon_original": "ibus-setup-chewing",
+    "name": "IBus Chewing Preferences",
+    "origem": "upstream"
+  },
+  "ibus-setup-libbopomofo": {
+    "aliases": [
+      "ibus-setup-libbopomofo"
+    ],
+    "fonte": "/usr/share/ibus-libpinyin/icons/ibus-bopomofo.svg",
+    "icon_original": "/usr/share/ibus-libpinyin/icons/ibus-bopomofo.svg",
+    "name": "IBus LibBopomofo Preferences",
+    "origem": "path-externo"
+  },
+  "ibus-setup-libpinyin": {
+    "aliases": [
+      "ibus-setup-libpinyin"
+    ],
+    "fonte": "/usr/share/ibus-libpinyin/icons/ibus-pinyin.svg",
+    "icon_original": "/usr/share/ibus-libpinyin/icons/ibus-pinyin.svg",
+    "name": "IBus LibPinyin Setup",
+    "origem": "path-externo"
+  },
+  "ibus-setup-table": {
+    "aliases": [
+      "ibus-setup-table"
+    ],
+    "fonte": "/usr/share/ibus-table/icons/chinese.svg",
+    "icon_original": "/usr/share/ibus-table/icons/chinese.svg",
+    "name": "IBus Table Setup",
+    "origem": "path-externo"
+  },
+  "im-config": {
+    "aliases": [
+      "im-config",
+      "input-keyboard"
+    ],
+    "fonte": "upstream/dracula-icons-circle/scalable/apps/input-keyboard.svg",
+    "icon_original": "input-keyboard",
+    "name": "Input Method",
+    "origem": "upstream"
+  },
+  "info": {
+    "aliases": [
+      "info",
+      "dialog-information"
+    ],
+    "fonte": "dialog-information",
+    "icon_original": "dialog-information",
+    "name": "TeXInfo",
+    "origem": "nao-encontrado"
+  },
+  "io.elementary.appcenter": {
+    "aliases": [
+      "io.elementary.appcenter"
+    ],
+    "fonte": "new-sessao-atual/bag.svg",
+    "icon_original": "io.elementary.appcenter",
+    "name": "Pop!_Shop",
+    "origem": "override-novo"
+  },
+  "io.elementary.appcenter-daemon": {
+    "aliases": [
+      "io.elementary.appcenter-daemon",
+      "io.elementary.appcenter"
+    ],
+    "fonte": "current/scalable/apps/pop-shop.svg",
+    "icon_original": "io.elementary.appcenter",
+    "name": "Pop!_Shop Daemon",
+    "origem": "alias-heuristico"
+  },
+  "io.github.dvlv.boxbuddyrs": {
+    "aliases": [
+      "io.github.dvlv.boxbuddyrs"
+    ],
+    "fonte": "new-sessao-atual/chest-variant.svg",
+    "icon_original": "io.github.dvlv.boxbuddyrs",
+    "name": "BoxBuddy",
+    "origem": "override-novo"
+  },
+  "io.github.electronstudio.WeylusCommunityEdition": {
+    "aliases": [
+      "io.github.electronstudio.WeylusCommunityEdition"
+    ],
+    "fonte": "new-sessao-atual/wand.svg",
+    "icon_original": "weylus",
+    "name": "Weylus",
+    "origem": "override-novo"
+  },
+  "io.github.flattool.Warehouse": {
+    "aliases": [
+      "io.github.flattool.Warehouse"
+    ],
+    "fonte": "new-sessao-atual/building.svg",
+    "icon_original": "io.github.flattool.Warehouse",
+    "name": "Warehouse",
+    "origem": "override-novo"
+  },
+  "io.github.vikdevelop.SaveDesktop": {
+    "aliases": [
+      "io.github.vikdevelop.SaveDesktop"
+    ],
+    "fonte": "new-sessao-atual/treasure-chest.svg",
+    "icon_original": "io.github.vikdevelop.SaveDesktop",
+    "name": "Save Desktop",
+    "origem": "override-novo"
+  },
+  "io.gitlab.theevilskeleton.Upscaler": {
+    "aliases": [
+      "io.gitlab.theevilskeleton.Upscaler"
+    ],
+    "fonte": "new-sessao-atual/telescope.svg",
+    "icon_original": "io.gitlab.theevilskeleton.Upscaler",
+    "name": "Upscaler",
+    "origem": "override-novo"
+  },
+  "io.snapcraft.SessionAgent": {
+    "aliases": [
+      "io.snapcraft.SessionAgent"
+    ],
+    "fonte": "/usr/share/snapd/snapcraft-logo-bird.svg",
+    "icon_original": "/usr/share/snapd/snapcraft-logo-bird.svg",
+    "name": "Snapd User Session Agent",
+    "origem": "path-externo"
+  },
+  "kitty": {
+    "aliases": [
+      "kitty"
+    ],
+    "fonte": "current/scalable/apps/terminal.svg",
+    "icon_original": "kitty",
+    "name": "kitty",
+    "origem": "alias-heuristico"
+  },
+  "libreoffice-startcenter": {
+    "aliases": [
+      "libreoffice-startcenter"
+    ],
+    "fonte": "libreoffice-startcenter",
+    "icon_original": "libreoffice-startcenter",
+    "name": "LibreOffice",
+    "origem": "nao-encontrado"
+  },
+  "luna": {
+    "aliases": [
+      "luna"
+    ],
+    "fonte": "projects/luna.png",
+    "icon_original": "luna",
+    "name": "Luna",
+    "origem": "alias-heuristico"
+  },
+  "md.obsidian.Obsidian": {
+    "aliases": [
+      "md.obsidian.Obsidian"
+    ],
+    "fonte": "current/scalable/apps/050-circle.svg",
+    "icon_original": "md.obsidian.Obsidian",
+    "name": "Obsidian",
+    "origem": "alias-heuristico"
+  },
+  "menulibre": {
+    "aliases": [
+      "menulibre"
+    ],
+    "fonte": "new-sessao-atual/scroll.svg",
+    "icon_original": "menulibre",
+    "name": "Menu Editor",
+    "origem": "override-novo"
+  },
+  "nautilus-autorun-software": {
+    "aliases": [
+      "nautilus-autorun-software",
+      "application-x-executable"
+    ],
+    "fonte": "application-x-executable",
+    "icon_original": "application-x-executable",
+    "name": "Run Software",
+    "origem": "nao-encontrado"
+  },
+  "net.waterfox.waterfox": {
+    "aliases": [
+      "net.waterfox.waterfox"
+    ],
+    "fonte": "current/scalable/apps/firefox.png",
+    "icon_original": "net.waterfox.waterfox",
+    "name": "Waterfox",
+    "origem": "alias-heuristico"
+  },
+  "neurosonancy": {
+    "aliases": [
+      "neurosonancy"
+    ],
+    "fonte": "projects/neurosonancy.png",
+    "icon_original": "/home/andrefarias/Desenvolvimento/Neurosonancy/assets/icon.png",
+    "name": "Neurosonancy",
+    "origem": "alias-heuristico"
+  },
+  "nm-applet": {
+    "aliases": [
+      "nm-applet",
+      "nm-device-wireless"
+    ],
+    "fonte": "current/scalable/apps/nm-device-wireless.svg",
+    "icon_original": "nm-device-wireless",
+    "name": "Network",
+    "origem": "current-nome"
+  },
+  "nm-connection-editor": {
+    "aliases": [
+      "nm-connection-editor",
+      "preferences-system-network"
+    ],
+    "fonte": "preferences-system-network",
+    "icon_original": "preferences-system-network",
+    "name": "Advanced Network Configuration",
+    "origem": "nao-encontrado"
+  },
+  "nvidia-settings": {
+    "aliases": [
+      "nvidia-settings"
+    ],
+    "fonte": "current/scalable/apps/nvidia.svg",
+    "icon_original": "/home/andrefarias/.icons/Dracula-Icones/scalable/apps/nvidia.svg",
+    "name": "NVIDIA X Server Settings",
+    "origem": "alias-heuristico"
+  },
+  "ocs-url": {
+    "aliases": [
+      "ocs-url"
+    ],
+    "fonte": "ocs-url",
+    "icon_original": "ocs-url",
+    "name": "ocs-url",
+    "origem": "nao-encontrado"
+  },
+  "openjdk-17-java": {
+    "aliases": [
+      "openjdk-17-java",
+      "openjdk-17"
+    ],
+    "fonte": "openjdk-17",
+    "icon_original": "openjdk-17",
+    "name": "OpenJDK Java 17 Runtime",
+    "origem": "nao-encontrado"
+  },
+  "org.andrebfarias.Crononauta": {
+    "aliases": [
+      "org.andrebfarias.Crononauta"
+    ],
+    "fonte": "projects/chrononauta.png",
+    "icon_original": "org.andrebfarias.Crononauta",
+    "name": "Chrononauta",
+    "origem": "alias-heuristico"
+  },
+  "org.bleachbit.BleachBit": {
+    "aliases": [
+      "org.bleachbit.BleachBit"
+    ],
+    "fonte": "new-sessao-atual/broom.svg",
+    "icon_original": "org.bleachbit.BleachBit",
+    "name": "BleachBit",
+    "origem": "override-novo"
+  },
+  "org.freedesktop.IBus.Panel.Emojier": {
+    "aliases": [
+      "org.freedesktop.IBus.Panel.Emojier",
+      "ibus"
+    ],
+    "fonte": "upstream/dracula-icons-main/scalable/apps/ibus.svg",
+    "icon_original": "ibus",
+    "name": "Emoji Choice",
+    "origem": "upstream"
+  },
+  "org.freedesktop.IBus.Panel.Extension.Gtk3": {
+    "aliases": [
+      "org.freedesktop.IBus.Panel.Extension.Gtk3",
+      "ibus"
+    ],
+    "fonte": "upstream/dracula-icons-main/scalable/apps/ibus.svg",
+    "icon_original": "ibus",
+    "name": "Emoji Choice",
+    "origem": "upstream"
+  },
+  "org.freedesktop.IBus.Setup": {
+    "aliases": [
+      "org.freedesktop.IBus.Setup",
+      "ibus-setup"
+    ],
+    "fonte": "upstream/dracula-icons-main/scalable/apps/ibus-setup.svg",
+    "icon_original": "ibus-setup",
+    "name": "IBus Preferences",
+    "origem": "upstream"
+  },
+  "org.gimp.GIMP": {
+    "aliases": [
+      "org.gimp.GIMP"
+    ],
+    "fonte": "current/scalable/apps/gimp.png",
+    "icon_original": "org.gimp.GIMP",
+    "name": "GNU Image Manipulation Program",
+    "origem": "alias-heuristico"
+  },
+  "org.gnome.Calculator": {
+    "aliases": [
+      "org.gnome.Calculator"
+    ],
+    "fonte": "upstream/dracula-icons-circle/scalable/apps/org.gnome.Calculator.svg",
+    "icon_original": "org.gnome.Calculator",
+    "name": "Calculator",
+    "origem": "upstream"
+  },
+  "org.gnome.Calendar": {
+    "aliases": [
+      "org.gnome.Calendar"
+    ],
+    "fonte": "current/scalable/apps/calendar.svg",
+    "icon_original": "/home/andrefarias/.icons/Dracula-Icones/scalable/apps/calendar.svg",
+    "name": "Calendário",
+    "origem": "alias-heuristico"
+  },
+  "org.gnome.ChromeGnomeShell": {
+    "aliases": [
+      "org.gnome.ChromeGnomeShell"
+    ],
+    "fonte": "upstream/dracula-icons-circle/scalable/apps/org.gnome.ChromeGnomeShell.svg",
+    "icon_original": "org.gnome.ChromeGnomeShell",
+    "name": "GNOME Shell integration",
+    "origem": "upstream"
+  },
+  "org.gnome.DiskUtility": {
+    "aliases": [
+      "org.gnome.DiskUtility"
+    ],
+    "fonte": "upstream/dracula-icons-main/scalable/apps/org.gnome.DiskUtility.svg",
+    "icon_original": "org.gnome.DiskUtility",
+    "name": "Disks",
+    "origem": "upstream"
+  },
+  "org.gnome.Evince": {
+    "aliases": [
+      "org.gnome.Evince"
+    ],
+    "fonte": "upstream/dracula-icons-circle/scalable/apps/org.gnome.Evince.svg",
+    "icon_original": "org.gnome.Evince",
+    "name": "Document Viewer",
+    "origem": "upstream"
+  },
+  "org.gnome.Evince-previewer": {
+    "aliases": [
+      "org.gnome.Evince-previewer",
+      "document-print-preview"
+    ],
+    "fonte": "upstream/dracula-icons-circle/scalable/apps/document-print-preview.svg",
+    "icon_original": "document-print-preview",
+    "name": "Print Preview",
+    "origem": "upstream"
+  },
+  "org.gnome.Evolution-alarm-notify": {
+    "aliases": [
+      "org.gnome.Evolution-alarm-notify",
+      "appointment-soon"
+    ],
+    "fonte": "upstream/dracula-icons-circle/scalable/apps/appointment-soon.svg",
+    "icon_original": "appointment-soon",
+    "name": "Evolution Alarm Notify",
+    "origem": "upstream"
+  },
+  "org.gnome.Extensions": {
+    "aliases": [
+      "org.gnome.Extensions"
+    ],
+    "fonte": "current/scalable/apps/gerenciadoor de extensões.png",
+    "icon_original": "/home/andrefarias/.icons/Dracula-Icones/scalable/apps/gerenciadoor de extensões.png",
+    "name": "Extensões",
+    "origem": "alias-heuristico"
+  },
+  "org.gnome.FileRoller": {
+    "aliases": [
+      "org.gnome.FileRoller",
+      "org.gnome.ArchiveManager"
+    ],
+    "fonte": "upstream/dracula-icons-circle/scalable/apps/org.gnome.ArchiveManager.svg",
+    "icon_original": "org.gnome.ArchiveManager",
+    "name": "Archive Manager",
+    "origem": "upstream"
+  },
+  "org.gnome.Nautilus": {
+    "aliases": [
+      "org.gnome.Nautilus"
+    ],
+    "fonte": "current/scalable/apps/gnome-folder.png",
+    "icon_original": "/home/andrefarias/.icons/Dracula-Icones/scalable/apps/gnome-folder.png",
+    "name": "Arquivos",
+    "origem": "alias-heuristico"
+  },
+  "org.gnome.PowerStats": {
+    "aliases": [
+      "org.gnome.PowerStats"
+    ],
+    "fonte": "upstream/dracula-icons-circle/scalable/apps/org.gnome.PowerStats.svg",
+    "icon_original": "org.gnome.PowerStats",
+    "name": "Estatísticas de energia",
+    "origem": "upstream"
+  },
+  "org.gnome.Shell.Extensions": {
+    "aliases": [
+      "org.gnome.Shell.Extensions"
+    ],
+    "fonte": "upstream/dracula-icons-circle/scalable/apps/org.gnome.Shell.Extensions.svg",
+    "icon_original": "org.gnome.Shell.Extensions",
+    "name": "Extensions",
+    "origem": "upstream"
+  },
+  "org.gnome.Shell.PortalHelper": {
+    "aliases": [
+      "org.gnome.Shell.PortalHelper",
+      "network-workgroup"
+    ],
+    "fonte": "current/scalable/apps/network-workgroup.svg",
+    "icon_original": "network-workgroup",
+    "name": "Network Login",
+    "origem": "current-nome"
+  },
+  "org.gnome.Terminal": {
+    "aliases": [
+      "org.gnome.Terminal"
+    ],
+    "fonte": "current/scalable/apps/terminal.svg",
+    "icon_original": "org.gnome.Terminal",
+    "name": "Terminal",
+    "origem": "alias-heuristico"
+  },
+  "org.gnome.Weather": {
+    "aliases": [
+      "org.gnome.Weather"
+    ],
+    "fonte": "current/scalable/apps/org.gnome.Weather.svg",
+    "icon_original": "org.gnome.Weather",
+    "name": "Weather",
+    "origem": "current-nome"
+  },
+  "org.gnome.baobab": {
+    "aliases": [
+      "org.gnome.baobab"
+    ],
+    "fonte": "upstream/dracula-icons-circle/scalable/apps/org.gnome.baobab.svg",
+    "icon_original": "org.gnome.baobab",
+    "name": "Disk Usage Analyzer",
+    "origem": "upstream"
+  },
+  "org.gnome.eog": {
+    "aliases": [
+      "org.gnome.eog"
+    ],
+    "fonte": "upstream/dracula-icons-circle/scalable/apps/org.gnome.eog.svg",
+    "icon_original": "org.gnome.eog",
+    "name": "Image Viewer",
+    "origem": "upstream"
+  },
+  "org.gnome.font-viewer": {
+    "aliases": [
+      "org.gnome.font-viewer"
+    ],
+    "fonte": "current/scalable/apps/org.gnome.font-viewer.svg",
+    "icon_original": "org.gnome.font-viewer",
+    "name": "Fonts",
+    "origem": "current-nome"
+  },
+  "org.gnome.gThumb": {
+    "aliases": [
+      "org.gnome.gThumb"
+    ],
+    "fonte": "new-sessao-atual/eye-ball.svg",
+    "icon_original": "org.gnome.gThumb",
+    "name": "gThumb",
+    "origem": "override-novo"
+  },
+  "org.gnome.gThumb.Import": {
+    "aliases": [
+      "org.gnome.gThumb.Import",
+      "org.gnome.gThumb"
+    ],
+    "fonte": "upstream/dracula-icons-circle/scalable/apps/org.gnome.gThumb.svg",
+    "icon_original": "org.gnome.gThumb",
+    "name": "Import with gThumb",
+    "origem": "upstream"
+  },
+  "org.gnome.gedit": {
+    "aliases": [
+      "org.gnome.gedit"
+    ],
+    "fonte": "current/scalable/apps/com.system76.CosmicEdit.svg",
+    "icon_original": "/home/andrefarias/.icons/Dracula-Icones/scalable/apps/com.system76.CosmicEdit.svg",
+    "name": "Editor de texto",
+    "origem": "alias-heuristico"
+  },
+  "org.gnome.gitlab.somas.Apostrophe": {
+    "aliases": [
+      "org.gnome.gitlab.somas.Apostrophe"
+    ],
+    "fonte": "new-sessao-atual/feather.svg",
+    "icon_original": "org.gnome.gitlab.somas.Apostrophe",
+    "name": "Apostrophe",
+    "origem": "override-novo"
+  },
+  "org.gnome.seahorse.Application": {
+    "aliases": [
+      "org.gnome.seahorse.Application"
+    ],
+    "fonte": "upstream/dracula-icons-main/scalable/apps/org.gnome.seahorse.Application.svg",
+    "icon_original": "org.gnome.seahorse.Application",
+    "name": "Passwords and Keys",
+    "origem": "upstream"
+  },
+  "org.gnome.tweaks": {
+    "aliases": [
+      "org.gnome.tweaks"
+    ],
+    "fonte": "upstream/dracula-icons-circle/scalable/apps/org.gnome.tweaks.svg",
+    "icon_original": "org.gnome.tweaks",
+    "name": "Tweaks",
+    "origem": "upstream"
+  },
+  "org.kde.krita": {
+    "aliases": [
+      "org.kde.krita"
+    ],
+    "fonte": "new-sessao-atual/magic-wand-variant.svg",
+    "icon_original": "org.kde.krita",
+    "name": "Krita",
+    "origem": "override-novo"
+  },
+  "org.kde.krita.brush": {
+    "aliases": [
+      "org.kde.krita.brush",
+      "krita"
+    ],
+    "fonte": "current/scalable/apps/krita.png",
+    "icon_original": "krita",
+    "name": "Krita",
+    "origem": "current-nome"
+  },
+  "org.kde.krita.csv": {
+    "aliases": [
+      "org.kde.krita.csv",
+      "krita"
+    ],
+    "fonte": "current/scalable/apps/krita.png",
+    "icon_original": "krita",
+    "name": "Krita",
+    "origem": "current-nome"
+  },
+  "org.kde.krita.exr": {
+    "aliases": [
+      "org.kde.krita.exr",
+      "krita"
+    ],
+    "fonte": "current/scalable/apps/krita.png",
+    "icon_original": "krita",
+    "name": "Krita",
+    "origem": "current-nome"
+  },
+  "org.kde.krita.gif": {
+    "aliases": [
+      "org.kde.krita.gif",
+      "krita"
+    ],
+    "fonte": "current/scalable/apps/krita.png",
+    "icon_original": "krita",
+    "name": "Krita",
+    "origem": "current-nome"
+  },
+  "org.kde.krita.heif": {
+    "aliases": [
+      "org.kde.krita.heif",
+      "krita"
+    ],
+    "fonte": "current/scalable/apps/krita.png",
+    "icon_original": "krita",
+    "name": "Krita",
+    "origem": "current-nome"
+  },
+  "org.kde.krita.heightmap": {
+    "aliases": [
+      "org.kde.krita.heightmap",
+      "krita"
+    ],
+    "fonte": "current/scalable/apps/krita.png",
+    "icon_original": "krita",
+    "name": "Krita",
+    "origem": "current-nome"
+  },
+  "org.kde.krita.jp2": {
+    "aliases": [
+      "org.kde.krita.jp2",
+      "krita"
+    ],
+    "fonte": "current/scalable/apps/krita.png",
+    "icon_original": "krita",
+    "name": "Krita",
+    "origem": "current-nome"
+  },
+  "org.kde.krita.jpeg": {
+    "aliases": [
+      "org.kde.krita.jpeg",
+      "krita"
+    ],
+    "fonte": "current/scalable/apps/krita.png",
+    "icon_original": "krita",
+    "name": "Krita",
+    "origem": "current-nome"
+  },
+  "org.kde.krita.jxl": {
+    "aliases": [
+      "org.kde.krita.jxl",
+      "krita"
+    ],
+    "fonte": "current/scalable/apps/krita.png",
+    "icon_original": "krita",
+    "name": "Krita",
+    "origem": "current-nome"
+  },
+  "org.kde.krita.kra": {
+    "aliases": [
+      "org.kde.krita.kra",
+      "krita"
+    ],
+    "fonte": "current/scalable/apps/krita.png",
+    "icon_original": "krita",
+    "name": "Krita",
+    "origem": "current-nome"
+  },
+  "org.kde.krita.krz": {
+    "aliases": [
+      "org.kde.krita.krz",
+      "krita"
+    ],
+    "fonte": "current/scalable/apps/krita.png",
+    "icon_original": "krita",
+    "name": "Krita",
+    "origem": "current-nome"
+  },
+  "org.kde.krita.ora": {
+    "aliases": [
+      "org.kde.krita.ora",
+      "krita"
+    ],
+    "fonte": "current/scalable/apps/krita.png",
+    "icon_original": "krita",
+    "name": "Krita",
+    "origem": "current-nome"
+  },
+  "org.kde.krita.pdf": {
+    "aliases": [
+      "org.kde.krita.pdf",
+      "krita"
+    ],
+    "fonte": "current/scalable/apps/krita.png",
+    "icon_original": "krita",
+    "name": "Krita",
+    "origem": "current-nome"
+  },
+  "org.kde.krita.png": {
+    "aliases": [
+      "org.kde.krita.png",
+      "krita"
+    ],
+    "fonte": "current/scalable/apps/krita.png",
+    "icon_original": "krita",
+    "name": "Krita",
+    "origem": "current-nome"
+  },
+  "org.kde.krita.psd": {
+    "aliases": [
+      "org.kde.krita.psd",
+      "krita"
+    ],
+    "fonte": "current/scalable/apps/krita.png",
+    "icon_original": "krita",
+    "name": "Krita",
+    "origem": "current-nome"
+  },
+  "org.kde.krita.qimageio": {
+    "aliases": [
+      "org.kde.krita.qimageio",
+      "krita"
+    ],
+    "fonte": "current/scalable/apps/krita.png",
+    "icon_original": "krita",
+    "name": "Krita",
+    "origem": "current-nome"
+  },
+  "org.kde.krita.raw": {
+    "aliases": [
+      "org.kde.krita.raw",
+      "krita"
+    ],
+    "fonte": "current/scalable/apps/krita.png",
+    "icon_original": "krita",
+    "name": "Krita",
+    "origem": "current-nome"
+  },
+  "org.kde.krita.rgbe": {
+    "aliases": [
+      "org.kde.krita.rgbe",
+      "krita"
+    ],
+    "fonte": "current/scalable/apps/krita.png",
+    "icon_original": "krita",
+    "name": "Krita",
+    "origem": "current-nome"
+  },
+  "org.kde.krita.spriter": {
+    "aliases": [
+      "org.kde.krita.spriter",
+      "krita"
+    ],
+    "fonte": "current/scalable/apps/krita.png",
+    "icon_original": "krita",
+    "name": "Krita",
+    "origem": "current-nome"
+  },
+  "org.kde.krita.svg": {
+    "aliases": [
+      "org.kde.krita.svg",
+      "krita"
+    ],
+    "fonte": "current/scalable/apps/krita.png",
+    "icon_original": "krita",
+    "name": "Krita",
+    "origem": "current-nome"
+  },
+  "org.kde.krita.tga": {
+    "aliases": [
+      "org.kde.krita.tga",
+      "krita"
+    ],
+    "fonte": "current/scalable/apps/krita.png",
+    "icon_original": "krita",
+    "name": "Krita",
+    "origem": "current-nome"
+  },
+  "org.kde.krita.tiff": {
+    "aliases": [
+      "org.kde.krita.tiff",
+      "krita"
+    ],
+    "fonte": "current/scalable/apps/krita.png",
+    "icon_original": "krita",
+    "name": "Krita",
+    "origem": "current-nome"
+  },
+  "org.kde.krita.webp": {
+    "aliases": [
+      "org.kde.krita.webp",
+      "krita"
+    ],
+    "fonte": "current/scalable/apps/krita.png",
+    "icon_original": "krita",
+    "name": "Krita",
+    "origem": "current-nome"
+  },
+  "org.kde.krita.xcf": {
+    "aliases": [
+      "org.kde.krita.xcf",
+      "krita"
+    ],
+    "fonte": "current/scalable/apps/krita.png",
+    "icon_original": "krita",
+    "name": "Krita",
+    "origem": "current-nome"
+  },
+  "org.mozilla.Thunderbird": {
+    "aliases": [
+      "org.mozilla.Thunderbird"
+    ],
+    "fonte": "current/scalable/apps/thunderbird.svg",
+    "icon_original": "/home/andrefarias/.icons/Dracula-Icones/scalable/apps/thunderbird.svg",
+    "name": "Thunderbird",
+    "origem": "alias-heuristico"
+  },
+  "org.onlyoffice.desktopeditors": {
+    "aliases": [
+      "org.onlyoffice.desktopeditors"
+    ],
+    "fonte": "new-sessao-atual/book.svg",
+    "icon_original": "org.onlyoffice.desktopeditors",
+    "name": "ONLYOFFICE",
+    "origem": "override-novo"
+  },
+  "org.pop_os.transition": {
+    "aliases": [
+      "org.pop_os.transition",
+      "system-software-update"
+    ],
+    "fonte": "upstream/dracula-icons-main/scalable/apps/system-software-update.svg",
+    "icon_original": "system-software-update",
+    "name": "Flatpak Transition",
+    "origem": "upstream"
+  },
+  "org.qbittorrent.qBittorrent": {
+    "aliases": [
+      "org.qbittorrent.qBittorrent"
+    ],
+    "fonte": "current/scalable/apps/qbtorrent.svg",
+    "icon_original": "org.qbittorrent.qBittorrent",
+    "name": "qBittorrent",
+    "origem": "alias-heuristico"
+  },
+  "org.telegram.desktop": {
+    "aliases": [
+      "org.telegram.desktop"
+    ],
+    "fonte": "current/scalable/apps/telegram.svg",
+    "icon_original": "org.telegram.desktop",
+    "name": "Telegram",
+    "origem": "alias-heuristico"
+  },
+  "ouroboros": {
+    "aliases": [
+      "ouroboros"
+    ],
+    "fonte": "projects/protocolo-ouroboros.png",
+    "icon_original": "/home/andrefarias/Desenvolvimento/protocolo-ouroboros/assets/icon.png",
+    "name": "Protocolo Ouroboros",
+    "origem": "alias-heuristico"
+  },
+  "pavucontrol": {
+    "aliases": [
+      "pavucontrol",
+      "multimedia-volume-control"
+    ],
+    "fonte": "current/scalable/apps/multimedia-volume-control.svg",
+    "icon_original": "multimedia-volume-control",
+    "name": "PulseAudio Volume Control",
+    "origem": "current-nome"
+  },
+  "pdfforge": {
+    "aliases": [
+      "pdfforge"
+    ],
+    "fonte": "projects/pdforge.png",
+    "icon_original": "pdfforge",
+    "name": "PDForge",
+    "origem": "alias-heuristico"
+  },
+  "pop-cosmic-applications": {
+    "aliases": [
+      "pop-cosmic-applications"
+    ],
+    "fonte": "pop-cosmic-applications",
+    "icon_original": "pop-cosmic-applications",
+    "name": "Mostrar Aplicativos",
+    "origem": "nao-encontrado"
+  },
+  "pop-cosmic-launcher": {
+    "aliases": [
+      "pop-cosmic-launcher"
+    ],
+    "fonte": "pop-cosmic-launcher",
+    "icon_original": "pop-cosmic-launcher",
+    "name": "Mostrar Launcher",
+    "origem": "nao-encontrado"
+  },
+  "pop-cosmic-workspaces": {
+    "aliases": [
+      "pop-cosmic-workspaces"
+    ],
+    "fonte": "upstream/dracula-icons-main/scalable/apps/pop-cosmic-workspaces.svg",
+    "icon_original": "pop-cosmic-workspaces",
+    "name": "Mostrar Áreas de Trabalho",
+    "origem": "upstream"
+  },
+  "python3.10": {
+    "aliases": [
+      "python3.10"
+    ],
+    "fonte": "/usr/share/pixmaps/python3.10.xpm",
+    "icon_original": "/usr/share/pixmaps/python3.10.xpm",
+    "name": "Python (v3.10)",
+    "origem": "path-externo"
+  },
+  "qrcode-void-generator": {
+    "aliases": [
+      "qrcode-void-generator"
+    ],
+    "fonte": "new-sessao-atual/puzzle.svg",
+    "icon_original": "qrcode-void-generator",
+    "name": "VOID | QRcode",
+    "origem": "override-novo"
+  },
+  "repoman": {
+    "aliases": [
+      "repoman"
+    ],
+    "fonte": "repoman",
+    "icon_original": "repoman",
+    "name": "Repoman",
+    "origem": "nao-encontrado"
+  },
+  "setup-mozc": {
+    "aliases": [
+      "setup-mozc"
+    ],
+    "fonte": "new-sessao-atual/tarot.svg",
+    "icon_original": "/usr/share/icons/mozc/product_icon_32bpp-128.png",
+    "name": "Mozc Setup",
+    "origem": "override-novo"
+  },
+  "simple-scan": {
+    "aliases": [
+      "simple-scan",
+      "org.gnome.SimpleScan"
+    ],
+    "fonte": "current/scalable/apps/org.gnome.SimpleScan.svg",
+    "icon_original": "org.gnome.SimpleScan",
+    "name": "Scanner de documentos",
+    "origem": "current-nome"
+  },
+  "stacer": {
+    "aliases": [
+      "stacer"
+    ],
+    "fonte": "current/scalable/apps/stacer.svg",
+    "icon_original": "stacer",
+    "name": "Stacer",
+    "origem": "alias-heuristico"
+  },
+  "steam": {
+    "aliases": [
+      "steam"
+    ],
+    "fonte": "current/scalable/apps/steam.svg",
+    "icon_original": "steam",
+    "name": "Steam",
+    "origem": "current-nome"
+  },
+  "system-config-printer": {
+    "aliases": [
+      "system-config-printer",
+      "printer"
+    ],
+    "fonte": "upstream/dracula-icons-main/scalable/apps/printer.svg",
+    "icon_original": "printer",
+    "name": "Printers",
+    "origem": "upstream"
+  },
+  "ulauncher": {
+    "aliases": [
+      "ulauncher"
+    ],
+    "fonte": "current/scalable/apps/app-launcher.svg",
+    "icon_original": "ulauncher",
+    "name": "Ulauncher",
+    "origem": "alias-heuristico"
+  },
+  "vlc": {
+    "aliases": [
+      "vlc"
+    ],
+    "fonte": "new-sessao-atual/cat.svg",
+    "icon_original": "vlc",
+    "name": "VLC media player",
+    "origem": "override-novo"
+  },
+  "whatsapp-linux-app_whatsapp-linux-app": {
+    "aliases": [
+      "whatsapp-linux-app_whatsapp-linux-app"
+    ],
+    "fonte": "current/scalable/apps/Whatsapp.png",
+    "icon_original": "/home/andrefarias/.icons/Dracula-Icones/scalable/apps/Whatsapp.png",
+    "name": "whatsapp-linux-app",
+    "origem": "alias-heuristico"
+  },
+  "xdg-desktop-portal-gnome": {
+    "aliases": [
+      "xdg-desktop-portal-gnome",
+      "applications-system-symbolic"
+    ],
+    "fonte": "applications-system-symbolic",
+    "icon_original": "applications-system-symbolic",
+    "name": "Portal",
+    "origem": "nao-encontrado"
+  },
+  "xdg-desktop-portal-gtk": {
+    "aliases": [
+      "xdg-desktop-portal-gtk",
+      "applications-system-symbolic"
+    ],
+    "fonte": "applications-system-symbolic",
+    "icon_original": "applications-system-symbolic",
+    "name": "Portal",
+    "origem": "nao-encontrado"
+  },
+  "yelp": {
+    "aliases": [
+      "yelp",
+      "org.gnome.Yelp"
+    ],
+    "fonte": "upstream/dracula-icons-main/scalable/apps/org.gnome.Yelp.svg",
+    "icon_original": "org.gnome.Yelp",
+    "name": "Ajuda",
+    "origem": "upstream"
+  }
+}
