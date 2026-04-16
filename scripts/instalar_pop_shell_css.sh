@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
-# instalar_pop_shell_css.sh — substitui o dark.css do Pop!_Shell com versao Dracula
+# instalar_pop_shell_css.sh — substitui o dark.css do Pop!_Shell com versão Dracula
 #
 # O Pop!_Shell carrega seu proprio CSS de /usr/share/gnome-shell/extensions/
 # pop-shell@system76.com/dark.css, sobrepondo o que o tema shell define.
-# Este script faz backup do original e instala a versao Dracula.
+# Este script faz backup do original e instala a versão Dracula.
 #
 # Uso:
 #   sudo ./scripts/instalar_pop_shell_css.sh           # instala
@@ -40,14 +40,14 @@ processar_um() {
     local nome="$(basename "$(dirname "$destino")")"
 
     if [[ ! -d "$(dirname "$destino")" ]]; then
-        _warn "$nome: extensao nao encontrada — pulando"
+        _warn "$nome: extensão não encontrada — pulando"
         return 0
     fi
 
     case "$modo" in
         revert)
             if [[ ! -f "$backup" ]]; then
-                _warn "$nome: backup $backup nao encontrado — pulando"
+                _warn "$nome: backup $backup não encontrado — pulando"
                 return 0
             fi
             cp "$backup" "$destino"
@@ -55,7 +55,7 @@ processar_um() {
             ;;
         install)
             if [[ ! -f "$fonte" ]]; then
-                _warn "$nome: fonte $fonte nao encontrada — pulando"
+                _warn "$nome: fonte $fonte não encontrada — pulando"
                 return 0
             fi
             if [[ ! -f "$backup" ]]; then

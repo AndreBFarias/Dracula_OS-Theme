@@ -67,7 +67,7 @@ Ordem sugerida:
 ## Reaplicar/reverter
 
 ```bash
-# aplicar nossa versao
+# aplicar nossa versão
 sudo ./scripts/instalar_pop_shell_css.sh install
 
 # reverter para originais
@@ -83,7 +83,7 @@ gnome-extensions enable pop-shell@system76.com
 ## Comando de inspeção para a próxima sessão
 
 ```bash
-# 1. Inspecionar JS da extensao
+# 1. Inspecionar JS da extensão
 grep -nE "set_style|background_color|Clutter\.Color|StyleContext" \
     /usr/share/gnome-shell/extensions/pop-cosmic@system76.com/*.js
 

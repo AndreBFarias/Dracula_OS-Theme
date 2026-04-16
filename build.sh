@@ -203,7 +203,7 @@ gerar_mimetypes() {
         local nomes_csv="${entry#*|}"
         local src="$SRC/icons/new-sessao-atual/$svg_fonte"
         if [[ ! -f "$src" ]]; then
-            _warn "mimetype: fonte nao existe: $svg_fonte"
+            _warn "mimetype: fonte não existe: $svg_fonte"
             continue
         fi
         IFS=',' read -ra nomes <<< "$nomes_csv"

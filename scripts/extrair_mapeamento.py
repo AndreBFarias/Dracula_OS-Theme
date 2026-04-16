@@ -37,7 +37,7 @@ DESKTOP_DIRS = [
     Path("/var/lib/flatpak/exports/share/applications"),
 ]
 
-# Lista do usuario: apps que devem usar SVGs dos 295 novos (Fase 4 do plano)
+# Lista do usuário: apps que devem usar SVGs dos 295 novos (Fase 4 do plano)
 OVERRIDES_NOVOS: dict[str, str] = {
     "com.github.tchx84.Flatseal": "chest.svg",
     "com.mattjakeman.ExtensionManager": "toolbox.svg",
@@ -67,7 +67,7 @@ OVERRIDES_NOVOS: dict[str, str] = {
     "gnome-system-monitor-kde": "hourglass.svg",
     "setup-mozc": "tarot.svg",
     "com.system76.Popsicle": "lollipop.svg",
-    # Ajustes apos revisao visual do user:
+    # Ajustes após revisão visual do user:
     "ulauncher": "magician-hat.svg",
     "kitty": "cat.svg",
     "org.gnome.tweaks": "laurel.svg",
@@ -111,7 +111,7 @@ ALIASES_HEURISTICOS: dict[str, str] = {
     "org.gnome.Nautilus": "current/scalable/apps/gnome-folder.png",
     "org.gnome.Calendar": "current/scalable/apps/calendar.svg",
     "org.gnome.Extensions": "current/scalable/apps/gerenciador-de-extensoes.png",
-    # Apostrophe: reverter para ghostwriter (antigo), nao usar feather.svg
+    # Apostrophe: reverter para ghostwriter (antigo), não usar feather.svg
     "org.gnome.gitlab.somas.Apostrophe": "current/scalable/apps/ghostwriter.svg",
     "org.bleachbit.BleachBit": "current/scalable/apps/cleaner.svg",
     "whatsapp-linux-app": "current/scalable/apps/whatsapp.png",
@@ -149,7 +149,7 @@ ALIASES_HEURISTICOS: dict[str, str] = {
     "foundryvtt": "projects/foundryvtt.png",
     "elden-ring-tracker": "projects/elden-ring-tracker.png",
     "Ubuntu": "projects/ubuntu-distrobox.png",
-    # Correções finais apos revisao do user
+    # Correções finais após revisão do user
     "luna": "projects/luna.png",
     "extase-em-4r73": "projects/conversor-video-ascii.png",
 }
@@ -262,7 +262,7 @@ def localizar_fonte(nome_icone: str) -> tuple[str | None, str | None]:
     return nome_icone, "nao-encontrado"
 
 
-# Apps cujo repo/path-fonte nao existe mais — descartar do mapping
+# Apps cujo repo/path-fonte não existe mais — descartar do mapping
 APPS_DESCARTADOS = {
     "data-toolkit",  # /home/andrefarias/Desenvolvimento/Python-Data-Toolkit/ removido
 }
@@ -387,7 +387,7 @@ def main() -> None:
             mapeamento[app_id] = entrada
             vistos_icones.setdefault(str(entrada["fonte"]), []).append(app_id)
 
-    # Adicionar override ZapZap explicitamente se nao foi pego
+    # Adicionar override ZapZap explicitamente se não foi pego
     if "com.rtosta.zapzap" not in mapeamento:
         mapeamento["com.rtosta.zapzap"] = {
             "name": "WhatsApp",
@@ -415,7 +415,7 @@ def main() -> None:
     for k, v in sorted(por_origem.items(), key=lambda x: -x[1]):
         print(f"  {v:4d}  {k}")
     if ausentes:
-        print(f"\nApps com icone ausente ({len(ausentes)}):")
+        print(f"\nApps com ícone ausente ({len(ausentes)}):")
         for a in ausentes[:40]:
             print(a)
         if len(ausentes) > 40:
@@ -427,4 +427,4 @@ def main() -> None:
 if __name__ == "__main__":
     main()
 
-# "A verdade liberta, mas a verdade nao ajuda os ignorantes." -- Heraclito
+# "A verdade liberta, mas a verdade não ajuda os ignorantes." -- Heráclito

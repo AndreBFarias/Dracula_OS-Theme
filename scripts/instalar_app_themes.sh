@@ -95,13 +95,13 @@ aplicar_spicetify() {
         return 0
     fi
     _info "Spicetify: delegando para Spellbook-OS"
-    # Spicetify pode falhar por incompatibilidade de versao do Spotify.
+    # Spicetify pode falhar por incompatibilidade de versão do Spotify.
     # Nao e fatal para o tema geral do sistema — continuar.
     if [[ $DRY_RUN -eq 0 ]]; then
         if "$setup"; then
             _ok "Spicetify aplicado via Spellbook-OS"
         else
-            _warn "Spicetify retornou erro (possivel incompatibilidade de versao do Spotify — nao fatal)"
+            _warn "Spicetify retornou erro (possível incompatibilidade de versão do Spotify — não fatal)"
         fi
     else
         echo "  [dry-run] $setup"

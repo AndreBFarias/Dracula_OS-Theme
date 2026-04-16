@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # baixar_upstreams.sh — baixa os temas upstream (dracula-icons-main e circle)
-# para src/icons/upstream/. Os upstreams estao no .gitignore para evitar
-# repositorio gigante (~120MB). Este script deve ser rodado apos clonar o repo
+# para src/icons/upstream/. Os upstreams estão no .gitignore para evitar
+# repositório gigante (~120MB). Este script deve ser rodado após clonar o repo
 # e antes do primeiro build.sh.
 
 set -euo pipefail
@@ -24,11 +24,11 @@ declare -A FONTES=(
     ["dracula-icons-circle"]="https://github.com/m4thewz/dracula-icons-circle.git"
 )
 
-# Tenta primeiro: cache local do usuario (se ja instalou antes)
+# Tenta primeiro: cache local do usuário (se já instalou antes)
 for nome in "${!FONTES[@]}"; do
     destino="$UPSTREAM/$nome"
     if [[ -d "$destino" && -f "$destino/index.theme" ]]; then
-        _ok "$nome ja presente"
+        _ok "$nome já presente"
         continue
     fi
 

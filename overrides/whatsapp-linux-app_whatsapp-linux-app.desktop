@@ -2,8 +2,8 @@
 X-SnapInstanceName=whatsapp-linux-app
 Name=WhatsApp (Snap)
 Name[pt_BR]=WhatsApp (Snap)
-Comment=Unofficial WhatsApp desktop client (ocultado por padrao — ZapZap Flatpak e o principal)
-Comment[pt_BR]=Cliente desktop nao-oficial do WhatsApp (oculto por padrao)
+Comment=Unofficial WhatsApp desktop client (ocultado por padrão — ZapZap Flatpak é o principal)
+Comment[pt_BR]=Cliente desktop não-oficial do WhatsApp (oculto por padrão)
 Icon=whatsapp-linux-app
 Exec=env BAMF_DESKTOP_FILE_HINT=/var/lib/snapd/desktop/applications/whatsapp-linux-app_whatsapp-linux-app.desktop /snap/bin/whatsapp-linux-app %U
 Terminal=false

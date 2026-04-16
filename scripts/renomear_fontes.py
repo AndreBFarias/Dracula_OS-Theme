@@ -3,14 +3,14 @@
 Renomeia arquivos-fonte em src/icons/ para corrigir typos e dar nomes mais
 claros. Atualiza automaticamente os paths em mapping.json.
 
-Renomeacoes aplicadas:
+Renomeações aplicadas:
 - ghostwritter.svg  -> ghostwriter.svg     (typo tt -> t)
 - qbtorrent.svg     -> qbittorrent.svg     (faltava 'i')
 - cleanner.svg      -> cleaner.svg         (typo nn -> n)
 - "gerenciadoor de extensões.png" -> "gerenciador-de-extensoes.png"
-  (typo + espaco + acento)
+  (typo + espaço + acento)
 
-Idempotente: pode ser rodado multiplas vezes sem efeito colateral.
+Idempotente: pode ser rodado múltiplas vezes sem efeito colateral.
 """
 
 from __future__ import annotations
@@ -52,12 +52,12 @@ def main() -> None:
             continue
 
         if not antigo.exists():
-            print(f"  [skip] fonte nao existe: {antigo_rel}")
+            print(f"  [skip] fonte não existe: {antigo_rel}")
             ignorados += 1
             continue
 
         if novo.exists():
-            print(f"  [!] destino ja existe, pulando: {novo_rel}")
+            print(f"  [!] destino já existe, pulando: {novo_rel}")
             ignorados += 1
             continue
 
@@ -88,4 +88,4 @@ def main() -> None:
 if __name__ == "__main__":
     main()
 
-# "Nomina sunt consequentia rerum." -- os nomes sao consequencia das coisas.
+# "Nomina sunt consequentia rerum." -- os nomes são consequência das coisas.

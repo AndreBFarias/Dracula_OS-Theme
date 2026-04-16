@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
-# release.sh — gera tarball versionado do Dracula_OS-Theme para distribuicao
+# release.sh — gera tarball versionado do Dracula_OS-Theme para distribuição
 #
 # Uso:
-#   ./scripts/release.sh [versao]    # default: 1.0.0
+#   ./scripts/release.sh [versão]    # default: 1.0.0
 
 set -euo pipefail
 
@@ -23,7 +23,7 @@ mkdir -p "$DIST_DIR"
 
 _info "Montando $NOME em $TMP/"
 
-# Copiar tudo exceto dist/, .git/, backups, upstreams (usuario baixa separado)
+# Copiar tudo exceto dist/, .git/, backups, upstreams (usuário baixa separado)
 rsync -a \
     --exclude='.git/' \
     --exclude='dist/' \
@@ -38,14 +38,14 @@ rsync -a \
 cat > "$TMP/$NOME/UPSTREAMS.md" <<EOF
 # Upstreams
 
-Os upstreams \`dracula-icons-main\` e \`dracula-icons-circle\` nao estao
-incluidos neste tarball para manter o tamanho reduzido. Apos extrair,
+Os upstreams \`dracula-icons-main\` e \`dracula-icons-circle\` não estão
+incluídos neste tarball para manter o tamanho reduzido. Após extrair,
 rode:
 
     cd $NOME
     ./scripts/baixar_upstreams.sh
 
-Isso clona os dois repositorios upstream em \`src/icons/upstream/\`.
+Isso clona os dois repositórios upstream em \`src/icons/upstream/\`.
 
 Em seguida, \`./build.sh\` e \`./install.sh --user\` funcionam normalmente.
 EOF
