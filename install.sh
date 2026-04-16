@@ -16,6 +16,7 @@ DIST="$REPO_ROOT/dist"
 MODO=""
 ATIVAR=0
 APP_THEMES=0
+POP_SHELL_CSS=0
 
 for arg in "$@"; do
     case "$arg" in
@@ -23,7 +24,8 @@ for arg in "$@"; do
         --system)  MODO="system" ;;
         --activate) ATIVAR=1 ;;
         --app-themes) APP_THEMES=1 ;;
-        --all) ATIVAR=1; APP_THEMES=1 ;;
+        --pop-shell-css) POP_SHELL_CSS=1 ;;
+        --all) ATIVAR=1; APP_THEMES=1; POP_SHELL_CSS=1 ;;
     esac
 done
 
@@ -91,6 +93,13 @@ fi
 if [[ "$MODO" == "user" ]]; then
     _info "Aplicando overrides de .desktop"
     "$REPO_ROOT/scripts/aplicar_overrides.sh" || _warn "aplicar_overrides.sh falhou"
+fi
+
+# ─── Pop!_Shell dark.css (requer sudo) ───
+if [[ $POP_SHELL_CSS -eq 1 ]]; then
+    echo ""
+    _info "Substituindo Pop!_Shell dark.css (pede sudo)"
+    sudo "$REPO_ROOT/scripts/instalar_pop_shell_css.sh" install || _warn "Pop!_Shell CSS falhou"
 fi
 
 # ─── App themes ───

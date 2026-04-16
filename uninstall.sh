@@ -35,6 +35,14 @@ for tema in Dracula-Icones dracula-icons-main dracula-icons-circle Dracula-Curso
 done
 $SUDO rm -rf "$DEST_THEMES/Dracula-standard-buttons" 2>/dev/null || true
 rm -f "$HOME/.local/share/applications/com.rtosta.zapzap.desktop" 2>/dev/null || true
+rm -f "$HOME/.local/share/applications/whatsapp-linux-app_whatsapp-linux-app.desktop" 2>/dev/null || true
+
+# Reverter Pop!_Shell dark.css se backup existir
+REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+if [[ -f /usr/share/gnome-shell/extensions/pop-shell@system76.com/dark.css.orig ]]; then
+    echo "Revertendo Pop!_Shell dark.css (pede sudo)..."
+    sudo "$REPO_ROOT/scripts/instalar_pop_shell_css.sh" --revert || true
+fi
 
 echo "Desinstalação concluída. Reverta gsettings manualmente se necessário."
 

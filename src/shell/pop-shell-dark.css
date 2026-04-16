@@ -1,0 +1,84 @@
+/* Dracula_OS-Theme — substitui /usr/share/gnome-shell/extensions/pop-shell@system76.com/dark.css
+ *
+ * Mantem a estrutura original do dark.css do pop-shell mas troca as cores
+ * laranja (#FBB86C), cinza-rosado (#9B8E8A) e azul (#3584E4) pela paleta
+ * Dracula oficial, e torna o fundo translucido com borda purple.
+ */
+
+.pop-shell-active-hint {
+    border-style: solid;
+    border-color: #bd93f9;
+    border-radius: var(--active-hint-border-radius, 5px);
+    box-shadow: inset 0 0 0 1px rgba(24, 23, 23, 0);
+}
+
+.pop-shell-overlay {
+    background-color: rgba(40, 42, 54, 0.40);
+}
+
+.pop-shell-border-normal {
+    border-width: 3px;
+}
+
+.pop-shell-border-maximize {
+    border-width: 3px;
+}
+
+.pop-shell-search,
+.pop-shell-search.modal-dialog {
+    background-color: rgba(40, 42, 54, 0.55);
+    border: 1px solid #bd93f9;
+    border-radius: 16px;
+}
+
+.pop-shell-entry {
+    background-color: rgba(68, 71, 90, 0.50);
+    color: #f8f8f2;
+    border: 1px solid rgba(189, 147, 249, 0.4);
+    border-radius: 10px;
+    padding: 6px 12px;
+}
+
+.pop-shell-search-element:selected,
+.pop-shell-search-element:select {
+    background: rgba(189, 147, 249, 0.25);
+    border-radius: 8px;
+    color: #f8f8f2;
+}
+
+.pop-shell-search-icon {
+    margin-right: 10px;
+}
+
+.pop-shell-search-cat {
+    margin-right: 10px;
+}
+
+.pop-shell-search-element {
+    padding-left: 10px;
+    padding-right: 2px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    color: #f8f8f2;
+}
+
+.pop-shell-tab {
+    border: 1px solid #44475a;
+    color: #f8f8f2;
+    padding: 0 1em;
+}
+
+.pop-shell-tab-active {
+    background: #bd93f9;
+    color: #282a36;
+}
+
+.pop-shell-tab-inactive {
+    background: #44475a;
+    color: #f8f8f2;
+}
+
+.pop-shell-tab-urgent {
+    background: #ff5555;
+    color: #f8f8f2;
+}
