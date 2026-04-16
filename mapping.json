@@ -13,7 +13,7 @@
       "Ubuntu"
     ],
     "fonte": "projects/ubuntu-distrobox.png",
-    "icon_original": "/home/andrefarias/.local/share/icons/distrobox/ubuntu.png",
+    "icon_original": "Ubuntu",
     "name": "Ubuntu",
     "origem": "alias-heuristico"
   },
@@ -21,118 +21,118 @@
     "aliases": [
       "Ubuntu-configmgr"
     ],
-    "fonte": "/home/andrefarias/.local/share/icons/utility.png",
-    "icon_original": "/home/andrefarias/.local/share/icons/utility.png",
+    "fonte": "Ubuntu-configmgr",
+    "icon_original": "Ubuntu-configmgr",
     "name": "Citrix Workspace (configmgr) (on Ubuntu)",
-    "origem": "path-externo"
+    "origem": "nao-encontrado"
   },
   "Ubuntu-conncenter": {
     "aliases": [
       "Ubuntu-conncenter"
     ],
-    "fonte": "/home/andrefarias/.local/share/icons/utility.png",
-    "icon_original": "/home/andrefarias/.local/share/icons/utility.png",
+    "fonte": "Ubuntu-conncenter",
+    "icon_original": "Ubuntu-conncenter",
     "name": "Citrix Workspace (conncenter) (on Ubuntu)",
-    "origem": "path-externo"
+    "origem": "nao-encontrado"
   },
   "Ubuntu-fido2_llt": {
     "aliases": [
       "Ubuntu-fido2_llt"
     ],
-    "fonte": "/home/andrefarias/.local/share/icons/utility.png",
-    "icon_original": "/home/andrefarias/.local/share/icons/utility.png",
+    "fonte": "Ubuntu-fido2_llt",
+    "icon_original": "Ubuntu-fido2_llt",
     "name": "Citrix Workspace Launcher (on Ubuntu)",
-    "origem": "path-externo"
+    "origem": "nao-encontrado"
   },
   "Ubuntu-logmgr": {
     "aliases": [
       "Ubuntu-logmgr"
     ],
-    "fonte": "/home/andrefarias/.local/share/icons/utility.png",
-    "icon_original": "/home/andrefarias/.local/share/icons/utility.png",
+    "fonte": "Ubuntu-logmgr",
+    "icon_original": "Ubuntu-logmgr",
     "name": "Citrix Workspace (logmgr) (on Ubuntu)",
-    "origem": "path-externo"
+    "origem": "nao-encontrado"
   },
   "Ubuntu-nfcui": {
     "aliases": [
       "Ubuntu-nfcui"
     ],
-    "fonte": "/home/andrefarias/.local/share/icons/utility.png",
-    "icon_original": "/home/andrefarias/.local/share/icons/utility.png",
+    "fonte": "Ubuntu-nfcui",
+    "icon_original": "Ubuntu-nfcui",
     "name": "Citrix Workspace (nfcui) (on Ubuntu)",
-    "origem": "path-externo"
+    "origem": "nao-encontrado"
   },
   "Ubuntu-receiver": {
     "aliases": [
       "Ubuntu-receiver"
     ],
-    "fonte": "/home/andrefarias/.local/share/icons/utility.png",
-    "icon_original": "/home/andrefarias/.local/share/icons/utility.png",
+    "fonte": "Ubuntu-receiver",
+    "icon_original": "Ubuntu-receiver",
     "name": "Citrix Workspace Launcher (on Ubuntu)",
-    "origem": "path-externo"
+    "origem": "nao-encontrado"
   },
   "Ubuntu-receiver_fido2": {
     "aliases": [
       "Ubuntu-receiver_fido2"
     ],
-    "fonte": "/home/andrefarias/.local/share/icons/utility.png",
-    "icon_original": "/home/andrefarias/.local/share/icons/utility.png",
+    "fonte": "Ubuntu-receiver_fido2",
+    "icon_original": "Ubuntu-receiver_fido2",
     "name": "Citrix Workspace Launcher (on Ubuntu)",
-    "origem": "path-externo"
+    "origem": "nao-encontrado"
   },
   "Ubuntu-selfservice": {
     "aliases": [
       "Ubuntu-selfservice"
     ],
-    "fonte": "/home/andrefarias/.local/share/icons/utility.png",
-    "icon_original": "/home/andrefarias/.local/share/icons/utility.png",
+    "fonte": "Ubuntu-selfservice",
+    "icon_original": "Ubuntu-selfservice",
     "name": "Citrix Workspace (on Ubuntu)",
-    "origem": "path-externo"
+    "origem": "nao-encontrado"
   },
   "Ubuntu-sendfeedback": {
     "aliases": [
       "Ubuntu-sendfeedback"
     ],
-    "fonte": "/home/andrefarias/.local/share/icons/utility.png",
-    "icon_original": "/home/andrefarias/.local/share/icons/utility.png",
+    "fonte": "Ubuntu-sendfeedback",
+    "icon_original": "Ubuntu-sendfeedback",
     "name": "Citrix Workspace (sendfeedback) (on Ubuntu)",
-    "origem": "path-externo"
+    "origem": "nao-encontrado"
   },
   "Ubuntu-wfica": {
     "aliases": [
       "Ubuntu-wfica"
     ],
-    "fonte": "/home/andrefarias/.local/share/icons/utility.png",
-    "icon_original": "/home/andrefarias/.local/share/icons/utility.png",
+    "fonte": "Ubuntu-wfica",
+    "icon_original": "Ubuntu-wfica",
     "name": "Citrix Workspace Engine (on Ubuntu)",
-    "origem": "path-externo"
+    "origem": "nao-encontrado"
   },
   "antigravity": {
     "aliases": [
       "antigravity"
     ],
-    "fonte": "src/icons/current/scalable/apps/Antigravity.png",
-    "icon_original": "/home/andrefarias/.icons/Dracula-Icones/scalable/apps/Antigravity.png",
+    "fonte": "antigravity",
+    "icon_original": "antigravity",
     "name": "Antigravity",
-    "origem": "current"
+    "origem": "nao-encontrado"
   },
   "antigravity-url-handler": {
     "aliases": [
       "antigravity-url-handler"
     ],
-    "fonte": "src/icons/current/scalable/apps/Antigravity.png",
-    "icon_original": "/home/andrefarias/.icons/Dracula-Icones/scalable/apps/Antigravity.png",
+    "fonte": "antigravity-url-handler",
+    "icon_original": "antigravity-url-handler",
     "name": "Antigravity - URL Handler",
-    "origem": "current"
+    "origem": "nao-encontrado"
   },
   "bauh": {
     "aliases": [
       "bauh"
     ],
-    "fonte": "/home/andrefarias/.local/share/icons/hicolor/scalable/apps/bauh.svg",
-    "icon_original": "/home/andrefarias/.local/share/icons/hicolor/scalable/apps/bauh.svg",
+    "fonte": "upstream/dracula-icons-circle/scalable/apps/bauh.svg",
+    "icon_original": "bauh",
     "name": "bauh",
-    "origem": "path-externo"
+    "origem": "upstream"
   },
   "be.alexandervanhee.gradia": {
     "aliases": [
@@ -147,7 +147,7 @@
     "aliases": [
       "best.ellie.StartupConfiguration"
     ],
-    "fonte": "new-sessao-atual/gate.svg",
+    "fonte": "new-sessao-atual/sun.svg",
     "icon_original": "best.ellie.StartupConfiguration",
     "name": "Startup Configuration",
     "origem": "override-novo"
@@ -230,7 +230,7 @@
       "com.google.Chrome"
     ],
     "fonte": "current/scalable/apps/chrome2.svg",
-    "icon_original": "/home/andrefarias/.icons/Dracula-Icones/scalable/apps/chrome2.svg",
+    "icon_original": "com.google.Chrome",
     "name": "Google Chrome",
     "origem": "alias-heuristico"
   },
@@ -382,7 +382,7 @@
       "foundryvtt"
     ],
     "fonte": "new-sessao-atual/dice.svg",
-    "icon_original": "/home/andrefarias/foundry/resources/app/public/icons/vtt-512.png",
+    "icon_original": "foundryvtt",
     "name": "Foundry VTT",
     "origem": "override-novo"
   },
@@ -730,7 +730,7 @@
     "aliases": [
       "gnome-session-properties"
     ],
-    "fonte": "new-sessao-atual/gate.svg",
+    "fonte": "new-sessao-atual/sun.svg",
     "icon_original": "session-properties",
     "name": "Aplicativos iniciais de sessão",
     "origem": "override-novo"
@@ -878,7 +878,7 @@
       "google-chrome"
     ],
     "fonte": "current/scalable/apps/chrome2.svg",
-    "icon_original": "/home/andrefarias/.icons/Dracula-Icones/scalable/apps/chrome2.svg",
+    "icon_original": "google-chrome",
     "name": "Google Chrome",
     "origem": "alias-heuristico"
   },
@@ -905,10 +905,10 @@
     "aliases": [
       "guvcview"
     ],
-    "fonte": "/usr/share/pixmaps/guvcview/guvcview.png",
-    "icon_original": "/usr/share/pixmaps/guvcview/guvcview.png",
+    "fonte": "current/scalable/apps/guvcview.svg",
+    "icon_original": "guvcview",
     "name": "Visualizador de vídeo GTK UVC",
-    "origem": "path-externo"
+    "origem": "current-nome"
   },
   "hplj1020": {
     "aliases": [
@@ -1052,10 +1052,10 @@
     "aliases": [
       "kitty"
     ],
-    "fonte": "current/scalable/apps/terminal.svg",
+    "fonte": "new-sessao-atual/cat.svg",
     "icon_original": "kitty",
     "name": "kitty",
-    "origem": "alias-heuristico"
+    "origem": "override-novo"
   },
   "libreoffice-startcenter": {
     "aliases": [
@@ -1117,7 +1117,7 @@
       "neurosonancy"
     ],
     "fonte": "projects/neurosonancy.png",
-    "icon_original": "/home/andrefarias/Desenvolvimento/Neurosonancy/assets/icon.png",
+    "icon_original": "neurosonancy",
     "name": "Neurosonancy",
     "origem": "alias-heuristico"
   },
@@ -1146,7 +1146,7 @@
       "nvidia-settings"
     ],
     "fonte": "current/scalable/apps/nvidia.svg",
-    "icon_original": "/home/andrefarias/.icons/Dracula-Icones/scalable/apps/nvidia.svg",
+    "icon_original": "nvidia-settings",
     "name": "NVIDIA X Server Settings",
     "origem": "alias-heuristico"
   },
@@ -1240,7 +1240,7 @@
       "org.gnome.Calendar"
     ],
     "fonte": "current/scalable/apps/calendar.svg",
-    "icon_original": "/home/andrefarias/.icons/Dracula-Icones/scalable/apps/calendar.svg",
+    "icon_original": "org.gnome.Calendar",
     "name": "Calendário",
     "origem": "alias-heuristico"
   },
@@ -1296,7 +1296,7 @@
       "org.gnome.Extensions"
     ],
     "fonte": "current/scalable/apps/gerenciadoor de extensões.png",
-    "icon_original": "/home/andrefarias/.icons/Dracula-Icones/scalable/apps/gerenciadoor de extensões.png",
+    "icon_original": "org.gnome.Extensions",
     "name": "Extensões",
     "origem": "alias-heuristico"
   },
@@ -1315,7 +1315,7 @@
       "org.gnome.Nautilus"
     ],
     "fonte": "current/scalable/apps/gnome-folder.png",
-    "icon_original": "/home/andrefarias/.icons/Dracula-Icones/scalable/apps/gnome-folder.png",
+    "icon_original": "org.gnome.Nautilus",
     "name": "Arquivos",
     "origem": "alias-heuristico"
   },
@@ -1416,7 +1416,7 @@
       "org.gnome.gedit"
     ],
     "fonte": "current/scalable/apps/com.system76.CosmicEdit.svg",
-    "icon_original": "/home/andrefarias/.icons/Dracula-Icones/scalable/apps/com.system76.CosmicEdit.svg",
+    "icon_original": "org.gnome.gedit",
     "name": "Editor de texto",
     "origem": "alias-heuristico"
   },
@@ -1424,28 +1424,28 @@
     "aliases": [
       "org.gnome.gitlab.somas.Apostrophe"
     ],
-    "fonte": "new-sessao-atual/feather.svg",
+    "fonte": "current/scalable/apps/ghostwritter.svg",
     "icon_original": "org.gnome.gitlab.somas.Apostrophe",
     "name": "Apostrophe",
-    "origem": "override-novo"
+    "origem": "alias-heuristico"
   },
   "org.gnome.seahorse.Application": {
     "aliases": [
       "org.gnome.seahorse.Application"
     ],
-    "fonte": "upstream/dracula-icons-main/scalable/apps/org.gnome.seahorse.Application.svg",
+    "fonte": "new-sessao-atual/key.svg",
     "icon_original": "org.gnome.seahorse.Application",
     "name": "Passwords and Keys",
-    "origem": "upstream"
+    "origem": "override-novo"
   },
   "org.gnome.tweaks": {
     "aliases": [
       "org.gnome.tweaks"
     ],
-    "fonte": "upstream/dracula-icons-circle/scalable/apps/org.gnome.tweaks.svg",
+    "fonte": "new-sessao-atual/laurel.svg",
     "icon_original": "org.gnome.tweaks",
     "name": "Tweaks",
-    "origem": "upstream"
+    "origem": "override-novo"
   },
   "org.kde.krita": {
     "aliases": [
@@ -1701,7 +1701,7 @@
       "org.mozilla.Thunderbird"
     ],
     "fonte": "current/scalable/apps/thunderbird.svg",
-    "icon_original": "/home/andrefarias/.icons/Dracula-Icones/scalable/apps/thunderbird.svg",
+    "icon_original": "org.mozilla.Thunderbird",
     "name": "Thunderbird",
     "origem": "alias-heuristico"
   },
@@ -1747,7 +1747,7 @@
       "ouroboros"
     ],
     "fonte": "projects/protocolo-ouroboros.png",
-    "icon_original": "/home/andrefarias/Desenvolvimento/protocolo-ouroboros/assets/icon.png",
+    "icon_original": "ouroboros",
     "name": "Protocolo Ouroboros",
     "origem": "alias-heuristico"
   },
@@ -1875,10 +1875,10 @@
     "aliases": [
       "ulauncher"
     ],
-    "fonte": "current/scalable/apps/app-launcher.svg",
+    "fonte": "new-sessao-atual/magician-hat.svg",
     "icon_original": "ulauncher",
     "name": "Ulauncher",
-    "origem": "alias-heuristico"
+    "origem": "override-novo"
   },
   "vlc": {
     "aliases": [
@@ -1891,11 +1891,12 @@
   },
   "whatsapp-linux-app_whatsapp-linux-app": {
     "aliases": [
-      "whatsapp-linux-app_whatsapp-linux-app"
+      "whatsapp-linux-app_whatsapp-linux-app",
+      "whatsapp-linux-app"
     ],
     "fonte": "current/scalable/apps/Whatsapp.png",
-    "icon_original": "/home/andrefarias/.icons/Dracula-Icones/scalable/apps/Whatsapp.png",
-    "name": "whatsapp-linux-app",
+    "icon_original": "whatsapp-linux-app",
+    "name": "WhatsApp",
     "origem": "alias-heuristico"
   },
   "xdg-desktop-portal-gnome": {

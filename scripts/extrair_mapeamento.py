@@ -53,7 +53,7 @@ OVERRIDES_NOVOS: dict[str, str] = {
     "qrcode-void-generator": "puzzle.svg",
     "org.onlyoffice.desktopeditors": "book.svg",
     "org.bleachbit.BleachBit": "broom.svg",
-    "org.gnome.gitlab.somas.Apostrophe": "feather.svg",
+    # Apostrophe removido daqui — volta para ghostwritter.svg (alias-heuristico)
     "com.freerdp.FreeRDP": "gate.svg",
     "io.github.dvlv.boxbuddyrs": "chest-variant.svg",
     "io.github.electronstudio.WeylusCommunityEdition": "wand.svg",
@@ -67,6 +67,13 @@ OVERRIDES_NOVOS: dict[str, str] = {
     "gnome-system-monitor-kde": "hourglass.svg",
     "setup-mozc": "tarot.svg",
     "com.system76.Popsicle": "lollipop.svg",
+    # Ajustes apos revisao visual do user:
+    "ulauncher": "magician-hat.svg",
+    "kitty": "cat.svg",
+    "org.gnome.tweaks": "laurel.svg",
+    "gnome-session-properties": "sun.svg",
+    "best.ellie.StartupConfiguration": "sun.svg",
+    "org.gnome.seahorse.Application": "key.svg",
 }
 
 # Override especial: ZapZap vira WhatsApp
@@ -104,7 +111,10 @@ ALIASES_HEURISTICOS: dict[str, str] = {
     "org.gnome.Nautilus": "current/scalable/apps/gnome-folder.png",
     "org.gnome.Calendar": "current/scalable/apps/calendar.svg",
     "org.gnome.Extensions": "current/scalable/apps/gerenciadoor de extensões.png",
+    # Apostrophe: reverter para ghostwritter (antigo), nao usar feather.svg
     "org.gnome.gitlab.somas.Apostrophe": "current/scalable/apps/ghostwritter.svg",
+    # Remove kitty/ulauncher dos aliases porque sao overrides-novos agora:
+    # (ficam aqui so como fallback caso OVERRIDES_NOVOS mude)
     "org.bleachbit.BleachBit": "current/scalable/apps/cleanner.svg",
     "whatsapp-linux-app": "current/scalable/apps/Whatsapp.png",
     "whatsapp-linux-app_whatsapp-linux-app": "current/scalable/apps/Whatsapp.png",
@@ -113,9 +123,9 @@ ALIASES_HEURISTICOS: dict[str, str] = {
     "io.elementary.appcenter": "current/scalable/apps/pop-shop.svg",
     "io.elementary.appcenter-daemon": "current/scalable/apps/pop-shop.svg",
     "stacer": "current/scalable/apps/stacer.svg",
-    "kitty": "current/scalable/apps/terminal.svg",
+    # kitty removido daqui — agora usa override-novo cat.svg
     "org.gnome.Terminal": "current/scalable/apps/terminal.svg",
-    "ulauncher": "current/scalable/apps/app-launcher.svg",
+    # ulauncher removido daqui — agora usa override-novo magician-hat.svg
     "gparted": "current/scalable/apps/gparted.png",
     "weylus": "current/scalable/apps/weylus.png",
     "linuxtoys": "current/scalable/apps/linux-toys.png",
