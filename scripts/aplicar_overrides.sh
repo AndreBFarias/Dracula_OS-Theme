@@ -27,6 +27,7 @@ for f in "$OVERRIDES"/*.desktop; do
     _info "copiando $(basename "$f") → $DESTINO/"
     if [[ $DRY_RUN -eq 0 ]]; then
         cp "$f" "$DESTINO/"
+        chmod 644 "$DESTINO/$(basename "$f")" 2>/dev/null || true
     fi
 done
 

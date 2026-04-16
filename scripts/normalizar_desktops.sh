@@ -74,6 +74,10 @@ processar_desktop() {
     nome_esc=$(printf '%s' "$nome_novo" | sed 's/[&\\/]/\\&/g')
 
     sed -i "s|^Icon=${icon_esc}|Icon=${nome_esc}|" "$f" || _warn "sed falhou em $f"
+
+    # Garante permissão 644 — alguns .desktop do Flatpak exports vêm 600 e o
+    # Pop!_OS/GNOME Shell rejeita abrir apps com permissão restrita.
+    chmod 644 "$f" 2>/dev/null || true
 }
 
 main() {
