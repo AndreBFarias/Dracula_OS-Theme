@@ -93,16 +93,16 @@ ALIASES_HEURISTICOS: dict[str, str] = {
     "com.obsproject.Studio": "current/scalable/apps/Obs-Studio.png",
     "be.alexandervanhee.gradia": "current/scalable/apps/gradia.png",
     "md.obsidian.Obsidian": "current/scalable/apps/050-circle.svg",
-    "com.rtosta.zapzap": "current/scalable/apps/Whatsapp.png",
+    "com.rtosta.zapzap": "current/scalable/apps/whatsapp.png",
     "com.discordapp.Discord": "current/scalable/apps/discord.png",
-    "com.github.rafostar.Clapper": "current/scalable/apps/Clapper.png",
-    "com.github.tchx84.Flatseal": "current/scalable/apps/Flatseal.png",
+    "com.github.rafostar.Clapper": "current/scalable/apps/clapper.png",
+    "com.github.tchx84.Flatseal": "current/scalable/apps/flatseal.png",
     "com.opera.Opera": "current/scalable/apps/opera.png",
     "com.spotify.Client": "current/scalable/apps/spotify.png",
     "net.waterfox.waterfox": "current/scalable/apps/firefox.png",
-    "com.google.Chrome": "current/scalable/apps/chrome2.svg",
-    "google-chrome": "current/scalable/apps/chrome2.svg",
-    "org.qbittorrent.qBittorrent": "current/scalable/apps/qbtorrent.svg",
+    "com.google.Chrome": "current/scalable/apps/google-chrome.svg",
+    "google-chrome": "current/scalable/apps/google-chrome.svg",
+    "org.qbittorrent.qBittorrent": "current/scalable/apps/qbittorrent.svg",
     "org.telegram.desktop": "current/scalable/apps/telegram.svg",
     "org.mozilla.Thunderbird": "current/scalable/apps/thunderbird.svg",
     "org.gimp.GIMP": "current/scalable/apps/gimp.png",
@@ -110,14 +110,12 @@ ALIASES_HEURISTICOS: dict[str, str] = {
     "org.gnome.gedit": "current/scalable/apps/com.system76.CosmicEdit.svg",
     "org.gnome.Nautilus": "current/scalable/apps/gnome-folder.png",
     "org.gnome.Calendar": "current/scalable/apps/calendar.svg",
-    "org.gnome.Extensions": "current/scalable/apps/gerenciadoor de extensões.png",
-    # Apostrophe: reverter para ghostwritter (antigo), nao usar feather.svg
-    "org.gnome.gitlab.somas.Apostrophe": "current/scalable/apps/ghostwritter.svg",
-    # Remove kitty/ulauncher dos aliases porque sao overrides-novos agora:
-    # (ficam aqui so como fallback caso OVERRIDES_NOVOS mude)
-    "org.bleachbit.BleachBit": "current/scalable/apps/cleanner.svg",
-    "whatsapp-linux-app": "current/scalable/apps/Whatsapp.png",
-    "whatsapp-linux-app_whatsapp-linux-app": "current/scalable/apps/Whatsapp.png",
+    "org.gnome.Extensions": "current/scalable/apps/gerenciador-de-extensoes.png",
+    # Apostrophe: reverter para ghostwriter (antigo), nao usar feather.svg
+    "org.gnome.gitlab.somas.Apostrophe": "current/scalable/apps/ghostwriter.svg",
+    "org.bleachbit.BleachBit": "current/scalable/apps/cleaner.svg",
+    "whatsapp-linux-app": "current/scalable/apps/whatsapp.png",
+    "whatsapp-linux-app_whatsapp-linux-app": "current/scalable/apps/whatsapp.png",
     "nvidia-settings": "current/scalable/apps/nvidia.svg",
     "io.github.dvlv.boxbuddyrs": "current/scalable/apps/io.github.dvlv.boxbuddyrs.svg",
     "io.elementary.appcenter": "current/scalable/apps/pop-shop.svg",
@@ -269,6 +267,61 @@ APPS_DESCARTADOS = {
     "data-toolkit",  # /home/andrefarias/Desenvolvimento/Python-Data-Toolkit/ removido
 }
 
+# Aliases humanos por app — o build.sh gera esses nomes adicionais no tema
+# instalado. Permite .desktop usarem Icon=whatsapp em vez de
+# Icon=com.rtosta.zapzap. Todos apontam para a mesma fonte do app.
+ALIASES_HUMANOS: dict[str, list[str]] = {
+    "com.rtosta.zapzap": ["whatsapp", "zapzap"],
+    "whatsapp-linux-app_whatsapp-linux-app": ["whatsapp-linux-app"],
+    "com.discordapp.Discord": ["discord"],
+    "com.github.rafostar.Clapper": ["clapper"],
+    "com.github.tchx84.Flatseal": ["flatseal"],
+    "com.microsoft.Edge": ["edge", "microsoft-edge"],
+    "com.mattjakeman.ExtensionManager": ["extension-manager"],
+    "com.obsproject.Studio": ["obs", "obs-studio"],
+    "com.opera.Opera": ["opera"],
+    "com.spotify.Client": ["spotify"],
+    "com.google.Chrome": ["chrome"],
+    "io.elementary.appcenter": ["pop-shop", "appcenter"],
+    "io.github.dvlv.boxbuddyrs": ["boxbuddy"],
+    "io.github.electronstudio.WeylusCommunityEdition": ["weylus"],
+    "io.github.flattool.Warehouse": ["warehouse"],
+    "io.github.vikdevelop.SaveDesktop": ["save-desktop", "savedesktop"],
+    "io.gitlab.theevilskeleton.Upscaler": ["upscaler"],
+    "md.obsidian.Obsidian": ["obsidian"],
+    "net.waterfox.waterfox": ["waterfox"],
+    "org.bleachbit.BleachBit": ["bleachbit"],
+    "org.gimp.GIMP": ["gimp"],
+    "org.gnome.Calendar": ["calendar", "gnome-calendar"],
+    "org.gnome.Extensions": ["extensions", "gnome-extensions"],
+    "org.gnome.gedit": ["gedit", "text-editor"],
+    "org.gnome.Nautilus": ["nautilus", "files"],
+    "org.gnome.Terminal": ["gnome-terminal"],
+    "org.gnome.gitlab.somas.Apostrophe": ["apostrophe", "ghostwriter"],
+    "org.gnome.tweaks": ["tweaks", "gnome-tweaks"],
+    "org.gnome.seahorse.Application": ["seahorse", "passwords-and-keys"],
+    "org.kde.krita": ["krita"],
+    "org.mozilla.Thunderbird": ["thunderbird"],
+    "org.onlyoffice.desktopeditors": ["onlyoffice"],
+    "org.qbittorrent.qBittorrent": ["qbittorrent"],
+    "org.telegram.desktop": ["telegram"],
+    "be.alexandervanhee.gradia": ["gradia"],
+    "com.jwestall.Forecast": ["forecast"],
+    "com.freerdp.FreeRDP": ["freerdp"],
+    "io.github.vikdevelop.SaveDesktop": ["save-desktop"],
+    "com.system76.Popsicle": ["popsicle"],
+    "best.ellie.StartupConfiguration": ["startup-configuration"],
+    "gnome-session-properties": ["session-properties"],
+    "org.gnome.gThumb": ["gthumb"],
+    "menulibre": ["menu-editor"],
+    "LinuxToys": ["linuxtoys"],
+    "foundryvtt": ["foundry-vtt"],
+    "gparted": ["gparted"],
+    "stacer": ["stacer"],
+    "ulauncher": ["ulauncher"],
+    "kitty": ["kitty"],
+}
+
 
 def main() -> None:
     mapeamento: dict[str, dict[str, Any]] = {}
@@ -328,6 +381,9 @@ def main() -> None:
                     entrada["aliases"].append(icon)
             if app_id in OVERRIDE_DESKTOPS:
                 entrada["override_desktop"] = OVERRIDE_DESKTOPS[app_id]
+            # Aliases humanos (o build gera esses nomes extras no tema instalado)
+            if app_id in ALIASES_HUMANOS:
+                entrada["aliases_humanos"] = ALIASES_HUMANOS[app_id]
             mapeamento[app_id] = entrada
             vistos_icones.setdefault(str(entrada["fonte"]), []).append(app_id)
 

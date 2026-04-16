@@ -3,6 +3,9 @@
     "aliases": [
       "LinuxToys"
     ],
+    "aliases_humanos": [
+      "linuxtoys"
+    ],
     "fonte": "new-sessao-atual/toolbox.svg",
     "icon_original": "linuxtoys",
     "name": "LinuxToys",
@@ -138,6 +141,9 @@
     "aliases": [
       "be.alexandervanhee.gradia"
     ],
+    "aliases_humanos": [
+      "gradia"
+    ],
     "fonte": "current/scalable/apps/gradia.png",
     "icon_original": "be.alexandervanhee.gradia",
     "name": "Gradia",
@@ -146,6 +152,9 @@
   "best.ellie.StartupConfiguration": {
     "aliases": [
       "best.ellie.StartupConfiguration"
+    ],
+    "aliases_humanos": [
+      "startup-configuration"
     ],
     "fonte": "new-sessao-atual/sun.svg",
     "icon_original": "best.ellie.StartupConfiguration",
@@ -184,6 +193,9 @@
     "aliases": [
       "com.discordapp.Discord"
     ],
+    "aliases_humanos": [
+      "discord"
+    ],
     "fonte": "current/scalable/apps/discord.png",
     "icon_original": "com.discordapp.Discord",
     "name": "Discord",
@@ -192,6 +204,9 @@
   "com.freerdp.FreeRDP": {
     "aliases": [
       "com.freerdp.FreeRDP"
+    ],
+    "aliases_humanos": [
+      "freerdp"
     ],
     "fonte": "new-sessao-atual/gate.svg",
     "icon_original": "com.freerdp.FreeRDP",
@@ -211,7 +226,10 @@
     "aliases": [
       "com.github.rafostar.Clapper"
     ],
-    "fonte": "current/scalable/apps/Clapper.png",
+    "aliases_humanos": [
+      "clapper"
+    ],
+    "fonte": "current/scalable/apps/clapper.png",
     "icon_original": "com.github.rafostar.Clapper",
     "name": "Clapper",
     "origem": "alias-heuristico"
@@ -219,6 +237,9 @@
   "com.github.tchx84.Flatseal": {
     "aliases": [
       "com.github.tchx84.Flatseal"
+    ],
+    "aliases_humanos": [
+      "flatseal"
     ],
     "fonte": "new-sessao-atual/chest.svg",
     "icon_original": "com.github.tchx84.Flatseal",
@@ -229,7 +250,10 @@
     "aliases": [
       "com.google.Chrome"
     ],
-    "fonte": "current/scalable/apps/chrome2.svg",
+    "aliases_humanos": [
+      "chrome"
+    ],
+    "fonte": "current/scalable/apps/google-chrome.svg",
     "icon_original": "com.google.Chrome",
     "name": "Google Chrome",
     "origem": "alias-heuristico"
@@ -237,6 +261,9 @@
   "com.jwestall.Forecast": {
     "aliases": [
       "com.jwestall.Forecast"
+    ],
+    "aliases_humanos": [
+      "forecast"
     ],
     "fonte": "new-sessao-atual/full-moon.svg",
     "icon_original": "com.jwestall.Forecast",
@@ -247,6 +274,9 @@
     "aliases": [
       "com.mattjakeman.ExtensionManager"
     ],
+    "aliases_humanos": [
+      "extension-manager"
+    ],
     "fonte": "new-sessao-atual/toolbox.svg",
     "icon_original": "com.mattjakeman.ExtensionManager",
     "name": "Extension Manager",
@@ -255,6 +285,10 @@
   "com.microsoft.Edge": {
     "aliases": [
       "com.microsoft.Edge"
+    ],
+    "aliases_humanos": [
+      "edge",
+      "microsoft-edge"
     ],
     "fonte": "current/scalable/apps/edge.png",
     "icon_original": "com.microsoft.Edge",
@@ -265,6 +299,10 @@
     "aliases": [
       "com.obsproject.Studio"
     ],
+    "aliases_humanos": [
+      "obs",
+      "obs-studio"
+    ],
     "fonte": "current/scalable/apps/Obs-Studio.png",
     "icon_original": "com.obsproject.Studio",
     "name": "OBS Studio",
@@ -273,6 +311,9 @@
   "com.opera.Opera": {
     "aliases": [
       "com.opera.Opera"
+    ],
+    "aliases_humanos": [
+      "opera"
     ],
     "fonte": "current/scalable/apps/opera.png",
     "icon_original": "com.opera.Opera",
@@ -283,7 +324,11 @@
     "aliases": [
       "com.rtosta.zapzap"
     ],
-    "fonte": "current/scalable/apps/Whatsapp.png",
+    "aliases_humanos": [
+      "whatsapp",
+      "zapzap"
+    ],
+    "fonte": "current/scalable/apps/whatsapp.png",
     "icon_original": "com.rtosta.zapzap",
     "name": "ZapZap",
     "origem": "alias-heuristico",
@@ -297,6 +342,9 @@
     "aliases": [
       "com.spotify.Client"
     ],
+    "aliases_humanos": [
+      "spotify"
+    ],
     "fonte": "current/scalable/apps/spotify.png",
     "icon_original": "com.spotify.Client",
     "name": "Spotify",
@@ -305,6 +353,9 @@
   "com.system76.Popsicle": {
     "aliases": [
       "com.system76.Popsicle"
+    ],
+    "aliases_humanos": [
+      "popsicle"
     ],
     "fonte": "new-sessao-atual/lollipop.svg",
     "icon_original": "com.system76.Popsicle",
@@ -380,6 +431,9 @@
   "foundryvtt": {
     "aliases": [
       "foundryvtt"
+    ],
+    "aliases_humanos": [
+      "foundry-vtt"
     ],
     "fonte": "new-sessao-atual/dice.svg",
     "icon_original": "foundryvtt",
@@ -730,6 +784,9 @@
     "aliases": [
       "gnome-session-properties"
     ],
+    "aliases_humanos": [
+      "session-properties"
+    ],
     "fonte": "new-sessao-atual/sun.svg",
     "icon_original": "session-properties",
     "name": "Aplicativos iniciais de sessão",
@@ -877,13 +934,16 @@
     "aliases": [
       "google-chrome"
     ],
-    "fonte": "current/scalable/apps/chrome2.svg",
+    "fonte": "current/scalable/apps/google-chrome.svg",
     "icon_original": "google-chrome",
     "name": "Google Chrome",
     "origem": "alias-heuristico"
   },
   "gparted": {
     "aliases": [
+      "gparted"
+    ],
+    "aliases_humanos": [
       "gparted"
     ],
     "fonte": "new-sessao-atual/saw.svg",
@@ -979,6 +1039,10 @@
     "aliases": [
       "io.elementary.appcenter"
     ],
+    "aliases_humanos": [
+      "pop-shop",
+      "appcenter"
+    ],
     "fonte": "new-sessao-atual/bag.svg",
     "icon_original": "io.elementary.appcenter",
     "name": "Pop!_Shop",
@@ -998,6 +1062,9 @@
     "aliases": [
       "io.github.dvlv.boxbuddyrs"
     ],
+    "aliases_humanos": [
+      "boxbuddy"
+    ],
     "fonte": "new-sessao-atual/chest-variant.svg",
     "icon_original": "io.github.dvlv.boxbuddyrs",
     "name": "BoxBuddy",
@@ -1006,6 +1073,9 @@
   "io.github.electronstudio.WeylusCommunityEdition": {
     "aliases": [
       "io.github.electronstudio.WeylusCommunityEdition"
+    ],
+    "aliases_humanos": [
+      "weylus"
     ],
     "fonte": "new-sessao-atual/wand.svg",
     "icon_original": "weylus",
@@ -1016,6 +1086,9 @@
     "aliases": [
       "io.github.flattool.Warehouse"
     ],
+    "aliases_humanos": [
+      "warehouse"
+    ],
     "fonte": "new-sessao-atual/building.svg",
     "icon_original": "io.github.flattool.Warehouse",
     "name": "Warehouse",
@@ -1025,6 +1098,9 @@
     "aliases": [
       "io.github.vikdevelop.SaveDesktop"
     ],
+    "aliases_humanos": [
+      "save-desktop"
+    ],
     "fonte": "new-sessao-atual/treasure-chest.svg",
     "icon_original": "io.github.vikdevelop.SaveDesktop",
     "name": "Save Desktop",
@@ -1033,6 +1109,9 @@
   "io.gitlab.theevilskeleton.Upscaler": {
     "aliases": [
       "io.gitlab.theevilskeleton.Upscaler"
+    ],
+    "aliases_humanos": [
+      "upscaler"
     ],
     "fonte": "new-sessao-atual/telescope.svg",
     "icon_original": "io.gitlab.theevilskeleton.Upscaler",
@@ -1050,6 +1129,9 @@
   },
   "kitty": {
     "aliases": [
+      "kitty"
+    ],
+    "aliases_humanos": [
       "kitty"
     ],
     "fonte": "new-sessao-atual/cat.svg",
@@ -1079,6 +1161,9 @@
     "aliases": [
       "md.obsidian.Obsidian"
     ],
+    "aliases_humanos": [
+      "obsidian"
+    ],
     "fonte": "current/scalable/apps/050-circle.svg",
     "icon_original": "md.obsidian.Obsidian",
     "name": "Obsidian",
@@ -1087,6 +1172,9 @@
   "menulibre": {
     "aliases": [
       "menulibre"
+    ],
+    "aliases_humanos": [
+      "menu-editor"
     ],
     "fonte": "new-sessao-atual/scroll.svg",
     "icon_original": "menulibre",
@@ -1106,6 +1194,9 @@
   "net.waterfox.waterfox": {
     "aliases": [
       "net.waterfox.waterfox"
+    ],
+    "aliases_humanos": [
+      "waterfox"
     ],
     "fonte": "current/scalable/apps/firefox.png",
     "icon_original": "net.waterfox.waterfox",
@@ -1182,6 +1273,9 @@
     "aliases": [
       "org.bleachbit.BleachBit"
     ],
+    "aliases_humanos": [
+      "bleachbit"
+    ],
     "fonte": "new-sessao-atual/broom.svg",
     "icon_original": "org.bleachbit.BleachBit",
     "name": "BleachBit",
@@ -1221,6 +1315,9 @@
     "aliases": [
       "org.gimp.GIMP"
     ],
+    "aliases_humanos": [
+      "gimp"
+    ],
     "fonte": "current/scalable/apps/gimp.png",
     "icon_original": "org.gimp.GIMP",
     "name": "GNU Image Manipulation Program",
@@ -1238,6 +1335,10 @@
   "org.gnome.Calendar": {
     "aliases": [
       "org.gnome.Calendar"
+    ],
+    "aliases_humanos": [
+      "calendar",
+      "gnome-calendar"
     ],
     "fonte": "current/scalable/apps/calendar.svg",
     "icon_original": "org.gnome.Calendar",
@@ -1295,7 +1396,11 @@
     "aliases": [
       "org.gnome.Extensions"
     ],
-    "fonte": "current/scalable/apps/gerenciadoor de extensões.png",
+    "aliases_humanos": [
+      "extensions",
+      "gnome-extensions"
+    ],
+    "fonte": "current/scalable/apps/gerenciador-de-extensoes.png",
     "icon_original": "org.gnome.Extensions",
     "name": "Extensões",
     "origem": "alias-heuristico"
@@ -1313,6 +1418,10 @@
   "org.gnome.Nautilus": {
     "aliases": [
       "org.gnome.Nautilus"
+    ],
+    "aliases_humanos": [
+      "nautilus",
+      "files"
     ],
     "fonte": "current/scalable/apps/gnome-folder.png",
     "icon_original": "org.gnome.Nautilus",
@@ -1350,6 +1459,9 @@
   "org.gnome.Terminal": {
     "aliases": [
       "org.gnome.Terminal"
+    ],
+    "aliases_humanos": [
+      "gnome-terminal"
     ],
     "fonte": "current/scalable/apps/terminal.svg",
     "icon_original": "org.gnome.Terminal",
@@ -1396,6 +1508,9 @@
     "aliases": [
       "org.gnome.gThumb"
     ],
+    "aliases_humanos": [
+      "gthumb"
+    ],
     "fonte": "new-sessao-atual/eye-ball.svg",
     "icon_original": "org.gnome.gThumb",
     "name": "gThumb",
@@ -1415,6 +1530,10 @@
     "aliases": [
       "org.gnome.gedit"
     ],
+    "aliases_humanos": [
+      "gedit",
+      "text-editor"
+    ],
     "fonte": "current/scalable/apps/com.system76.CosmicEdit.svg",
     "icon_original": "org.gnome.gedit",
     "name": "Editor de texto",
@@ -1424,7 +1543,11 @@
     "aliases": [
       "org.gnome.gitlab.somas.Apostrophe"
     ],
-    "fonte": "current/scalable/apps/ghostwritter.svg",
+    "aliases_humanos": [
+      "apostrophe",
+      "ghostwriter"
+    ],
+    "fonte": "current/scalable/apps/ghostwriter.svg",
     "icon_original": "org.gnome.gitlab.somas.Apostrophe",
     "name": "Apostrophe",
     "origem": "alias-heuristico"
@@ -1432,6 +1555,10 @@
   "org.gnome.seahorse.Application": {
     "aliases": [
       "org.gnome.seahorse.Application"
+    ],
+    "aliases_humanos": [
+      "seahorse",
+      "passwords-and-keys"
     ],
     "fonte": "new-sessao-atual/key.svg",
     "icon_original": "org.gnome.seahorse.Application",
@@ -1442,6 +1569,10 @@
     "aliases": [
       "org.gnome.tweaks"
     ],
+    "aliases_humanos": [
+      "tweaks",
+      "gnome-tweaks"
+    ],
     "fonte": "new-sessao-atual/laurel.svg",
     "icon_original": "org.gnome.tweaks",
     "name": "Tweaks",
@@ -1450,6 +1581,9 @@
   "org.kde.krita": {
     "aliases": [
       "org.kde.krita"
+    ],
+    "aliases_humanos": [
+      "krita"
     ],
     "fonte": "new-sessao-atual/magic-wand-variant.svg",
     "icon_original": "org.kde.krita",
@@ -1700,6 +1834,9 @@
     "aliases": [
       "org.mozilla.Thunderbird"
     ],
+    "aliases_humanos": [
+      "thunderbird"
+    ],
     "fonte": "current/scalable/apps/thunderbird.svg",
     "icon_original": "org.mozilla.Thunderbird",
     "name": "Thunderbird",
@@ -1708,6 +1845,9 @@
   "org.onlyoffice.desktopeditors": {
     "aliases": [
       "org.onlyoffice.desktopeditors"
+    ],
+    "aliases_humanos": [
+      "onlyoffice"
     ],
     "fonte": "new-sessao-atual/book.svg",
     "icon_original": "org.onlyoffice.desktopeditors",
@@ -1728,7 +1868,10 @@
     "aliases": [
       "org.qbittorrent.qBittorrent"
     ],
-    "fonte": "current/scalable/apps/qbtorrent.svg",
+    "aliases_humanos": [
+      "qbittorrent"
+    ],
+    "fonte": "current/scalable/apps/qbittorrent.svg",
     "icon_original": "org.qbittorrent.qBittorrent",
     "name": "qBittorrent",
     "origem": "alias-heuristico"
@@ -1736,6 +1879,9 @@
   "org.telegram.desktop": {
     "aliases": [
       "org.telegram.desktop"
+    ],
+    "aliases_humanos": [
+      "telegram"
     ],
     "fonte": "current/scalable/apps/telegram.svg",
     "icon_original": "org.telegram.desktop",
@@ -1847,6 +1993,9 @@
     "aliases": [
       "stacer"
     ],
+    "aliases_humanos": [
+      "stacer"
+    ],
     "fonte": "current/scalable/apps/stacer.svg",
     "icon_original": "stacer",
     "name": "Stacer",
@@ -1875,6 +2024,9 @@
     "aliases": [
       "ulauncher"
     ],
+    "aliases_humanos": [
+      "ulauncher"
+    ],
     "fonte": "new-sessao-atual/magician-hat.svg",
     "icon_original": "ulauncher",
     "name": "Ulauncher",
@@ -1894,7 +2046,10 @@
       "whatsapp-linux-app_whatsapp-linux-app",
       "whatsapp-linux-app"
     ],
-    "fonte": "current/scalable/apps/Whatsapp.png",
+    "aliases_humanos": [
+      "whatsapp-linux-app"
+    ],
+    "fonte": "current/scalable/apps/whatsapp.png",
     "icon_original": "whatsapp-linux-app",
     "name": "WhatsApp",
     "origem": "alias-heuristico"

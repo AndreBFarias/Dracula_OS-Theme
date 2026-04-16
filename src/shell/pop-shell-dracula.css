@@ -42,6 +42,25 @@
     background-color: rgba(40, 42, 54, 0.40) !important;
 }
 
+/* Container principal do Pop!_Shell Launcher — `.pop-shell-search` + `.modal-dialog`
+ * O ModalDialog base tem background rgba(29,31,39,0.95) (quase opaco) no tema.
+ * Aqui sobrescrevemos especificamente para o launcher com alpha 0.55 + borda roxa.
+ */
+.pop-shell-search,
+.pop-shell-search.modal-dialog {
+    background-color: rgba(40, 42, 54, 0.55) !important;
+    border: 1px solid #bd93f9 !important;
+    border-radius: 16px !important;
+}
+
+/* Entry de texto ("Type to search") mais translúcida */
+.pop-shell-entry {
+    background-color: rgba(68, 71, 90, 0.50) !important;
+    color: #f8f8f2 !important;
+    border: 1px solid rgba(189, 147, 249, 0.4) !important;
+    border-radius: 10px !important;
+}
+
 /* Elemento selecionado na busca — fundo purple translúcido ao invés de branco */
 .pop-shell-search-element:selected,
 .pop-shell-search-element:select {

@@ -111,7 +111,8 @@ gerar_tema_icones() {
 
     # Desativa set -e dentro do loop para não abortar em uma falha isolada
     set +e
-    while IFS=$'\t' read -r app_id fonte; do
+    # Processa cada app: lemos app_id, fonte e aliases_humanos (separados por ',')
+    while IFS=$'\t' read -r app_id fonte aliases_humanos; do
         # Pular linhas vazias ou "null"
         if [[ -z "$app_id" || "$fonte" == "null" || "$fonte" == "None" ]]; then
             ignorados=$((ignorados + 1))
@@ -132,37 +133,46 @@ gerar_tema_icones() {
         fi
 
         local ext="${src_path##*.}"
-        local nome_alvo="$app_id"
+        # Lista de nomes-alvo: app_id + aliases_humanos (virgula-separado)
+        local -a alvos=("$app_id")
+        if [[ -n "$aliases_humanos" && "$aliases_humanos" != "null" ]]; then
+            IFS=',' read -ra extras <<< "$aliases_humanos"
+            for extra in "${extras[@]}"; do
+                [[ -n "$extra" ]] && alvos+=("$extra")
+            done
+        fi
 
-        case "$ext" in
-            svg|SVG)
-                cp "$src_path" "$destino/scalable/apps/$nome_alvo.svg"
-                for size in "${TAMANHOS[@]}"; do
-                    if ! converter_svg "$src_path" "$destino/${size}x${size}/apps/$nome_alvo.png" "$size"; then
-                        falhas=$((falhas + 1))
-                    fi
-                done
-                ;;
-            png|PNG)
-                for size in "${TAMANHOS[@]}"; do
-                    if ! redimensionar_png "$src_path" "$destino/${size}x${size}/apps/$nome_alvo.png" "$size"; then
-                        falhas=$((falhas + 1))
-                    fi
-                done
-                cp "$src_path" "$destino/scalable/apps/$nome_alvo.png"
-                ;;
-            jpg|jpeg|JPG|JPEG)
-                for size in "${TAMANHOS[@]}"; do
-                    redimensionar_png "$src_path" "$destino/${size}x${size}/apps/$nome_alvo.png" "$size" || falhas=$((falhas + 1))
-                done
-                ;;
-            *)
-                ignorados=$((ignorados + 1))
-                continue
-                ;;
-        esac
+        for nome_alvo in "${alvos[@]}"; do
+            case "$ext" in
+                svg|SVG)
+                    cp "$src_path" "$destino/scalable/apps/$nome_alvo.svg"
+                    for size in "${TAMANHOS[@]}"; do
+                        if ! converter_svg "$src_path" "$destino/${size}x${size}/apps/$nome_alvo.png" "$size"; then
+                            falhas=$((falhas + 1))
+                        fi
+                    done
+                    ;;
+                png|PNG)
+                    for size in "${TAMANHOS[@]}"; do
+                        if ! redimensionar_png "$src_path" "$destino/${size}x${size}/apps/$nome_alvo.png" "$size"; then
+                            falhas=$((falhas + 1))
+                        fi
+                    done
+                    cp "$src_path" "$destino/scalable/apps/$nome_alvo.png"
+                    ;;
+                jpg|jpeg|JPG|JPEG)
+                    for size in "${TAMANHOS[@]}"; do
+                        redimensionar_png "$src_path" "$destino/${size}x${size}/apps/$nome_alvo.png" "$size" || falhas=$((falhas + 1))
+                    done
+                    ;;
+                *)
+                    ignorados=$((ignorados + 1))
+                    continue 2
+                    ;;
+            esac
+        done
         processados=$((processados + 1))
-    done < <(jq -r 'to_entries[] | "\(.key)\t\(.value.fonte)"' "$MAPPING")
+    done < <(jq -r 'to_entries[] | "\(.key)\t\(.value.fonte)\t\(if .value.aliases_humanos then (.value.aliases_humanos | join(",")) else "" end)"' "$MAPPING")
     set -e
 
     _ok "Tema gerado: $processados apps processados, $ignorados ignorados, $falhas falhas de conversao"
