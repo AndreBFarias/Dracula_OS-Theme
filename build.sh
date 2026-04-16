@@ -178,25 +178,77 @@ gerar_tema_icones() {
     _ok "Tema gerado: $processados apps processados, $ignorados ignorados, $falhas falhas de conversao"
 }
 
+# ─── Fase C2: Gerar mimetypes custom ───
+# Mapeamento: mimetype → SVG-fonte em src/icons/new-sessao-atual/
+# Cada mimetype pode ter multiplos nomes (aliases XDG).
+gerar_mimetypes() {
+    _info "Gerando mimetypes custom"
+    local destino="$DIST/icons/$TEMA_ICONES"
+    mkdir -p "$destino/scalable/mimetypes"
+    for size in "${TAMANHOS[@]}"; do
+        mkdir -p "$destino/${size}x${size}/mimetypes"
+    done
+
+    # formato: "svg-fonte|nome1,nome2,nome3,..."
+    local -a MIMETYPES=(
+        "spellbook.svg|text-markdown,text-x-markdown,text-md,application-x-markdown,text-plain+markdown"
+        "spell.svg|application-x-shellscript,shellscript,text-x-script,gnome-mime-application-x-shellscript,application-x-sh,text-x-sh"
+        "gate.svg|application-x-desktop,gnome-mime-application-x-desktop"
+        "mobile-game.svg|video-mp4,video-x-mp4,application-mp4"
+    )
+
+    local total=0
+    for entry in "${MIMETYPES[@]}"; do
+        local svg_fonte="${entry%%|*}"
+        local nomes_csv="${entry#*|}"
+        local src="$SRC/icons/new-sessao-atual/$svg_fonte"
+        if [[ ! -f "$src" ]]; then
+            _warn "mimetype: fonte nao existe: $svg_fonte"
+            continue
+        fi
+        IFS=',' read -ra nomes <<< "$nomes_csv"
+        for nome in "${nomes[@]}"; do
+            cp "$src" "$destino/scalable/mimetypes/${nome}.svg"
+            for size in "${TAMANHOS[@]}"; do
+                converter_svg "$src" "$destino/${size}x${size}/mimetypes/${nome}.png" "$size" 2>/dev/null || true
+            done
+            total=$((total + 1))
+        done
+    done
+    _ok "mimetypes gerados: $total nomes"
+}
+
 # ─── Fase D: Gerar index.theme ───
 gerar_index_theme() {
     _info "Gerando index.theme"
     local destino="$DIST/icons/$TEMA_ICONES"
-    local dirs=("scalable/apps")
+    local dirs=("scalable/apps" "scalable/mimetypes")
     local blocos="[scalable/apps]
 Size=48
 Type=Scalable
 MinSize=8
 MaxSize=512
 Context=Applications
+
+[scalable/mimetypes]
+Size=48
+Type=Scalable
+MinSize=8
+MaxSize=512
+Context=MimeTypes
 "
     for size in "${TAMANHOS[@]}"; do
-        dirs+=("${size}x${size}/apps")
+        dirs+=("${size}x${size}/apps" "${size}x${size}/mimetypes")
         blocos+="
 [${size}x${size}/apps]
 Size=${size}
 Type=Fixed
 Context=Applications
+
+[${size}x${size}/mimetypes]
+Size=${size}
+Type=Fixed
+Context=MimeTypes
 "
     done
 
@@ -320,6 +372,7 @@ main() {
     limpar_dist
     copiar_upstreams
     gerar_tema_icones
+    gerar_mimetypes
     gerar_index_theme
     copiar_cursor_gtk_shell
     preparar_extras
