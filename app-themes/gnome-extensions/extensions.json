@@ -1,0 +1,94 @@
+{
+  "comentario": "Manifesto das extensões GNOME Shell do usuário. 'dconf' aponta para o arquivo em dconf/ (omitir se não houver config). 'repo' é o URL git público para fallback quando a extensão não está no EGO. 'ego_uuid' permite instalação via gnome-extensions install <uuid>.",
+  "extensions": [
+    {
+      "uuid": "big-avatar@gustavoperedo.org",
+      "name": "Big Avatar",
+      "version": 16,
+      "repo": "https://github.com/GustavoPeredo/Big-Avatar-Gnome-Shell-Extension",
+      "dconf": "big-avatar.dconf"
+    },
+    {
+      "uuid": "bluetooth-quick-connect@bjarosze.gmail.com",
+      "name": "Bluetooth Quick Connect",
+      "version": 34,
+      "repo": "https://github.com/bjarosze/gnome-bluetooth-quick-connect"
+    },
+    {
+      "uuid": "color-picker@tuberry",
+      "name": "Color Picker",
+      "version": 30,
+      "repo": "https://github.com/tuberry/color-picker",
+      "dconf": "color-picker.dconf"
+    },
+    {
+      "uuid": "dash-to-dock-cosmic-@halfmexicanhalfamazing@gmail.com",
+      "name": "Dash to Dock for COSMIC",
+      "version": 23,
+      "repo": "https://github.com/halfmexican/dash-to-dock-pop",
+      "repo_branch": "ubuntu-dock",
+      "dconf": "dash-to-dock-pop.dconf"
+    },
+    {
+      "uuid": "drive-menu@gnome-shell-extensions.gcampax.github.com",
+      "name": "Removable Drive Menu",
+      "version": 51,
+      "repo": "https://gitlab.gnome.org/GNOME/gnome-shell-extensions",
+      "repo_subdir": "extensions/drive-menu"
+    },
+    {
+      "uuid": "impatience@gfxmonk.net",
+      "name": "Impatience",
+      "version": 22,
+      "repo": "http://gfxmonk.net/dist/0install/gnome-shell-impatience.xml",
+      "dconf": "net.dconf"
+    },
+    {
+      "uuid": "killapp@adam.gadmz",
+      "name": "Kill App",
+      "version": 5,
+      "repo": "https://github.com/duonggiakhanhb/Killapp_GNOME_Extension"
+    },
+    {
+      "uuid": "pano@elhan.io",
+      "name": "Pano - Clipboard Manager",
+      "version": 19,
+      "repo": "https://github.com/oae/gnome-shell-pano",
+      "dconf": "pano.dconf"
+    },
+    {
+      "uuid": "sound-output-device-chooser@kgshank.net",
+      "name": "Sound Input & Output Device Chooser",
+      "version": 43,
+      "repo": "https://github.com/kgshank/gse-sound-output-device-chooser"
+    },
+    {
+      "uuid": "spotify-controller@koolskateguy89",
+      "name": "Spotify Controller",
+      "version": 17,
+      "repo": "https://github.com/koolskateguy89/gnome-shell-extension-spotify-controller",
+      "dconf": "spotify-controller.dconf"
+    },
+    {
+      "uuid": "sp-tray@sp-tray.esenliyim.github.com",
+      "name": "spotify-tray",
+      "version": 22,
+      "repo": "https://github.com/esenliyim/sp-tray",
+      "dconf": "sp-tray.dconf"
+    },
+    {
+      "uuid": "transparent-top-bar@zhanghai.me",
+      "name": "Transparent Top Bar",
+      "version": 16,
+      "repo": "https://github.com/zhanghai/gnome-shell-extension-transparent-top-bar"
+    },
+    {
+      "uuid": "user-theme@gnome-shell-extensions.gcampax.github.com",
+      "name": "User Themes",
+      "version": 49,
+      "repo": "https://gitlab.gnome.org/GNOME/gnome-shell-extensions",
+      "repo_subdir": "extensions/user-theme",
+      "dconf": "user-theme.dconf"
+    }
+  ]
+}

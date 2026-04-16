@@ -1,0 +1,10 @@
+[/]
+global-shortcut=['<Control><Alt>v']
+history-length=500
+play-audio-on-copy=false
+send-notification-on-copy=false
+sync-primary=true
+
+[text-item]
+body-bg-color='rgb(153,193,241)'
+header-bg-color='rgb(10,91,111)'

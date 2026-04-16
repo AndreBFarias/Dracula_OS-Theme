@@ -1,0 +1,19 @@
+[/]
+album-max-length=13
+artist-max-length=13
+display-format='{artist} | {track}'
+display-mode=0
+hidden-when-inactive=true
+hidden-when-paused=true
+hidden-when-stopped=true
+logo-position=2
+loop-playlist=''
+loop-track=''
+marquee-length=26
+metadata-when-paused=false
+off=''
+paused=''
+position=0
+shuffle=''
+stopped=''
+title-max-length=13
