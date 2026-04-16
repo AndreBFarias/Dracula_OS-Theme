@@ -1,0 +1,13 @@
+dist/
+*.cache
+icon-theme.cache
+*.pyc
+__pycache__/
+.venv/
+venv/
+*.log
+*.bak
+.DS_Store
+Thumbs.db
+backups/
+*_backup_*/
