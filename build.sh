@@ -236,16 +236,34 @@ copiar_cursor_gtk_shell() {
         _warn "Tema GTK não encontrado"
     fi
 
-    # Shell — sobrescrever gnome-shell.css custom se existir
+    # Shell — concatena CSS base (do tema existente) + overrides custom + auxiliares
+    local shell_dir="$DIST/themes/$TEMA_GTK/gnome-shell"
+    mkdir -p "$shell_dir"
+    local base_css="$shell_dir/gnome-shell.css"
+
+    if [[ -f "$SRC/shell/pop-shell-dracula.css" ]]; then
+        cp "$SRC/shell/pop-shell-dracula.css" "$shell_dir/pop-shell-dracula.css"
+        _ok "pop-shell-dracula.css copiado"
+    fi
+
     if [[ -f "$SRC/shell/gnome-shell.css" ]]; then
-        _info "Aplicando gnome-shell.css custom"
-        mkdir -p "$DIST/themes/$TEMA_GTK/gnome-shell"
-        cp "$SRC/shell/gnome-shell.css" "$DIST/themes/$TEMA_GTK/gnome-shell/gnome-shell.css"
+        # Se nosso gnome-shell.css é só @import, anexar ao final do base
+        if [[ -f "$base_css" ]]; then
+            _info "Anexando overrides custom ao gnome-shell.css do tema"
+            {
+                echo ""
+                echo "/* ==== Dracula_OS-Theme overrides ==== */"
+                cat "$SRC/shell/gnome-shell.css"
+            } >> "$base_css"
+        else
+            _info "Instalando gnome-shell.css a partir do src/"
+            cp "$SRC/shell/gnome-shell.css" "$base_css"
+        fi
     fi
 
     # Assets shell (imagens, logos)
     if [[ -d "$SRC/shell/assets" && $(ls -A "$SRC/shell/assets" 2>/dev/null | wc -l) -gt 0 ]]; then
-        cp -r "$SRC/shell/assets"/* "$DIST/themes/$TEMA_GTK/gnome-shell/" 2>/dev/null || true
+        cp -r "$SRC/shell/assets"/* "$shell_dir/" 2>/dev/null || true
     fi
 }
 

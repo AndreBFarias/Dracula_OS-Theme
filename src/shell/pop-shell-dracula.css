@@ -1,0 +1,104 @@
+/* ────────────────────────────────────────────────────────────
+ * Pop!_Shell Launcher — Overrides Dracula
+ * ────────────────────────────────────────────────────────────
+ * Sobrescreve o orange (#FBB86C) e cinza-rosado (#9B8E8A) do
+ * pop-shell dark.css pela paleta Dracula, e deixa o fundo do
+ * launcher com Dracula background escuro translúcido.
+ *
+ * Paleta Dracula oficial:
+ *   background  #282a36
+ *   current-line #44475a
+ *   foreground   #f8f8f2
+ *   comment      #6272a4
+ *   cyan         #8be9fd
+ *   green        #50fa7b
+ *   orange       #ffb86c   (também "laranja-marrom" original)
+ *   pink         #ff79c6
+ *   purple       #bd93f9
+ *   red          #ff5555
+ *   yellow       #f1fa8c
+ * ──────────────────────────────────────────────────────────── */
+
+/* Destaques de janela ativa: trocar laranja por purple Dracula */
+.pop-shell-active-hint {
+    border-color: #bd93f9 !important;
+}
+
+/* Abas do pop-shell */
+.pop-shell-tab-active {
+    background: #bd93f9 !important;
+    color: #282a36 !important;
+}
+.pop-shell-tab-inactive {
+    background: #44475a !important;
+    color: #f8f8f2 !important;
+}
+.pop-shell-tab-urgent {
+    background: #ff5555 !important;
+}
+
+/* Overlay do launcher — fundo Dracula escuro translúcido */
+.pop-shell-overlay {
+    background-color: rgba(40, 42, 54, 0.40) !important;
+}
+
+/* Elemento selecionado na busca — fundo purple translúcido ao invés de branco */
+.pop-shell-search-element:select {
+    background: rgba(189, 147, 249, 0.25) !important;
+    color: #f8f8f2 !important;
+    border-radius: 8px;
+}
+
+.pop-shell-search-element {
+    color: #f8f8f2;
+}
+
+.pop-shell-search-icon,
+.pop-shell-search-cat {
+    color: #bd93f9 !important;
+}
+
+/* ────────────────────────────────────────────────────────────
+ * Overview / App Grid — fundo Dracula translúcido
+ * (vale para GNOME activities caso o user ative)
+ * ──────────────────────────────────────────────────────────── */
+
+#overview {
+    background-color: rgba(40, 42, 54, 0.85);
+}
+
+.search-section .search-section-content {
+    background-color: rgba(68, 71, 90, 0.70);
+}
+
+.search-entry {
+    background-color: rgba(40, 42, 54, 0.90);
+    color: #f8f8f2;
+    border: 1px solid #44475a;
+}
+.search-entry:focus {
+    border-color: #bd93f9;
+}
+
+.search-provider-icon:selected,
+.search-provider-icon:focus,
+.search-provider-icon:hover {
+    background-color: rgba(189, 147, 249, 0.25);
+}
+
+/* App grid items selecionados */
+.app-well-app:selected .overview-icon,
+.app-well-app:focus .overview-icon,
+.app-well-app:hover .overview-icon,
+.grid-search-result:selected,
+.grid-search-result:focus,
+.grid-search-result:hover {
+    background-color: rgba(189, 147, 249, 0.20);
+    border-radius: 12px;
+}
+
+/* Dash (barra inferior da overview) — fundo Dracula */
+#dash {
+    background-color: rgba(40, 42, 54, 0.80);
+    border-radius: 16px;
+}

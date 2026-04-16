@@ -1,0 +1,21 @@
+[:b1dcc9dd-5262-4d8d-a863-c897e6d979b9]
+audible-bell=true
+background-color='rgb(42,44,57)'
+background-transparency-percent=0
+bold-color='rgb(230,255,238)'
+bold-color-same-as-fg=false
+bold-is-bright=false
+cursor-colors-set=true
+cursor-foreground-color='rgb(92,143,110)'
+default-size-columns=84
+default-size-rows=20
+font='Fira Mono 12'
+foreground-color='rgb(146,181,156)'
+highlight-background-color='rgb(115,196,143)'
+highlight-colors-set=true
+highlight-foreground-color='rgb(137,60,60)'
+login-shell=false
+palette=['rgb(57,118,107)', 'rgb(211,65,65)', 'rgb(177,164,175)', 'rgb(196,160,0)', 'rgb(222,213,229)', 'rgb(117,80,123)', 'rgb(200,172,247)', 'rgb(44,128,72)', 'rgb(255,174,133)', 'rgb(241,93,34)', 'rgb(219,230,223)', 'rgb(255,206,81)', 'rgb(72,185,199)', 'rgb(173,127,168)', 'rgb(52,226,226)', 'rgb(216,239,213)']
+use-theme-transparency=false
+use-transparent-background=true
+visible-name='Dracula'
