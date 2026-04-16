@@ -12,9 +12,12 @@
 set -euo pipefail
 
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-FONTE="$REPO_ROOT/src/shell/pop-shell-dark.css"
-DESTINO="/usr/share/gnome-shell/extensions/pop-shell@system76.com/dark.css"
-BACKUP="${DESTINO}.orig"
+
+# Lista de CSS a substituir: "fonte|destino"
+declare -a ALVOS=(
+    "$REPO_ROOT/src/shell/pop-shell-dark.css|/usr/share/gnome-shell/extensions/pop-shell@system76.com/dark.css"
+    "$REPO_ROOT/src/shell/pop-cosmic-dark.css|/usr/share/gnome-shell/extensions/pop-cosmic@system76.com/dark.css"
+)
 
 C_CYAN='\033[0;36m'
 C_GREEN='\033[0;32m'
@@ -31,33 +34,51 @@ if [[ $EUID -ne 0 ]]; then
     _err "Requer sudo: sudo $0 $*"
 fi
 
-if [[ ! -d "$(dirname "$DESTINO")" ]]; then
-    _warn "Pop!_Shell extension nao encontrada em $(dirname "$DESTINO") — pulando"
-    exit 0
-fi
+processar_um() {
+    local fonte="$1" destino="$2" modo="$3"
+    local backup="${destino}.orig"
+    local nome="$(basename "$(dirname "$destino")")"
+
+    if [[ ! -d "$(dirname "$destino")" ]]; then
+        _warn "$nome: extensao nao encontrada — pulando"
+        return 0
+    fi
+
+    case "$modo" in
+        revert)
+            if [[ ! -f "$backup" ]]; then
+                _warn "$nome: backup $backup nao encontrado — pulando"
+                return 0
+            fi
+            cp "$backup" "$destino"
+            _ok "$nome: dark.css original restaurado"
+            ;;
+        install)
+            if [[ ! -f "$fonte" ]]; then
+                _warn "$nome: fonte $fonte nao encontrada — pulando"
+                return 0
+            fi
+            if [[ ! -f "$backup" ]]; then
+                cp "$destino" "$backup"
+                _ok "$nome: backup criado em $backup"
+            fi
+            cp "$fonte" "$destino"
+            _ok "$nome: dark.css substituido"
+            ;;
+    esac
+}
 
 case "${1:-install}" in
-    --revert|revert)
-        if [[ ! -f "$BACKUP" ]]; then
-            _err "Backup $BACKUP nao encontrado — nada a restaurar"
-        fi
-        cp "$BACKUP" "$DESTINO"
-        _ok "dark.css original restaurado de $BACKUP"
-        ;;
-    install|*)
-        if [[ ! -f "$FONTE" ]]; then
-            _err "Fonte $FONTE nao encontrada"
-        fi
-        # Backup so na primeira execucao (preserva original real)
-        if [[ ! -f "$BACKUP" ]]; then
-            cp "$DESTINO" "$BACKUP"
-            _ok "Backup criado em $BACKUP"
-        else
-            _info "Backup ja existe em $BACKUP (preservando)"
-        fi
-        cp "$FONTE" "$DESTINO"
-        _ok "Pop!_Shell dark.css substituido (recarregue o shell: Alt+F2 r em X11)"
-        ;;
+    --revert|revert) MODO="revert" ;;
+    install|*)       MODO="install" ;;
 esac
+
+for alvo in "${ALVOS[@]}"; do
+    fonte="${alvo%%|*}"
+    destino="${alvo#*|}"
+    processar_um "$fonte" "$destino" "$MODO"
+done
+
+_info "Recarregue a sessao/shell (Alt+F2 r em X11 ou logout em Wayland) para aplicar"
 
 # "Suaviter in modo, fortiter in re." -- suave na forma, firme no fundo.

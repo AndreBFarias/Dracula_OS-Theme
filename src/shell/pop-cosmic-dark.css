@@ -1,0 +1,65 @@
+/* Dracula_OS-Theme — substitui /usr/share/gnome-shell/extensions/pop-cosmic@system76.com/dark.css
+ *
+ * Este CSS e o que controla o launcher "Applications" do Pop!_OS. O valor
+ * padrao era background-color: #36322f (marrom escuro). Trocado para Dracula
+ * background translucido com acentos purple.
+ */
+
+.cosmic-applications-dialog {
+    background-color: rgba(40, 42, 54, 0.70);
+    box-shadow: 0 4px 8px 2px rgba(0, 0, 0, 0.25);
+    border: 1px solid #bd93f9;
+    border-radius: 16px;
+}
+
+.cosmic-applications-icon {
+    color: #f8f8f2;
+}
+
+.cosmic-applications-folder-title {
+    color: #f8f8f2;
+}
+
+.cosmic-applications-available {
+    color: #bd93f9;
+}
+
+.cosmic-folder-edit-button {
+    background: #44475a;
+    color: #f8f8f2;
+    border: 1px solid rgba(189, 147, 249, 0.4);
+    border-radius: 8px;
+}
+
+.cosmic-folder-edit-button:hover {
+    background: rgba(189, 147, 249, 0.25);
+    color: #f8f8f2;
+}
+
+/* Entry de busca "Type to search" */
+.cosmic-applications-search,
+.cosmic-applications-search-entry {
+    background-color: rgba(68, 71, 90, 0.50);
+    color: #f8f8f2;
+    border: 1px solid rgba(189, 147, 249, 0.4);
+    border-radius: 10px;
+    padding: 6px 12px;
+}
+
+/* Icones selecionados/hover no grid */
+.cosmic-applications-icon:hover,
+.cosmic-applications-icon:selected,
+.cosmic-applications-icon:focus {
+    background-color: rgba(189, 147, 249, 0.20);
+    border-radius: 12px;
+}
+
+/* Rodape do launcher (Library Home / Utilitarios / Create Folder) */
+.cosmic-applications-folder-name {
+    color: #f8f8f2;
+}
+.cosmic-applications-folder-name:selected {
+    background-color: rgba(189, 147, 249, 0.30);
+    border-radius: 8px;
+    color: #f8f8f2;
+}
