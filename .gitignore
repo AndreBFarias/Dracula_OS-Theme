@@ -14,3 +14,4 @@ backups/
 # Upstreams vendored localmente mas NAO commitados (baixados via scripts/baixar_upstreams.sh)
 # Evita repo gigante no GitHub e permite atualizacoes separadas.
 src/icons/upstream/
+releases/

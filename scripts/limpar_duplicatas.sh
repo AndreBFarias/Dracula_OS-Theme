@@ -95,8 +95,9 @@ main() {
     fi
 
     # Guarda: .desktop com paths absolutos ainda nao foram normalizados
+    # (|| true porque grep sem match retorna 1 e set -e + pipefail matariam)
     local abs_path_count
-    abs_path_count=$(grep -l "^Icon=/home/andrefarias/.icons/Dracula-Icones" "$HOME/.local/share/applications/"*.desktop 2>/dev/null | wc -l)
+    abs_path_count=$(grep -l "^Icon=/home/andrefarias/.icons/Dracula-Icones" "$HOME/.local/share/applications/"*.desktop 2>/dev/null | wc -l || true)
     if [[ $abs_path_count -gt 0 && $DRY_RUN -eq 0 ]]; then
         _warn "Existem $abs_path_count .desktop com Icon= absoluto apontando para ~/.icons/Dracula-Icones/"
         _warn "Rode ./scripts/normalizar_desktops.sh ANTES de limpar, senao esses apps ficam sem icone."
