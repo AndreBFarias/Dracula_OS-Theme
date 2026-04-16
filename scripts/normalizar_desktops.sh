@@ -1,0 +1,102 @@
+#!/usr/bin/env bash
+# normalizar_desktops.sh — reescreve .desktop que usam path absoluto em Icon=
+# para referências simples por nome (que o tema resolve).
+#
+# Uso: ./scripts/normalizar_desktops.sh [--dry-run]
+#
+# Segurança: cada .desktop alterado é copiado antes para
+# ~/.cache/dracula_os_backup_<timestamp>/desktops/
+
+set -euo pipefail
+
+REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+MAPPING="$REPO_ROOT/mapping.json"
+DRY_RUN=0
+BACKUP_DIR="$HOME/.cache/dracula_os_backup_$(date +%Y%m%d_%H%M%S)/desktops"
+
+for arg in "$@"; do
+    [[ "$arg" == "--dry-run" ]] && DRY_RUN=1
+done
+
+C_CYAN='\033[0;36m'
+C_GREEN='\033[0;32m'
+C_YELLOW='\033[0;33m'
+C_DIM='\033[2m'
+C_RESET='\033[0m'
+
+_info() { echo -e "  ${C_CYAN}>>${C_RESET} $*"; }
+_ok()   { echo -e "  ${C_GREEN}OK${C_RESET} $*"; }
+_warn() { echo -e "  ${C_YELLOW}!!${C_RESET} $*" >&2; }
+
+# Diretórios onde podemos editar .desktop (user-local)
+DIRS=(
+    "$HOME/.local/share/applications"
+    "$HOME/.local/share/flatpak/exports/share/applications"
+)
+
+processar_desktop() {
+    local f="$1"
+    # Lê Icon= atual
+    local icon_atual
+    icon_atual=$(grep -m1 "^Icon=" "$f" | cut -d= -f2- || true)
+    if [[ -z "$icon_atual" ]]; then
+        return 0
+    fi
+    # Só age se for path absoluto
+    if [[ "$icon_atual" != /* ]]; then
+        return 0
+    fi
+
+    # Pega nome-base sem extensão como novo Icon
+    local basename_icon
+    basename_icon=$(basename "$icon_atual")
+    local nome_novo="${basename_icon%.*}"
+
+    # Sanitizar: espaços e caracteres estranhos → nome do .desktop
+    local app_id
+    app_id=$(basename "$f" .desktop)
+
+    # Se o nome-novo tem espaços, acentos ou "|", usa o app_id
+    if [[ "$nome_novo" =~ [\ \|] ]] || [[ -z "$nome_novo" ]]; then
+        nome_novo="$app_id"
+    fi
+
+    _info "$app_id: Icon='$icon_atual' → Icon='$nome_novo'"
+
+    if [[ $DRY_RUN -eq 1 ]]; then
+        return 0
+    fi
+
+    # Backup
+    mkdir -p "$BACKUP_DIR"
+    cp "$f" "$BACKUP_DIR/$(basename "$f")"
+
+    # Reescrever in-place
+    sed -i "s|^Icon=$(printf '%s' "$icon_atual" | sed 's/[.[\*^$()+?{|\\/]/\\&/g')|Icon=$nome_novo|" "$f" || _warn "sed falhou em $f"
+}
+
+main() {
+    echo -e "${C_DIM}Dracula_OS-Theme — normalizar .desktop${C_RESET}"
+    [[ $DRY_RUN -eq 1 ]] && echo -e "${C_YELLOW}[DRY RUN] nada será modificado${C_RESET}"
+    echo -e "${C_DIM}Backup em: $BACKUP_DIR${C_RESET}"
+    echo ""
+
+    local total=0
+    for d in "${DIRS[@]}"; do
+        [[ ! -d "$d" ]] && continue
+        for f in "$d"/*.desktop; do
+            [[ ! -f "$f" ]] && continue
+            # Flatpak exports são symlinks read-only
+            if [[ -L "$f" ]]; then
+                continue
+            fi
+            processar_desktop "$f" && total=$((total + 1)) || true
+        done
+    done
+
+    _ok "Processados $total .desktop files"
+}
+
+main "$@"
+
+# "In simplicitate veritas." -- a verdade está na simplicidade.
