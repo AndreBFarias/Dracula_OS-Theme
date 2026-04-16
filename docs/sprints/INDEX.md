@@ -7,7 +7,7 @@ vira commit/PR atômico e tem sua entrada referenciada no `CHANGELOG.md`.
 | #  | Título                                   | Status        | Data       |
 |----|------------------------------------------|---------------|------------|
 | 01 | [Pós-upgrade do sistema](SPRINT_01_POS_UPGRADE.md)      | Concluída     | 2026-04-16 |
-| 02 | [Transparência do launcher Pop!_Cosmic](SPRINT_02_TRANSPARENCIA.md)   | Em investigação (H4 pendente) | 2026-04-16 |
+| 02 | [Transparência do launcher Pop!_Cosmic](SPRINT_02_TRANSPARENCIA.md)   | Concluída (alpha 0.45) | 2026-04-16 |
 | 03 | [Tema de som Pop!_OS](SPRINT_03_POP_SOUNDS.md)   | Concluída     | 2026-04-16 |
 | 04 | [Atalhos de teclado + som do PrintScreen](SPRINT_04_ATALHOS.md) | Concluída | 2026-04-16 |
 | 05 | [Extensões GNOME Shell](SPRINT_05_GNOME_EXTENSIONS.md) | Concluída | 2026-04-16 |

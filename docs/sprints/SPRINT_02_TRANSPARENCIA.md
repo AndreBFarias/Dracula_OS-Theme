@@ -1,6 +1,37 @@
-# Sprint isolada — Transparência do Pop!_OS Launcher
+# Sprint 02 — Transparência do Pop!_OS Launcher
 
-Investigação em andamento sobre por que o launcher "Applications" do Pop!_OS (`.cosmic-applications-dialog`) continua opaco apesar de substituições no `dark.css` da extensão.
+**Status: Concluída (2026-04-16)**.
+
+Investigação resolvida: o launcher `.cosmic-applications-dialog` aceita
+`background` com rgba, mas o alpha escolhido inicialmente (`0.70`) era
+alto demais para deixar a transparência visualmente perceptível. Ajuste
+final em `src/shell/pop-cosmic-dark.css`:
+
+```css
+.cosmic-applications-dialog {
+    background: rgba(40, 42, 54, 0.45);  /* antes: 0.70 opaco */
+    box-shadow: 0 4px 8px 2px rgba(0, 0, 0, 0.25);
+    border: 1px solid #bd93f9;
+    border-radius: 16px;
+}
+```
+
+**Investigação registrada (mantida para referência)**:
+
+- **H1 (extensões carregadas)**: ✓ `pop-cosmic` + `pop-shell` + `dash-to-dock-cosmic` ativas.
+- **H2 (sessão)**: X11.
+- **H3 (JS setters)**: ✓ descartado — `applications.js:721` só seta
+  `height/width`, não `background`.
+- **H4 (teste CSS vermelho)**: ✓ appended `.cosmic-applications-dialog {
+  background: #ff0000 !important; }` ao `dark.css` da extensão. Launcher
+  ficou vermelho puro → seletor correto.
+- **H5 (alpha renderiza)**: ✓ appended `rgba(40,42,54,0.3)`. Launcher
+  ficou transparente → compositor aceita alpha. Causa do "bug" original:
+  valor 0.70 era alto demais.
+- **H6 (dconf keys)**: descartado — sem keys de opacity/blur expostas.
+
+Hipóteses H7–H10 não foram necessárias. Mantidas abaixo para referência
+histórica caso o launcher volte a regredir após update do Pop!_Shell.
 
 ---
 
@@ -15,10 +46,11 @@ Investigação em andamento sobre por que o launcher "Applications" do Pop!_OS (
    - Define `.pop-shell-search { background: rgba(40,42,54,0.55); border: 1px solid #bd93f9; }`.
 
 3. **`/usr/share/gnome-shell/extensions/pop-cosmic@system76.com/dark.css`** substituído por `src/shell/pop-cosmic-dark.css`:
-   - `.cosmic-applications-dialog { background-color: #36322f; }` (marrom) → `rgba(40,42,54,0.70)` + borda purple + radius 16px.
+   - `.cosmic-applications-dialog { background-color: #36322f; }` (marrom) → `rgba(40,42,54,0.45)` + borda purple + radius 16px.
    - Esta é a extensão que controla de fato o launcher "Applications" visualizado.
 
-**Resultado visual**: cores aplicadas (fundo neutro escuro vs marrom original), mas **o fundo continua opaco**. Transparência não está sendo renderizada.
+**Resultado visual final**: fundo Dracula translúcido com papel de parede
+visível por trás, borda purple, radius suave.
 
 ---
 
