@@ -29,19 +29,27 @@ _run()  { if [[ $DRY_RUN -eq 1 ]]; then echo "  [dry-run] $*"; else eval "$@"; f
 aplicar_kitty() {
     local destino="$HOME/.config/kitty"
     local fonte_theme="$APP_THEMES/kitty/current-theme.conf"
-    local fonte_conf="$APP_THEMES/kitty/kitty.conf.original"
     if [[ ! -d "$destino" ]]; then
         _skip "kitty não instalado ($destino não existe)"
         return 0
     fi
     if [[ -f "$fonte_theme" ]]; then
+        # Avisa se vai sobrescrever tema custom do user
+        if [[ -f "$destino/current-theme.conf" ]] && ! cmp -s "$fonte_theme" "$destino/current-theme.conf"; then
+            _warn "kitty: current-theme.conf existente difere do repo — sobrescrevendo (backup em $destino/current-theme.conf.bak)"
+            _run "cp '$destino/current-theme.conf' '$destino/current-theme.conf.bak'"
+        fi
         _info "kitty: copiando current-theme.conf"
         _run "cp '$fonte_theme' '$destino/current-theme.conf'"
     fi
-    # Garante include no kitty.conf do user
-    if ! grep -q "include current-theme.conf" "$destino/kitty.conf" 2>/dev/null; then
+    # Garante include no kitty.conf do user (idempotente, sem \n literal)
+    if ! grep -q "^include current-theme.conf" "$destino/kitty.conf" 2>/dev/null; then
         _info "kitty: adicionando include current-theme.conf"
-        _run "echo '\ninclude current-theme.conf' >> '$destino/kitty.conf'"
+        if [[ $DRY_RUN -eq 0 ]]; then
+            printf '\ninclude current-theme.conf\n' >> "$destino/kitty.conf"
+        else
+            echo "  [dry-run] printf '\\ninclude current-theme.conf\\n' >> $destino/kitty.conf"
+        fi
     fi
     _ok "kitty atualizado"
 }
@@ -91,25 +99,57 @@ aplicar_spicetify() {
     _ok "Spicetify aplicado via Spellbook-OS"
 }
 
-# ─── Obsidian (Flatpak) ───
+# ─── Obsidian (instala em cada vault detectado) ───
 aplicar_obsidian() {
-    local base="$HOME/.var/app/md.obsidian.Obsidian/config/obsidian"
-    local fonte_theme="$APP_THEMES/obsidian/theme.css"
+    local fonte_theme="$APP_THEMES/obsidian/Dracula.theme.css"
+    [[ ! -f "$fonte_theme" ]] && fonte_theme="$APP_THEMES/obsidian/theme.css"
     local fonte_manifest="$APP_THEMES/obsidian/manifest.json"
-    [[ -f "$APP_THEMES/obsidian/Dracula.theme.css" ]] && fonte_theme="$APP_THEMES/obsidian/Dracula.theme.css"
 
-    if [[ ! -d "$base" ]]; then
-        _skip "Obsidian não configurado (sem vault aberto). Pule este passo ou abra o Obsidian uma vez."
+    if [[ ! -f "$fonte_theme" ]]; then
+        _skip "Obsidian: tema não encontrado em $APP_THEMES/obsidian/"
         return 0
     fi
-    # Obsidian busca temas em cada vault: <vault>/.obsidian/themes/Dracula/
-    # Como não sabemos qual vault, colocamos como tema "default" na config global
-    local temas_dir="$base/themes/Dracula"
-    _info "Obsidian: copiando tema para $temas_dir (aplicar manualmente em cada vault)"
-    _run "mkdir -p '$temas_dir'"
-    _run "cp '$fonte_theme' '$temas_dir/theme.css'"
-    [[ -f "$fonte_manifest" ]] && _run "cp '$fonte_manifest' '$temas_dir/manifest.json'"
-    _warn "Obsidian: ative manualmente em Settings → Appearance → Themes"
+
+    # Obsidian guarda lista de vaults em obsidian.json
+    local obsidian_json
+    for candidato in \
+        "$HOME/.var/app/md.obsidian.Obsidian/config/obsidian/obsidian.json" \
+        "$HOME/.config/obsidian/obsidian.json"; do
+        if [[ -f "$candidato" ]]; then
+            obsidian_json="$candidato"
+            break
+        fi
+    done
+
+    if [[ -z "${obsidian_json:-}" ]]; then
+        _skip "Obsidian: nenhum obsidian.json encontrado (abra o Obsidian uma vez). Tema em $fonte_theme para instalação manual."
+        return 0
+    fi
+
+    # Extrai paths de vaults (objeto JSON "vaults" → lista de {"path": "..."}
+    local vaults
+    vaults=$(jq -r '.vaults[] .path' "$obsidian_json" 2>/dev/null || true)
+    if [[ -z "$vaults" ]]; then
+        _skip "Obsidian: nenhum vault configurado em $obsidian_json"
+        return 0
+    fi
+
+    local count=0
+    while IFS= read -r vault; do
+        [[ -z "$vault" || ! -d "$vault" ]] && continue
+        local temas_dir="$vault/.obsidian/themes/Dracula"
+        _info "Obsidian: instalando tema em $vault"
+        _run "mkdir -p '$temas_dir'"
+        _run "cp '$fonte_theme' '$temas_dir/theme.css'"
+        [[ -f "$fonte_manifest" ]] && _run "cp '$fonte_manifest' '$temas_dir/manifest.json'"
+        count=$((count + 1))
+    done <<< "$vaults"
+
+    if [[ $count -eq 0 ]]; then
+        _skip "Obsidian: vaults listados mas nenhum diretório acessível"
+    else
+        _ok "Obsidian: tema instalado em $count vault(s) — ative em Settings → Appearance"
+    fi
 }
 
 # ─── Telegram ───

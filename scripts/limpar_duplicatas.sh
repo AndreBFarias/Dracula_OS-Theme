@@ -87,6 +87,26 @@ main() {
     [[ $DRY_RUN -eq 1 ]] && echo -e "${C_YELLOW}[DRY RUN] nada será modificado${C_RESET}"
     echo ""
 
+    # Guarda: só roda se o novo tema ja estiver instalado
+    if [[ ! -d "$HOME/.local/share/icons/Dracula-Icones" && ! -d "/usr/share/icons/Dracula-Icones.new" ]]; then
+        _err "Novo tema NAO instalado em ~/.local/share/icons/Dracula-Icones/"
+        _err "Rode ./install.sh --user ANTES de limpar duplicatas, senao o sistema fica sem icones."
+        exit 1
+    fi
+
+    # Guarda: .desktop com paths absolutos ainda nao foram normalizados
+    local abs_path_count
+    abs_path_count=$(grep -l "^Icon=/home/andrefarias/.icons/Dracula-Icones" "$HOME/.local/share/applications/"*.desktop 2>/dev/null | wc -l)
+    if [[ $abs_path_count -gt 0 && $DRY_RUN -eq 0 ]]; then
+        _warn "Existem $abs_path_count .desktop com Icon= absoluto apontando para ~/.icons/Dracula-Icones/"
+        _warn "Rode ./scripts/normalizar_desktops.sh ANTES de limpar, senao esses apps ficam sem icone."
+        if [[ $AUTO_YES -eq 0 ]]; then
+            read -r -p "Prosseguir assim mesmo? [s/N] " r
+            [[ ! "$r" =~ ^[sSyY]$ ]] && exit 1
+        fi
+    fi
+
+
     for linha in "${ALVOS[@]}"; do
         processar "$linha"
     done

@@ -1,12 +1,7 @@
 /* ────────────────────────────────────────────────────────────
  * Dracula_OS-Theme — gnome-shell.css
  * ────────────────────────────────────────────────────────────
- * Este arquivo é o CSS final do tema shell. O build.sh:
- *  1. Copia o gnome-shell.css base do tema Dracula-standard-buttons atual
- *     (~/.local/share/themes/Dracula-standard-buttons/gnome-shell/gnome-shell.css)
- *  2. Anexa este arquivo (via @import ou concatenação em install.sh)
- *
- * Conteúdo nesta versão: apenas @import dos overrides Pop!_Shell.
+ * Este arquivo é apenas um marcador. O build.sh concatena o conteúdo
+ * de pop-shell-dracula.css diretamente no gnome-shell.css do tema base
+ * (GNOME Shell St/Clutter NÃO suporta @import).
  * ──────────────────────────────────────────────────────────── */
-
-@import url("pop-shell-dracula.css");

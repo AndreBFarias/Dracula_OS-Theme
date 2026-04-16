@@ -31,12 +31,19 @@ _err()   { echo -e "  ${C_RED}ERRO${C_RESET} $*" >&2; exit 1; }
 
 # ─── Detectar conversor SVG→PNG ───
 CONVERSOR=""
+MAGICK_CMD=""
 if command -v rsvg-convert &>/dev/null; then
     CONVERSOR="rsvg-convert"
 elif command -v inkscape &>/dev/null; then
     CONVERSOR="inkscape"
-elif command -v convert &>/dev/null; then
+elif command -v magick &>/dev/null; then
+    # ImageMagick 7
     CONVERSOR="magick"
+    MAGICK_CMD="magick"
+elif command -v convert &>/dev/null; then
+    # ImageMagick 6
+    CONVERSOR="magick"
+    MAGICK_CMD="convert"
 else
     _err "Nenhum conversor SVG→PNG encontrado. Instale librsvg2-bin, inkscape ou imagemagick."
 fi
@@ -53,7 +60,7 @@ converter_svg() {
                 --export-width="$size" --export-height="$size" 2>/dev/null >/dev/null
             ;;
         magick)
-            convert -background none -resize "${size}x${size}" "$svg" "$out" 2>/dev/null
+            "$MAGICK_CMD" -background none -resize "${size}x${size}" "$svg" "$out" 2>/dev/null
             ;;
     esac
     # Valida resultado
@@ -63,10 +70,11 @@ converter_svg() {
     return 0
 }
 
-# Redimensiona PNG existente para outro tamanho
+# Redimensiona PNG existente para outro tamanho (usa mesmo binário magick)
 redimensionar_png() {
     local src="$1" out="$2" size="$3"
-    convert "$src" -resize "${size}x${size}" "$out" 2>/dev/null
+    local cmd="${MAGICK_CMD:-convert}"
+    "$cmd" "$src" -resize "${size}x${size}" "$out" 2>/dev/null
     [[ -s "$out" ]]
 }
 
@@ -246,18 +254,26 @@ copiar_cursor_gtk_shell() {
         _ok "pop-shell-dracula.css copiado"
     fi
 
-    if [[ -f "$SRC/shell/gnome-shell.css" ]]; then
-        # Se nosso gnome-shell.css é só @import, anexar ao final do base
+    # Concatena pop-shell-dracula.css diretamente ao gnome-shell.css do tema base
+    # (St/Clutter do GNOME Shell NÃO suporta @import — tem que ser inline)
+    if [[ -f "$SRC/shell/pop-shell-dracula.css" ]]; then
         if [[ -f "$base_css" ]]; then
-            _info "Anexando overrides custom ao gnome-shell.css do tema"
+            # Remove bloco de overrides anterior (se existir) para idempotência
+            if grep -q "==== Dracula_OS-Theme overrides ====" "$base_css"; then
+                sed -i '/==== Dracula_OS-Theme overrides ====/,$d' "$base_css"
+            fi
+            _info "Anexando pop-shell-dracula.css ao gnome-shell.css do tema"
             {
                 echo ""
                 echo "/* ==== Dracula_OS-Theme overrides ==== */"
-                cat "$SRC/shell/gnome-shell.css"
+                cat "$SRC/shell/pop-shell-dracula.css"
             } >> "$base_css"
         else
-            _info "Instalando gnome-shell.css a partir do src/"
-            cp "$SRC/shell/gnome-shell.css" "$base_css"
+            _info "Instalando gnome-shell.css novo (base não existia)"
+            {
+                echo "/* Dracula_OS-Theme — gnome-shell.css */"
+                cat "$SRC/shell/pop-shell-dracula.css"
+            } > "$base_css"
         fi
     fi
 

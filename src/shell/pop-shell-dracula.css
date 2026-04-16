@@ -43,6 +43,7 @@
 }
 
 /* Elemento selecionado na busca — fundo purple translúcido ao invés de branco */
+.pop-shell-search-element:selected,
 .pop-shell-search-element:select {
     background: rgba(189, 147, 249, 0.25) !important;
     color: #f8f8f2 !important;
