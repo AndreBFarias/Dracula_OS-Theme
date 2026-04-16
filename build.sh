@@ -175,7 +175,7 @@ gerar_tema_icones() {
     done < <(jq -r 'to_entries[] | "\(.key)\t\(.value.fonte)\t\(if .value.aliases_humanos then (.value.aliases_humanos | join(",")) else "" end)"' "$MAPPING")
     set -e
 
-    _ok "Tema gerado: $processados apps processados, $ignorados ignorados, $falhas falhas de conversao"
+    _ok "Tema gerado: $processados apps processados, $ignorados ignorados, $falhas falhas de conversão"
 }
 
 # ─── Fase C2: Gerar mimetypes custom ───
@@ -259,7 +259,7 @@ Context=MimeTypes
     cat > "$destino/index.theme" <<EOF
 [Icon Theme]
 Name=${TEMA_ICONES}
-Comment=Tema Dracula unificado — experiência gotica/fantasia
+Comment=Tema Dracula unificado — experiência gótica/fantasia
 Inherits=dracula-icons-circle,dracula-icons-main,Adwaita,hicolor
 Directories=${dirs_str}
 
@@ -284,7 +284,7 @@ atualizar_caches() {
 # ─── Fase F: Copiar cursor, GTK, shell ───
 copiar_cursor_gtk_shell() {
     # Cursor — se src/cursors/ vazio, usa /usr/share/icons/Dracula-Cursor como base
-    if [[ -d "$SRC/cursors" && $(ls -A "$SRC/cursors" 2>/dev/null | wc -l) -gt 0 ]]; then
+    if [[ -d "$SRC/cursors" && $(ls -A "$SRC/cursors" 2>/dev/null | grep -v '^\.gitkeep$' | wc -l) -gt 0 ]]; then
         _info "Copiando cursor de src/cursors/"
         cp -r "$SRC/cursors" "$DIST/icons/$TEMA_CURSOR"
     elif [[ -d /usr/share/icons/Dracula-Cursor ]]; then
@@ -296,7 +296,7 @@ copiar_cursor_gtk_shell() {
     [[ -d "$DIST/icons/$TEMA_CURSOR" ]] && _ok "Cursor em dist/"
 
     # GTK — se src/gtk/ vazio, usa ~/.local/share/themes/Dracula-standard-buttons
-    if [[ -d "$SRC/gtk" && $(ls -A "$SRC/gtk" 2>/dev/null | wc -l) -gt 0 ]]; then
+    if [[ -d "$SRC/gtk" && $(ls -A "$SRC/gtk" 2>/dev/null | grep -v '^\.gitkeep$' | wc -l) -gt 0 ]]; then
         _info "Copiando tema GTK de src/gtk/"
         cp -r "$SRC/gtk" "$DIST/themes/$TEMA_GTK"
     elif [[ -d "$HOME/.local/share/themes/Dracula-standard-buttons" ]]; then
@@ -340,7 +340,7 @@ copiar_cursor_gtk_shell() {
     fi
 
     # Assets shell (imagens, logos)
-    if [[ -d "$SRC/shell/assets" && $(ls -A "$SRC/shell/assets" 2>/dev/null | wc -l) -gt 0 ]]; then
+    if [[ -d "$SRC/shell/assets" && $(ls -A "$SRC/shell/assets" 2>/dev/null | grep -v '^\.gitkeep$' | wc -l) -gt 0 ]]; then
         cp -r "$SRC/shell/assets"/* "$shell_dir/" 2>/dev/null || true
     fi
 }
@@ -351,6 +351,11 @@ preparar_extras() {
     if [[ -d "$REPO_ROOT/overrides" && $(ls -A "$REPO_ROOT/overrides" 2>/dev/null | wc -l) -gt 0 ]]; then
         cp -r "$REPO_ROOT/overrides" "$DIST/"
         _ok "overrides/ copiado"
+    fi
+    # Sons (tema Pop)
+    if [[ -d "$SRC/sounds" && $(ls -A "$SRC/sounds" 2>/dev/null | grep -v '^\.gitkeep$' | wc -l) -gt 0 ]]; then
+        cp -r "$SRC/sounds" "$DIST/"
+        _ok "sounds/ copiado"
     fi
     # App-themes (via install.sh separado)
     _info "app-themes/ continua em $REPO_ROOT/app-themes/ (instalar via scripts/instalar_app_themes.sh)"
@@ -385,4 +390,4 @@ main() {
 
 main "$@"
 
-# "A simplicidade é a maxima sofisticacao." -- Leonardo da Vinci
+# "A simplicidade é a máxima sofisticação." -- Leonardo da Vinci

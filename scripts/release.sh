@@ -34,7 +34,7 @@ rsync -a \
     --exclude='src/icons/upstream/' \
     "$REPO_ROOT/" "$TMP/$NOME/"
 
-# Garantir que a nota de upstreams esta no tarball
+# Garantir que a nota de upstreams está no tarball
 cat > "$TMP/$NOME/UPSTREAMS.md" <<EOF
 # Upstreams
 

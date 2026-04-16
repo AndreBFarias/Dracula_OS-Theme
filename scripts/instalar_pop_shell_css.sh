@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # instalar_pop_shell_css.sh — substitui o dark.css do Pop!_Shell com versão Dracula
 #
-# O Pop!_Shell carrega seu proprio CSS de /usr/share/gnome-shell/extensions/
+# O Pop!_Shell carrega seu próprio CSS de /usr/share/gnome-shell/extensions/
 # pop-shell@system76.com/dark.css, sobrepondo o que o tema shell define.
 # Este script faz backup do original e instala a versão Dracula.
 #
@@ -63,7 +63,7 @@ processar_um() {
                 _ok "$nome: backup criado em $backup"
             fi
             cp "$fonte" "$destino"
-            _ok "$nome: dark.css substituido"
+            _ok "$nome: dark.css substituído"
             ;;
     esac
 }
@@ -79,6 +79,6 @@ for alvo in "${ALVOS[@]}"; do
     processar_um "$fonte" "$destino" "$MODO"
 done
 
-_info "Recarregue a sessao/shell (Alt+F2 r em X11 ou logout em Wayland) para aplicar"
+_info "Recarregue a sessão/shell (Alt+F2 r em X11 ou logout em Wayland) para aplicar"
 
 # "Suaviter in modo, fortiter in re." -- suave na forma, firme no fundo.

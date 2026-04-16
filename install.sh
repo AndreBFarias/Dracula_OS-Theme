@@ -17,6 +17,9 @@ MODO=""
 ATIVAR=0
 APP_THEMES=0
 POP_SHELL_CSS=0
+SOUNDS=0
+KEYBINDINGS=0
+GNOME_EXT=0
 
 for arg in "$@"; do
     case "$arg" in
@@ -25,12 +28,15 @@ for arg in "$@"; do
         --activate) ATIVAR=1 ;;
         --app-themes) APP_THEMES=1 ;;
         --pop-shell-css) POP_SHELL_CSS=1 ;;
-        --all) ATIVAR=1; APP_THEMES=1; POP_SHELL_CSS=1 ;;
+        --sounds) SOUNDS=1 ;;
+        --keybindings) KEYBINDINGS=1 ;;
+        --gnome-extensions) GNOME_EXT=1 ;;
+        --all) ATIVAR=1; APP_THEMES=1; POP_SHELL_CSS=1; SOUNDS=1; KEYBINDINGS=1; GNOME_EXT=1 ;;
     esac
 done
 
 if [[ -z "$MODO" ]]; then
-    echo "Uso: $0 --user|--system [--activate] [--app-themes] [--all]"
+    echo "Uso: $0 --user|--system [--activate] [--app-themes] [--pop-shell-css] [--sounds] [--keybindings] [--gnome-extensions] [--all]"
     exit 1
 fi
 
@@ -102,11 +108,32 @@ if [[ $POP_SHELL_CSS -eq 1 ]]; then
     sudo "$REPO_ROOT/scripts/instalar_pop_shell_css.sh" install || _warn "Pop!_Shell CSS falhou"
 fi
 
+# ─── Sons (tema Pop) ───
+if [[ $SOUNDS -eq 1 ]]; then
+    echo ""
+    _info "Instalando tema de som Pop"
+    "$REPO_ROOT/scripts/instalar_sons.sh" "--$MODO" || _warn "Instalação de sons falhou"
+fi
+
 # ─── App themes ───
 if [[ $APP_THEMES -eq 1 ]]; then
     echo ""
     _info "Aplicando app themes"
     "$REPO_ROOT/scripts/instalar_app_themes.sh"
+fi
+
+# ─── Extensões GNOME ───
+if [[ $GNOME_EXT -eq 1 && "$MODO" == "user" ]]; then
+    echo ""
+    _info "Instalando + configurando extensões GNOME do manifesto"
+    "$REPO_ROOT/scripts/instalar_gnome_extensions.sh" || _warn "Instalação de extensões falhou"
+fi
+
+# ─── Keybindings ───
+if [[ $KEYBINDINGS -eq 1 && "$MODO" == "user" ]]; then
+    echo ""
+    _info "Aplicando atalhos de teclado + desativando som do shutter"
+    "$REPO_ROOT/scripts/instalar_keybindings.sh" || _warn "Instalação de keybindings falhou"
 fi
 
 # ─── gsettings ativar ───

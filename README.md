@@ -11,6 +11,7 @@
 <div align="center">
 <div style="text-align: center;">
   <h1 style="font-size: 2.2em;">Dracula_OS-Theme</h1>
+  <img src="assets/logo.png" width="128" alt="Logo Dracula_OS-Theme">
 </div>
 </div>
 
@@ -79,9 +80,12 @@ cd Dracula_OS-Theme-v1.0.0
 ./install.sh --user             # instala em ~/.local/share/ (sem ativar)
 ./install.sh --system           # instala em /usr/share/ (requer sudo)
 ./install.sh --user --activate  # instala + ativa via gsettings
-./install.sh --user --app-themes     # instala + aplica temas internos de apps
-./install.sh --user --pop-shell-css  # instala + substitui dark.css das extensões (requer sudo)
-./install.sh --user --all            # tudo acima
+./install.sh --user --app-themes         # instala + aplica temas internos de apps
+./install.sh --user --pop-shell-css      # instala + substitui dark.css das extensões (requer sudo)
+./install.sh --user --sounds             # instala tema de som Pop + ativa via gsettings
+./install.sh --user --keybindings        # aplica snapshot de atalhos + silencia shutter
+./install.sh --user --gnome-extensions   # reinstala + configura 13 extensões GNOME
+./install.sh --user --all                # tudo acima
 ```
 
 ---
@@ -135,7 +139,14 @@ Dracula_OS-Theme/
 ├── README.md
 ├── LICENSE                     # GPL-3.0
 ├── CHANGELOG.md
-├── SPRINT-TRANSPARENCIA.md     # investigação em andamento
+├── docs/
+│   ├── CONTRIBUTING.md
+│   └── sprints/
+│       ├── INDEX.md
+│       ├── SPRINT_01_POS_UPGRADE.md
+│       └── SPRINT_02_TRANSPARENCIA.md
+├── assets/
+│   └── logo.png                # gerado a partir de src/icons/new-sessao-atual/bat.svg
 ├── catalog.json                # descrição dos 295 SVGs estilizados (categorias, cores, tamanhos)
 ├── mapping.json                # 203 apps → ícone (revisável manualmente)
 ├── build.sh                    # SVG → PNGs + index.theme + caches
@@ -148,17 +159,20 @@ Dracula_OS-Theme/
 │   │   ├── current/            # 3437 SVGs customizados + PNGs 48×48
 │   │   ├── new-sessao-atual/   # 295 SVGs estilizados gótico/fantasia
 │   │   └── projects/           # 19 ícones de projetos pessoais
-│   └── shell/
-│       ├── pop-shell-dracula.css  # regras anexadas ao gnome-shell.css
-│       ├── pop-shell-dark.css     # substitui dark.css do Pop!_Shell
-│       └── pop-cosmic-dark.css    # substitui dark.css do Pop!_Cosmic
+│   ├── shell/
+│   │   ├── pop-shell-dracula.css  # regras anexadas ao gnome-shell.css
+│   │   ├── pop-shell-dark.css     # substitui dark.css do Pop!_Shell
+│   │   └── pop-cosmic-dark.css    # substitui dark.css do Pop!_Cosmic
+│   └── sounds/
+│       └── Pop/                # tema de som Pop!_OS (26 .oga do upstream)
 │
 ├── app-themes/                 # kitty, qBittorrent, terminal, spicetify, obsidian, telegram, discord, onlyoffice
+│   ├── keybindings/            # dconf snapshots (media-keys, terminal, sound)
+│   └── gnome-extensions/       # manifesto das 13 extensões + dconf dumps
 ├── overrides/                  # .desktop overrides (ZapZap → WhatsApp, Snap oculto)
 ├── dist/                       # (git-ignored) saída do build
 └── scripts/
     ├── baixar_upstreams.sh
-    ├── build.sh (raiz)
     ├── extrair_mapeamento.py
     ├── gerar_catalog.py
     ├── renomear_fontes.py
@@ -167,6 +181,12 @@ Dracula_OS-Theme/
     ├── aplicar_overrides.sh
     ├── instalar_app_themes.sh
     ├── instalar_pop_shell_css.sh
+    ├── instalar_sons.sh
+    ├── capturar_keybindings.sh
+    ├── instalar_keybindings.sh
+    ├── capturar_gnome_extensions.sh
+    ├── instalar_gnome_extensions.sh
+    ├── debug_launcher.sh
     └── release.sh
 ```
 
@@ -226,7 +246,7 @@ Depois: `Alt+F2` → `r` → Enter (X11) ou logout/login (Wayland).
 ```
 
 **Launcher do Pop!_OS continua opaco**
-Veja [SPRINT-TRANSPARENCIA.md](SPRINT-TRANSPARENCIA.md) para o estado da investigação e próximos passos.
+Veja [docs/sprints/SPRINT_02_TRANSPARENCIA.md](docs/sprints/SPRINT_02_TRANSPARENCIA.md) para o estado da investigação e próximos passos.
 
 **Spicetify reclama de versão mismatched**
 Normal após update do Spotify Flatpak. Reaplicar:
@@ -266,6 +286,14 @@ Se você usa o [Spellbook-OS](https://github.com/AndreBFarias/Spellbook-OS):
 rebuild_dracula_theme         # reconstrói e reinstala
 rebuild_dracula_theme --all   # reconstrói, reinstala, ativa, aplica app-themes
 ```
+
+---
+
+### Documentação
+
+- [Índice de Sprints](docs/sprints/INDEX.md) — histórico de decisões e trabalho em andamento
+- [Guia de Contribuição](docs/CONTRIBUTING.md) — padrão de commits, estrutura de features, checklist de PR
+- [Changelog](CHANGELOG.md) — histórico de versões
 
 ---
 

@@ -3,6 +3,43 @@
 Todas as mudanças notáveis deste projeto são documentadas neste arquivo.
 Formato: [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/) + SemVer.
 
+## [Não lançado] — Desenvolvimento
+
+### Adicionado
+
+- **Logo oficial** em `assets/logo.png`, gerado a partir de `src/icons/new-sessao-atual/bat.svg`, referenciado no README.
+- **Pasta de documentação** `docs/` com `CONTRIBUTING.md` (checklist de PR, padrão de commits) e `sprints/INDEX.md` (índice das sprints).
+- Seção "Documentação" no README apontando para os novos índices.
+- **Sprint 03 — Tema de som Pop!_OS**: `src/sounds/Pop/` com os 26 `.oga` do upstream `pop-os/gtk-theme` (CC-BY-SA-4.0). Script `scripts/instalar_sons.sh` e flag `--sounds` no `install.sh` (também em `--all`). Ativa `gsettings set org.gnome.desktop.sound theme-name 'Pop'`.
+- **Sprint 04 — Atalhos + som do PrintScreen**: snapshots dconf em `app-themes/keybindings/` (media-keys, terminal, sound). Scripts `scripts/capturar_keybindings.sh` e `scripts/instalar_keybindings.sh` com `--revert`. Nova flag `--keybindings` no `install.sh`.
+- **Sprint 05 — Extensões GNOME**: manifesto `app-themes/gnome-extensions/extensions.json` com as 13 extensões do usuário + 12 dconf dumps. Scripts `scripts/capturar_gnome_extensions.sh` e `scripts/instalar_gnome_extensions.sh` (EGO primeiro, git clone como fallback, `--only-dconf` e `--revert`). Nova flag `--gnome-extensions` no `install.sh`.
+- `--all` do `install.sh` agora inclui as três novas flags.
+- `uninstall.sh` remove tema de som Pop automaticamente.
+
+### Modificado
+
+- Sprints migradas para `docs/sprints/` com padrão de nomenclatura numerada:
+  - `SPRINT-POS-UPGRADE.md` → `docs/sprints/SPRINT_01_POS_UPGRADE.md`.
+  - `SPRINT-TRANSPARENCIA.md` → `docs/sprints/SPRINT_02_TRANSPARENCIA.md`.
+- Árvore de arquitetura no README atualizada com `docs/` e `assets/`.
+- Referência em "Troubleshooting" apontando para o novo caminho da sprint de transparência.
+
+### Corrigido
+
+- Acentuação PT-BR em mensagens de log/assinatura:
+  - `build.sh`: "conversao" → "conversão"; "gotica" → "gótica"; "maxima sofisticacao" → "máxima sofisticação".
+  - `scripts/instalar_pop_shell_css.sh`: "sessao/shell" → "sessão/shell"; "proprio" → "próprio"; "substituido" → "substituído".
+  - `scripts/release.sh`: "esta no tarball" → "está no tarball".
+
+### Removido
+
+- Pastas vazias sem uso em `src/icons/`: `status/`, `actions/`, `places/`, `apps/`, `devices/`, `mimetypes/`.
+
+### Produção
+
+- `.gitkeep` documentados em `src/gtk/`, `src/cursors/`, `src/shell/assets/` (preenchidos condicionalmente pelo `build.sh`).
+- Projeto pronto para clone limpo: zero pastas vazias não intencionais, zero arquivos soltos na raiz, acentuação correta em toda comunicação PT-BR.
+
 ## [1.0.0] — 2026-04-16
 
 Versão inicial consolidada do monorepo Dracula_OS-Theme.
