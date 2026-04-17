@@ -1,0 +1,47 @@
+# Configuração do pre-commit framework (pre-commit.com)
+# Rodar localmente: pre-commit run --all-files
+# Rodar em staged:  pre-commit run
+#
+# NÃO use `pre-commit install` sem antes preservar o hook custom do projeto
+# em .git/hooks/pre-commit — o instalador sobrescreve esse arquivo.
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: trailing-whitespace
+        exclude: '\.(svg|png|jpg|jpeg|dconf|qbtheme|tdesktop-theme)$'
+      - id: end-of-file-fixer
+        exclude: '\.(svg|png|jpg|jpeg|dconf|qbtheme|tdesktop-theme)$'
+      - id: check-json
+        exclude: '^(dist|releases|src/icons/upstream)/'
+      - id: check-yaml
+      - id: check-added-large-files
+        args: ['--maxkb=4000']
+        exclude: '^(dist|releases|src/icons/upstream)/'
+      - id: check-merge-conflict
+      - id: mixed-line-ending
+        args: ['--fix=lf']
+
+  - repo: https://github.com/koalaman/shellcheck-precommit
+    rev: v0.10.0
+    hooks:
+      - id: shellcheck
+        args: ['--severity=warning']
+
+  - repo: local
+    hooks:
+      - id: test-portabilidade
+        name: Sem hardcoded username no código
+        entry: bash tests/test_portabilidade.sh
+        language: system
+        pass_filenames: false
+        always_run: true
+
+      - id: validar-extensions-json
+        name: Schema mínimo de extensions.json
+        entry: >-
+          jq -e '.extensions | length > 0 and all(has("uuid") and has("name") and has("repo"))'
+        files: '^app-themes/gnome-extensions/extensions\.json$'
+        language: system
+        pass_filenames: true

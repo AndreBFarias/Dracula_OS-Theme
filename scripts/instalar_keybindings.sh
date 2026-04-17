@@ -11,10 +11,14 @@
 
 set -euo pipefail
 
-REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# shellcheck source=lib/common.sh
+source "$SCRIPT_DIR/lib/common.sh"
+
+REPO_ROOT="$(_repo_root "${BASH_SOURCE[0]}")"
 DIR="$REPO_ROOT/app-themes/keybindings"
 TS=$(date +%Y%m%d_%H%M%S)
-BACKUP_DIR="$HOME/.cache/dracula_os_backup_keybindings_$TS"
+BACKUP_DIR="$HOME/.cache/dracula_os_backup/keybindings_$TS"
 
 REVERT=0
 for arg in "$@"; do
@@ -23,16 +27,20 @@ for arg in "$@"; do
     esac
 done
 
-C_CYAN='\033[0;36m'
-C_GREEN='\033[0;32m'
-C_YELLOW='\033[0;33m'
-C_RED='\033[0;31m'
-C_RESET='\033[0m'
-
-_info() { echo -e "  ${C_CYAN}>>${C_RESET} $*"; }
-_ok()   { echo -e "  ${C_GREEN}OK${C_RESET} $*"; }
-_warn() { echo -e "  ${C_YELLOW}!!${C_RESET} $*" >&2; }
-_err()  { echo -e "  ${C_RED}ERRO${C_RESET} $*" >&2; exit 1; }
+# Trap de cleanup: se interrompido no meio da aplicação, restaura o backup
+_estado_aplicacao="pendente"
+_cleanup_keybindings() {
+    local exit_code="${1:-0}"
+    if [[ "$_estado_aplicacao" == "em-progresso" && $exit_code -ne 0 ]]; then
+        _warn "Interrompido durante aplicação — restaurando backup de $BACKUP_DIR"
+        for arquivo in "${!ALVOS[@]}"; do
+            local origem="$BACKUP_DIR/$arquivo"
+            local namespace="${ALVOS[$arquivo]}"
+            [[ -f "$origem" ]] && dconf load "$namespace" < "$origem" 2>/dev/null || true
+        done
+    fi
+}
+trap_cleanup_init _cleanup_keybindings
 
 # Mapeamento arquivo → namespace dconf
 declare -A ALVOS=(
@@ -43,9 +51,10 @@ declare -A ALVOS=(
 )
 
 if [[ $REVERT -eq 1 ]]; then
-    ultimo_backup=$(ls -dt "$HOME"/.cache/dracula_os_backup_keybindings_* 2>/dev/null | head -1)
+    ultimo_backup=$(ls -dt "$HOME"/.cache/dracula_os_backup/keybindings_* "$HOME"/.cache/dracula_os_backup_keybindings_* 2>/dev/null | head -1)
     if [[ -z "$ultimo_backup" ]]; then
-        _err "Nenhum backup encontrado em ~/.cache/dracula_os_backup_keybindings_*"
+        _err "Nenhum backup de keybindings encontrado em ~/.cache/dracula_os_backup/"
+        exit 1
     fi
     _info "Restaurando backup: $ultimo_backup"
     for arquivo in "${!ALVOS[@]}"; do
@@ -61,6 +70,7 @@ fi
 
 if [[ ! -d "$DIR" ]]; then
     _err "Pasta $DIR não existe. Rode ./scripts/capturar_keybindings.sh primeiro."
+    exit 1
 fi
 
 # Backup do estado atual antes de aplicar
@@ -72,7 +82,8 @@ for arquivo in "${!ALVOS[@]}"; do
 done
 _ok "backup feito"
 
-# Aplicar cada snapshot
+# Aplicar cada snapshot — marca estado para o trap de cleanup
+_estado_aplicacao="em-progresso"
 for arquivo in "${!ALVOS[@]}"; do
     origem="$DIR/$arquivo"
     namespace="${ALVOS[$arquivo]}"
@@ -83,6 +94,7 @@ for arquivo in "${!ALVOS[@]}"; do
     dconf load "$namespace" < "$origem"
     _ok "$arquivo aplicado em $namespace"
 done
+_estado_aplicacao="concluido"
 
 _info "Som do PrintScreen desativado (event-sounds=false em org.gnome.desktop.sound)"
 _info "Para recapturar novos atalhos após alterações: ./scripts/capturar_keybindings.sh"

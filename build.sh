@@ -284,7 +284,7 @@ atualizar_caches() {
 # ─── Fase F: Copiar cursor, GTK, shell ───
 copiar_cursor_gtk_shell() {
     # Cursor — se src/cursors/ vazio, usa /usr/share/icons/Dracula-Cursor como base
-    if [[ -d "$SRC/cursors" && $(ls -A "$SRC/cursors" 2>/dev/null | grep -v '^\.gitkeep$' | wc -l) -gt 0 ]]; then
+    if [[ -d "$SRC/cursors" ]] && [[ -n "$(find "$SRC/cursors" -mindepth 1 -maxdepth 1 -not -name '.gitkeep' -print -quit 2>/dev/null)" ]]; then
         _info "Copiando cursor de src/cursors/"
         cp -r "$SRC/cursors" "$DIST/icons/$TEMA_CURSOR"
     elif [[ -d /usr/share/icons/Dracula-Cursor ]]; then
@@ -296,7 +296,7 @@ copiar_cursor_gtk_shell() {
     [[ -d "$DIST/icons/$TEMA_CURSOR" ]] && _ok "Cursor em dist/"
 
     # GTK — se src/gtk/ vazio, usa ~/.local/share/themes/Dracula-standard-buttons
-    if [[ -d "$SRC/gtk" && $(ls -A "$SRC/gtk" 2>/dev/null | grep -v '^\.gitkeep$' | wc -l) -gt 0 ]]; then
+    if [[ -d "$SRC/gtk" ]] && [[ -n "$(find "$SRC/gtk" -mindepth 1 -maxdepth 1 -not -name '.gitkeep' -print -quit 2>/dev/null)" ]]; then
         _info "Copiando tema GTK de src/gtk/"
         cp -r "$SRC/gtk" "$DIST/themes/$TEMA_GTK"
     elif [[ -d "$HOME/.local/share/themes/Dracula-standard-buttons" ]]; then
@@ -340,7 +340,7 @@ copiar_cursor_gtk_shell() {
     fi
 
     # Assets shell (imagens, logos)
-    if [[ -d "$SRC/shell/assets" && $(ls -A "$SRC/shell/assets" 2>/dev/null | grep -v '^\.gitkeep$' | wc -l) -gt 0 ]]; then
+    if [[ -d "$SRC/shell/assets" ]] && [[ -n "$(find "$SRC/shell/assets" -mindepth 1 -maxdepth 1 -not -name '.gitkeep' -print -quit 2>/dev/null)" ]]; then
         cp -r "$SRC/shell/assets"/* "$shell_dir/" 2>/dev/null || true
     fi
 }
@@ -353,7 +353,7 @@ preparar_extras() {
         _ok "overrides/ copiado"
     fi
     # Sons (tema Pop)
-    if [[ -d "$SRC/sounds" && $(ls -A "$SRC/sounds" 2>/dev/null | grep -v '^\.gitkeep$' | wc -l) -gt 0 ]]; then
+    if [[ -d "$SRC/sounds" ]] && [[ -n "$(find "$SRC/sounds" -mindepth 1 -maxdepth 1 -not -name '.gitkeep' -print -quit 2>/dev/null)" ]]; then
         cp -r "$SRC/sounds" "$DIST/"
         _ok "sounds/ copiado"
     fi

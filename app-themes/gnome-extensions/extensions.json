@@ -6,20 +6,26 @@
       "name": "Big Avatar",
       "version": 16,
       "repo": "https://github.com/GustavoPeredo/Big-Avatar-Gnome-Shell-Extension",
-      "dconf": "big-avatar.dconf"
+      "dconf": "big-avatar.dconf",
+      "shell-version-min": 42,
+      "shell-version-max": 46
     },
     {
       "uuid": "bluetooth-quick-connect@bjarosze.gmail.com",
       "name": "Bluetooth Quick Connect",
       "version": 34,
-      "repo": "https://github.com/bjarosze/gnome-bluetooth-quick-connect"
+      "repo": "https://github.com/bjarosze/gnome-bluetooth-quick-connect",
+      "shell-version-min": 42,
+      "shell-version-max": 46
     },
     {
       "uuid": "color-picker@tuberry",
       "name": "Color Picker",
       "version": 30,
       "repo": "https://github.com/tuberry/color-picker",
-      "dconf": "color-picker.dconf"
+      "dconf": "color-picker.dconf",
+      "shell-version-min": 42,
+      "shell-version-max": 46
     },
     {
       "uuid": "dash-to-dock-cosmic-@halfmexicanhalfamazing@gmail.com",
@@ -27,60 +33,78 @@
       "version": 23,
       "repo": "https://github.com/halfmexican/dash-to-dock-pop",
       "repo_branch": "ubuntu-dock",
-      "dconf": "dash-to-dock-pop.dconf"
+      "dconf": "dash-to-dock-pop.dconf",
+      "shell-version-min": 42,
+      "shell-version-max": 46
     },
     {
       "uuid": "drive-menu@gnome-shell-extensions.gcampax.github.com",
       "name": "Removable Drive Menu",
       "version": 51,
       "repo": "https://gitlab.gnome.org/GNOME/gnome-shell-extensions",
-      "repo_subdir": "extensions/drive-menu"
+      "repo_subdir": "extensions/drive-menu",
+      "shell-version-min": 42,
+      "shell-version-max": 46
     },
     {
       "uuid": "impatience@gfxmonk.net",
       "name": "Impatience",
       "version": 22,
       "repo": "http://gfxmonk.net/dist/0install/gnome-shell-impatience.xml",
-      "dconf": "net.dconf"
+      "dconf": "net.dconf",
+      "shell-version-min": 42,
+      "shell-version-max": 46
     },
     {
       "uuid": "killapp@adam.gadmz",
       "name": "Kill App",
       "version": 5,
-      "repo": "https://github.com/duonggiakhanhb/Killapp_GNOME_Extension"
+      "repo": "https://github.com/duonggiakhanhb/Killapp_GNOME_Extension",
+      "shell-version-min": 42,
+      "shell-version-max": 46
     },
     {
       "uuid": "pano@elhan.io",
       "name": "Pano - Clipboard Manager",
       "version": 19,
       "repo": "https://github.com/oae/gnome-shell-pano",
-      "dconf": "pano.dconf"
+      "dconf": "pano.dconf",
+      "shell-version-min": 42,
+      "shell-version-max": 46
     },
     {
       "uuid": "sound-output-device-chooser@kgshank.net",
       "name": "Sound Input & Output Device Chooser",
       "version": 43,
-      "repo": "https://github.com/kgshank/gse-sound-output-device-chooser"
+      "repo": "https://github.com/kgshank/gse-sound-output-device-chooser",
+      "shell-version-min": 42,
+      "shell-version-max": 46
     },
     {
       "uuid": "spotify-controller@koolskateguy89",
       "name": "Spotify Controller",
       "version": 17,
       "repo": "https://github.com/koolskateguy89/gnome-shell-extension-spotify-controller",
-      "dconf": "spotify-controller.dconf"
+      "dconf": "spotify-controller.dconf",
+      "shell-version-min": 42,
+      "shell-version-max": 46
     },
     {
       "uuid": "sp-tray@sp-tray.esenliyim.github.com",
       "name": "spotify-tray",
       "version": 22,
       "repo": "https://github.com/esenliyim/sp-tray",
-      "dconf": "sp-tray.dconf"
+      "dconf": "sp-tray.dconf",
+      "shell-version-min": 42,
+      "shell-version-max": 46
     },
     {
       "uuid": "transparent-top-bar@zhanghai.me",
       "name": "Transparent Top Bar",
       "version": 16,
-      "repo": "https://github.com/zhanghai/gnome-shell-extension-transparent-top-bar"
+      "repo": "https://github.com/zhanghai/gnome-shell-extension-transparent-top-bar",
+      "shell-version-min": 42,
+      "shell-version-max": 46
     },
     {
       "uuid": "user-theme@gnome-shell-extensions.gcampax.github.com",
@@ -88,7 +112,9 @@
       "version": 49,
       "repo": "https://gitlab.gnome.org/GNOME/gnome-shell-extensions",
       "repo_subdir": "extensions/user-theme",
-      "dconf": "user-theme.dconf"
+      "dconf": "user-theme.dconf",
+      "shell-version-min": 42,
+      "shell-version-max": 46
     }
   ]
 }

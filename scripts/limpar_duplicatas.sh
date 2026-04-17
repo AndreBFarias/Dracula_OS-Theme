@@ -9,6 +9,10 @@
 
 set -euo pipefail
 
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# shellcheck source=lib/common.sh
+source "$SCRIPT_DIR/lib/common.sh"
+
 DRY_RUN=0
 AUTO_YES=0
 for arg in "$@"; do
@@ -17,19 +21,7 @@ for arg in "$@"; do
 done
 
 TS=$(date +%Y%m%d_%H%M%S)
-BACKUP_DIR="$HOME/.cache/dracula_os_backup_$TS"
-
-C_CYAN='\033[0;36m'
-C_GREEN='\033[0;32m'
-C_YELLOW='\033[0;33m'
-C_RED='\033[0;31m'
-C_DIM='\033[2m'
-C_RESET='\033[0m'
-
-_info() { echo -e "  ${C_CYAN}>>${C_RESET} $*"; }
-_ok()   { echo -e "  ${C_GREEN}OK${C_RESET} $*"; }
-_warn() { echo -e "  ${C_YELLOW}!!${C_RESET} $*" >&2; }
-_err()  { echo -e "  ${C_RED}ERRO${C_RESET} $*" >&2; }
+BACKUP_DIR="$HOME/.cache/dracula_os_backup/$TS"
 
 # Lista de alvos (path → descrição)
 ALVOS=(
@@ -65,18 +57,20 @@ processar() {
         return 0
     fi
 
-    # Backup
-    mkdir -p "$BACKUP_DIR"
+    # Backup com manifest + validação de path destrutivo antes de remover
     _info "backup: $alvo → $BACKUP_DIR/"
     if [[ $DRY_RUN -eq 0 ]]; then
-        if [[ -d "$alvo" ]]; then
-            cp -r "$alvo" "$BACKUP_DIR/" || _warn "backup falhou, mas prosseguindo"
-        else
-            cp "$alvo" "$BACKUP_DIR/" || _warn "backup falhou"
+        if ! backup_com_manifest "$alvo" "$BACKUP_DIR"; then
+            _err "backup falhou — NÃO removendo $alvo"
+            return 1
+        fi
+        if ! validar_path_destrutivo "$alvo"; then
+            _err "validação de segurança falhou — NÃO removendo $alvo"
+            return 1
         fi
         rm -rf "$alvo"
     else
-        echo "  [dry-run] rm -rf $alvo"
+        echo "  [dry-run] backup_com_manifest + rm -rf $alvo"
     fi
     _ok "removido: $alvo"
 }
@@ -97,7 +91,7 @@ main() {
     # Guarda: .desktop com paths absolutos ainda não foram normalizados
     # (|| true porque grep sem match retorna 1 e set -e + pipefail matariam)
     local abs_path_count
-    abs_path_count=$(grep -l "^Icon=/home/andrefarias/.icons/Dracula-Icones" "$HOME/.local/share/applications/"*.desktop 2>/dev/null | wc -l || true)
+    abs_path_count=$(grep -l "^Icon=$HOME/.icons/Dracula-Icones" "$HOME/.local/share/applications/"*.desktop 2>/dev/null | wc -l || true)
     if [[ $abs_path_count -gt 0 && $DRY_RUN -eq 0 ]]; then
         _warn "Existem $abs_path_count .desktop com Icon= absoluto apontando para ~/.icons/Dracula-Icones/"
         _warn "Rode ./scripts/normalizar_desktops.sh ANTES de limpar, senão esses apps ficam sem ícone."

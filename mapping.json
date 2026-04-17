@@ -1227,10 +1227,10 @@
       "nm-connection-editor",
       "preferences-system-network"
     ],
-    "fonte": "preferences-system-network",
+    "fonte": "new-sessao-atual/spider-web.svg",
     "icon_original": "preferences-system-network",
     "name": "Advanced Network Configuration",
-    "origem": "nao-encontrado"
+    "origem": "override-novo"
   },
   "nvidia-settings": {
     "aliases": [
@@ -1358,10 +1358,10 @@
     "aliases": [
       "org.gnome.DiskUtility"
     ],
-    "fonte": "upstream/dracula-icons-main/scalable/apps/org.gnome.DiskUtility.svg",
+    "fonte": "new-sessao-atual/treasure-chest.svg",
     "icon_original": "org.gnome.DiskUtility",
     "name": "Disks",
-    "origem": "upstream"
+    "origem": "override-novo"
   },
   "org.gnome.Evince": {
     "aliases": [
@@ -1410,10 +1410,10 @@
       "org.gnome.FileRoller",
       "org.gnome.ArchiveManager"
     ],
-    "fonte": "upstream/dracula-icons-circle/scalable/apps/org.gnome.ArchiveManager.svg",
+    "fonte": "new-sessao-atual/chest.svg",
     "icon_original": "org.gnome.ArchiveManager",
     "name": "Archive Manager",
-    "origem": "upstream"
+    "origem": "override-novo"
   },
   "org.gnome.Nautilus": {
     "aliases": [
@@ -1499,10 +1499,10 @@
     "aliases": [
       "org.gnome.font-viewer"
     ],
-    "fonte": "current/scalable/apps/org.gnome.font-viewer.svg",
+    "fonte": "new-sessao-atual/scroll.svg",
     "icon_original": "org.gnome.font-viewer",
     "name": "Fonts",
-    "origem": "current-nome"
+    "origem": "override-novo"
   },
   "org.gnome.gThumb": {
     "aliases": [
@@ -1956,7 +1956,7 @@
     "aliases": [
       "qrcode-void-generator"
     ],
-    "fonte": "new-sessao-atual/puzzle.svg",
+    "fonte": "projects/qrcode-void-generator.png",
     "icon_original": "qrcode-void-generator",
     "name": "VOID | QRcode",
     "origem": "override-novo"
@@ -2083,5 +2083,18 @@
     "icon_original": "org.gnome.Yelp",
     "name": "Ajuda",
     "origem": "upstream"
+  },
+  "rlogo_icon": {
+    "aliases": [
+      "rlogo_icon",
+      "R"
+    ],
+    "aliases_humanos": [
+      "R"
+    ],
+    "fonte": "new-sessao-atual/spell-book.svg",
+    "icon_original": "rlogo_icon",
+    "name": "R",
+    "origem": "override-novo"
   }
 }

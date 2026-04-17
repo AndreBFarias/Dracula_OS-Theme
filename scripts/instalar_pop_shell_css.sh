@@ -37,7 +37,8 @@ fi
 processar_um() {
     local fonte="$1" destino="$2" modo="$3"
     local backup="${destino}.orig"
-    local nome="$(basename "$(dirname "$destino")")"
+    local nome
+    nome="$(basename "$(dirname "$destino")")"
 
     if [[ ! -d "$(dirname "$destino")" ]]; then
         _warn "$nome: extensão não encontrada — pulando"

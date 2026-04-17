@@ -15,7 +15,11 @@
 
 set -euo pipefail
 
-REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# shellcheck source=lib/common.sh
+source "$SCRIPT_DIR/lib/common.sh"
+
+REPO_ROOT="$(_repo_root "${BASH_SOURCE[0]}")"
 MANIFESTO="$REPO_ROOT/app-themes/gnome-extensions/extensions.json"
 DCONF_DIR="$REPO_ROOT/app-themes/gnome-extensions/dconf"
 DEST_EXT="$HOME/.local/share/gnome-shell/extensions"
@@ -29,20 +33,24 @@ for arg in "$@"; do
     esac
 done
 
-C_CYAN='\033[0;36m'
-C_GREEN='\033[0;32m'
-C_YELLOW='\033[0;33m'
-C_RED='\033[0;31m'
-C_RESET='\033[0m'
+# ─── Detecção de desktop: COSMIC não suporta extensões GNOME tradicionais ───
+desktop="${XDG_CURRENT_DESKTOP:-}"
+if [[ "$desktop" == *"COSMIC"* ]] || [[ "$desktop" == "cosmic" ]]; then
+    _warn "Desktop COSMIC detectado ($desktop)."
+    _warn "Extensões GNOME Shell não se aplicam neste desktop — pulando instalação."
+    _info "Para voltar a GNOME: faça logout e escolha a sessão 'Pop on Xorg' ou 'Wayland'."
+    exit 0
+fi
 
-_info() { echo -e "  ${C_CYAN}>>${C_RESET} $*"; }
-_ok()   { echo -e "  ${C_GREEN}OK${C_RESET} $*"; }
-_warn() { echo -e "  ${C_YELLOW}!!${C_RESET} $*" >&2; }
-_err()  { echo -e "  ${C_RED}ERRO${C_RESET} $*" >&2; exit 1; }
+command -v jq >/dev/null || { _err "jq não encontrado. Instale: sudo apt install jq"; exit 1; }
+command -v gnome-extensions >/dev/null || { _err "gnome-extensions CLI não disponível"; exit 1; }
+[[ -f "$MANIFESTO" ]] || { _err "Manifesto não encontrado: $MANIFESTO"; exit 1; }
 
-command -v jq >/dev/null || _err "jq não encontrado. Instale: sudo apt install jq"
-command -v gnome-extensions >/dev/null || _err "gnome-extensions CLI não disponível"
-[[ -f "$MANIFESTO" ]] || _err "Manifesto não encontrado: $MANIFESTO"
+# ─── Detectar versão do GNOME Shell para validar compatibilidade ───
+shell_ver_atual=""
+if command -v gnome-shell >/dev/null 2>&1; then
+    shell_ver_atual="$(gnome-shell --version 2>/dev/null | awk '{print $3}' | cut -d. -f1)"
+fi
 
 mkdir -p "$DEST_EXT"
 
@@ -66,6 +74,16 @@ for uuid in "${UUIDS[@]}"; do
     branch=$(jq -r --arg u "$uuid" '.extensions[] | select(.uuid==$u) | .repo_branch // ""' "$MANIFESTO")
     subdir=$(jq -r --arg u "$uuid" '.extensions[] | select(.uuid==$u) | .repo_subdir // ""' "$MANIFESTO")
     dconf_file=$(jq -r --arg u "$uuid" '.extensions[] | select(.uuid==$u) | .dconf // ""' "$MANIFESTO")
+    ver_min=$(jq -r --arg u "$uuid" '.extensions[] | select(.uuid==$u) | ."shell-version-min" // ""' "$MANIFESTO")
+    ver_max=$(jq -r --arg u "$uuid" '.extensions[] | select(.uuid==$u) | ."shell-version-max" // ""' "$MANIFESTO")
+
+    # Checa compatibilidade declarada com a versão atual do GNOME Shell
+    if [[ -n "$shell_ver_atual" && "$shell_ver_atual" =~ ^[0-9]+$ ]]; then
+        if [[ -n "$ver_min" && $shell_ver_atual -lt $ver_min ]] || [[ -n "$ver_max" && $shell_ver_atual -gt $ver_max ]]; then
+            _warn "GNOME Shell $shell_ver_atual fora da faixa declarada [$ver_min..$ver_max] para $uuid — pulando"
+            continue
+        fi
+    fi
 
     if [[ $ONLY_DCONF -eq 0 ]]; then
         # 1. Já presente?

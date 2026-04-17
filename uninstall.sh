@@ -3,6 +3,10 @@
 
 set -euo pipefail
 
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# shellcheck source=scripts/lib/common.sh
+source "$SCRIPT_DIR/scripts/lib/common.sh"
+
 MODO=""
 for arg in "$@"; do
     case "$arg" in
@@ -31,9 +35,17 @@ esac
 
 echo "Removendo instalação ($MODO)..."
 for tema in Dracula-Icones dracula-icons-main dracula-icons-circle Dracula-Cursor; do
-    $SUDO rm -rf "$DEST_ICONS/$tema" 2>/dev/null || true
+    alvo="$DEST_ICONS/$tema"
+    if [[ -e "$alvo" ]]; then
+        validar_path_destrutivo "$alvo" || { _err "Pulando $alvo por segurança"; continue; }
+        $SUDO rm -rf "$alvo"
+    fi
 done
-$SUDO rm -rf "$DEST_THEMES/Dracula-standard-buttons" 2>/dev/null || true
+alvo="$DEST_THEMES/Dracula-standard-buttons"
+if [[ -e "$alvo" ]]; then
+    validar_path_destrutivo "$alvo" || _err "Pulando $alvo por segurança"
+    [[ -e "$alvo" ]] && $SUDO rm -rf "$alvo"
+fi
 rm -f "$HOME/.local/share/applications/com.rtosta.zapzap.desktop" 2>/dev/null || true
 rm -f "$HOME/.local/share/applications/whatsapp-linux-app_whatsapp-linux-app.desktop" 2>/dev/null || true
 

@@ -6,11 +6,15 @@ vira commit/PR atômico e tem sua entrada referenciada no `CHANGELOG.md`.
 
 | #  | Título                                   | Status        | Data       |
 |----|------------------------------------------|---------------|------------|
-| 01 | [Pós-upgrade do sistema](SPRINT_01_POS_UPGRADE.md)      | Concluída     | 2026-04-16 |
+| 01 | [Pós-upgrade do sistema](SPRINT_01_POS_UPGRADE.md)      | Em investigação (pseudo-código; absorvida pela SPRINT_06) | 2026-04-16 |
 | 02 | [Transparência do launcher Pop!_Cosmic](SPRINT_02_TRANSPARENCIA.md)   | Concluída (alpha 0.45) | 2026-04-16 |
 | 03 | [Tema de som Pop!_OS](SPRINT_03_POP_SOUNDS.md)   | Concluída     | 2026-04-16 |
 | 04 | [Atalhos de teclado + som do PrintScreen](SPRINT_04_ATALHOS.md) | Concluída | 2026-04-16 |
 | 05 | [Extensões GNOME Shell](SPRINT_05_GNOME_EXTENSIONS.md) | Concluída | 2026-04-16 |
+| 06 | [Resiliência pós full-upgrade](SPRINT_06_RESILIENCIA_POS_UPGRADE.md) | Concluída | 2026-04-17 |
+| 07 | [Portabilidade universal](SPRINT_07_PORTABILIDADE.md) | Concluída | 2026-04-17 |
+| 08 | [Segurança e robustez dos scripts](SPRINT_08_SEGURANCA_ROBUSTEZ.md) | Concluída | 2026-04-17 |
+| 09 | [Testes, CI e suporte 24.04/COSMIC](SPRINT_09_TESTES_CI_COSMIC.md) | Concluída | 2026-04-17 |
 
 ## Convenção de nomenclatura
 

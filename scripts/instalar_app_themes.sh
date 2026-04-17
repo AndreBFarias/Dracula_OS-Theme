@@ -15,7 +15,6 @@ done
 C_CYAN='\033[0;36m'
 C_GREEN='\033[0;32m'
 C_YELLOW='\033[0;33m'
-C_RED='\033[0;31m'
 C_DIM='\033[2m'
 C_RESET='\033[0m'
 
@@ -23,7 +22,7 @@ _info() { echo -e "  ${C_CYAN}>>${C_RESET} $*"; }
 _ok()   { echo -e "  ${C_GREEN}OK${C_RESET} $*"; }
 _warn() { echo -e "  ${C_YELLOW}!!${C_RESET} $*" >&2; }
 _skip() { echo -e "  ${C_DIM}--${C_RESET} $*"; }
-_run()  { if [[ $DRY_RUN -eq 1 ]]; then echo "  [dry-run] $*"; else eval "$@"; fi; }
+_run()  { if [[ $DRY_RUN -eq 1 ]]; then echo "  [dry-run] $*"; else eval "$*"; fi; }
 
 # ─── kitty ───
 aplicar_kitty() {
@@ -42,13 +41,18 @@ aplicar_kitty() {
         _info "kitty: copiando current-theme.conf"
         _run "cp '$fonte_theme' '$destino/current-theme.conf'"
     fi
-    # Garante include no kitty.conf do user (idempotente, sem \n literal)
-    if ! grep -q "^include current-theme.conf" "$destino/kitty.conf" 2>/dev/null; then
+    # Garante include no kitty.conf do user (idempotente, match exato da linha inteira)
+    local kitty_conf="$destino/kitty.conf"
+    if [[ -f "$kitty_conf" ]] && grep -Fxq "include current-theme.conf" "$kitty_conf"; then
+        :  # linha já existe exatamente — idempotente
+    else
         _info "kitty: adicionando include current-theme.conf"
         if [[ $DRY_RUN -eq 0 ]]; then
-            printf '\ninclude current-theme.conf\n' >> "$destino/kitty.conf"
+            # Garante que termina com newline antes de anexar
+            [[ -f "$kitty_conf" && -s "$kitty_conf" ]] && [[ "$(tail -c1 "$kitty_conf")" != "" ]] && printf '\n' >> "$kitty_conf"
+            printf 'include current-theme.conf\n' >> "$kitty_conf"
         else
-            echo "  [dry-run] printf '\\ninclude current-theme.conf\\n' >> $destino/kitty.conf"
+            echo "  [dry-run] append 'include current-theme.conf' em $kitty_conf"
         fi
     fi
     _ok "kitty atualizado"
@@ -88,10 +92,30 @@ aplicar_gnome_terminal() {
 }
 
 # ─── Spicetify (chama spellbook-os) ───
+# Busca spicetify-setup.sh em locais padrão (portabilidade SPRINT_07).
+_buscar_spicetify_setup() {
+    local repo_root
+    repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+    local candidatos=(
+        "$repo_root/../Spellbook-OS/scripts/spicetify-setup.sh"
+        "$HOME/Desenvolvimento/Spellbook-OS/scripts/spicetify-setup.sh"
+        "${XDG_DATA_HOME:-$HOME/.local/share}/Spellbook-OS/scripts/spicetify-setup.sh"
+        "/opt/Spellbook-OS/scripts/spicetify-setup.sh"
+    )
+    local c
+    for c in "${candidatos[@]}"; do
+        if [[ -x "$c" ]]; then
+            echo "$c"
+            return 0
+        fi
+    done
+    return 1
+}
+
 aplicar_spicetify() {
-    local setup="$HOME/Desenvolvimento/Spellbook-OS/scripts/spicetify-setup.sh"
-    if [[ ! -x "$setup" ]]; then
-        _skip "spicetify-setup.sh não encontrado em $setup"
+    local setup
+    if ! setup="$(_buscar_spicetify_setup)"; then
+        _skip "spicetify-setup.sh não encontrado em Spellbook-OS (procurado em \$REPO/../Spellbook-OS, \$HOME/Desenvolvimento/Spellbook-OS, \$XDG_DATA_HOME/Spellbook-OS, /opt/Spellbook-OS)"
         return 0
     fi
     _info "Spicetify: delegando para Spellbook-OS"

@@ -3,6 +3,38 @@
 Todas as mudanças notáveis deste projeto são documentadas neste arquivo.
 Formato: [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/) + SemVer.
 
+## [1.2.0] — 2026-04-17
+
+### Adicionado
+
+- **Sprint 06 — Resiliência pós full-upgrade**: tema agora se auto-restaura após `apt upgrade`/`full-upgrade` via APT hook, sem intervenção manual.
+- `scripts/lib/common.sh` — biblioteca sourceable com logging unificado, detecção de `REPO_ROOT`, diretório de log rotacionado em `~/.cache/dracula_os_theme/`, `validar_path_destrutivo`, `trap_cleanup_init`, `backup_com_manifest`.
+- `scripts/diagnostico.sh` — health check read-only (28 pontos: gsettings, arquivos, dark.css com marca Dracula, overrides, extensões do manifesto). Exit 0 = OK, 1 = regressões. Flag `--quiet`.
+- `scripts/reaplicar_tema.sh` — reaplicação idempotente sem rebuild: só toca componentes regredidos. Detecta Pop!_Shell/Pop!_Cosmic `dark.css` perdidos, tema de som Pop desativado, `.desktop` com `Icon=` absoluto ou permissão 600. Output tee-ado para log.
+- `scripts/instalar_apt_hook.sh` — gera `/etc/apt/apt.conf.d/99-dracula-os-theme` portátil (usa `${SUDO_USER:-$USER}`, não hardcoded). Flag `--revert` remove o hook.
+- **Sprint 07 — Portabilidade universal**: `scripts/checar_ambiente.sh` (doctor de pré-requisitos: binários, versões, distro, desktop), flag `install.sh --bootstrap` (rota completa para máquina Pop!_OS limpa).
+- **Sprint 08 — Segurança e robustez**: `validar_path_destrutivo` com allowlist restrita antes de `rm -rf`, `trap_cleanup_init` para restaurar backup em interrupção, `backup_com_manifest` com verificação sha256 antes de remover originais. Aplicado em `uninstall.sh`, `scripts/limpar_duplicatas.sh`, `scripts/instalar_keybindings.sh`. Idempotência do include `current-theme.conf` no `kitty.conf` blindada com `grep -Fxq` (linha exata).
+- **Sprint 09 — Testes, CI e suporte 24.04/COSMIC**: `.github/workflows/ci.yml` (shellcheck, lint-manifesto, portabilidade, smoke-build), `tests/test_portabilidade.sh`, `tests/test_reaplicar_idempotencia.sh`, `tests/test_diagnostico_exit_codes.sh`, campos `shell-version-min/max` em `extensions.json`, detecção de COSMIC via `$XDG_CURRENT_DESKTOP` em `instalar_gnome_extensions.sh`.
+- Flags novas no `install.sh`: `--apt-hook`, `--bootstrap`.
+- Novos ícones remapeados (seguindo estilo gótico/fantasia do projeto):
+  - `VOID | QRcode` → `projects/qrcode-void-generator.png` (ícone autoral original).
+  - `Configuração avançada de rede` → `new-sessao-atual/spider-web.svg`.
+  - `Discos` → `new-sessao-atual/treasure-chest.svg`.
+  - `Fontes` → `new-sessao-atual/scroll.svg`.
+  - `Gerenciador de arquivos compactados` → `new-sessao-atual/chest.svg`.
+  - `R` (linguagem) → `new-sessao-atual/spell-book.svg` (nova entrada `rlogo_icon` com alias `R`).
+
+### Modificado
+
+- `docs/sprints/INDEX.md` — status de SPRINT_01 corrigido (era "Concluída", na verdade só tinha pseudo-código; agora "Em investigação (absorvida pela SPRINT_06)"). Adicionadas SPRINTs 06, 07, 08, 09.
+- `scripts/limpar_duplicatas.sh` — hardcoded `/home/andrefarias/.icons` substituído por `$HOME/.icons` (último hardcoded versionado do repo).
+- `scripts/instalar_app_themes.sh` — busca `spicetify-setup.sh` em quatro locais em ordem (irmão do repo, `$HOME/Desenvolvimento`, `$XDG_DATA_HOME`, `/opt`) antes de desistir, com warning explícito; idempotência do kitty include via `grep -Fxq`.
+- `app-themes/gnome-extensions/extensions.json` — todas as 13 entradas recebem `shell-version-min: 42` e `shell-version-max: 46` (default genérico; ajustar por extensão se necessário).
+
+### Corrigido
+
+- Regressão real confirmada em ambiente real: `gsettings org.gnome.desktop.sound theme-name` foi resetado para `'freedesktop'` após `apt full-upgrade`. `reaplicar_tema.sh` reativa automaticamente para `'Pop'`.
+
 ## [1.1.0] — 2026-04-16
 
 ### Adicionado

@@ -7,6 +7,8 @@
 #   ./install.sh --user --activate   # + ativa via gsettings
 #   ./install.sh --user --app-themes # + aplica temas internos (kitty, qbittorrent, etc.)
 #   ./install.sh --user --all        # tudo acima
+#   ./install.sh --user --apt-hook   # + instala hook que reaplica tema pós apt upgrade
+#   ./install.sh --bootstrap         # checa ambiente, baixa upstreams, build, install --user --all, diagnóstico
 
 set -euo pipefail
 
@@ -20,6 +22,8 @@ POP_SHELL_CSS=0
 SOUNDS=0
 KEYBINDINGS=0
 GNOME_EXT=0
+APT_HOOK=0
+BOOTSTRAP=0
 
 for arg in "$@"; do
     case "$arg" in
@@ -31,12 +35,33 @@ for arg in "$@"; do
         --sounds) SOUNDS=1 ;;
         --keybindings) KEYBINDINGS=1 ;;
         --gnome-extensions) GNOME_EXT=1 ;;
+        --apt-hook) APT_HOOK=1 ;;
+        --bootstrap) BOOTSTRAP=1 ;;
         --all) ATIVAR=1; APP_THEMES=1; POP_SHELL_CSS=1; SOUNDS=1; KEYBINDINGS=1; GNOME_EXT=1 ;;
     esac
 done
 
+# Bootstrap: rota completa ambiente → build → install --user --all → diagnóstico
+if [[ $BOOTSTRAP -eq 1 ]]; then
+    if ! "$REPO_ROOT/scripts/checar_ambiente.sh"; then
+        echo ""
+        echo "ERRO: ambiente incompleto. Instale as dependências acima e rode novamente."
+        exit 1
+    fi
+    echo ""
+    echo "=== Baixando upstreams ==="
+    "$REPO_ROOT/scripts/baixar_upstreams.sh"
+    echo ""
+    echo "=== Build ==="
+    "$REPO_ROOT/build.sh"
+    echo ""
+    echo "=== Install --user --all ==="
+    exec "$REPO_ROOT/install.sh" --user --all
+fi
+
 if [[ -z "$MODO" ]]; then
-    echo "Uso: $0 --user|--system [--activate] [--app-themes] [--pop-shell-css] [--sounds] [--keybindings] [--gnome-extensions] [--all]"
+    echo "Uso: $0 --user|--system [--activate] [--app-themes] [--pop-shell-css] [--sounds] [--keybindings] [--gnome-extensions] [--apt-hook] [--all]"
+    echo "     $0 --bootstrap  (rota completa para máquina limpa Pop!_OS)"
     exit 1
 fi
 
@@ -134,6 +159,13 @@ if [[ $KEYBINDINGS -eq 1 && "$MODO" == "user" ]]; then
     echo ""
     _info "Aplicando atalhos de teclado + desativando som do shutter"
     "$REPO_ROOT/scripts/instalar_keybindings.sh" || _warn "Instalação de keybindings falhou"
+fi
+
+# ─── APT hook (requer sudo; reaplica tema após apt upgrade) ───
+if [[ $APT_HOOK -eq 1 ]]; then
+    echo ""
+    _info "Instalando APT hook para reaplicação automática pós-upgrade (pede sudo)"
+    sudo "$REPO_ROOT/scripts/instalar_apt_hook.sh" install || _warn "Instalação do APT hook falhou"
 fi
 
 # ─── gsettings ativar ───

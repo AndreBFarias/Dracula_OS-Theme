@@ -1,0 +1,77 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  shellcheck:
+    name: Lint shell scripts
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Instalar shellcheck
+        run: sudo apt-get update && sudo apt-get install -y shellcheck
+      - name: Rodar shellcheck
+        run: |
+          set -e
+          # Severidade: warning ou maior falha; info/style só avisam
+          shellcheck --severity=warning \
+            build.sh install.sh uninstall.sh \
+            scripts/*.sh scripts/lib/*.sh \
+            tests/*.sh
+
+  lint-manifesto:
+    name: Validar extensions.json
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Instalar jq
+        run: sudo apt-get update && sudo apt-get install -y jq
+      - name: Validar JSON
+        run: |
+          jq empty app-themes/gnome-extensions/extensions.json
+      - name: Validar schema mínimo
+        run: |
+          jq -e '
+            .extensions
+            | length > 0
+            and all(
+              has("uuid") and has("name") and has("repo")
+              and (.uuid | test("^[A-Za-z0-9@._-]+$"))
+            )
+          ' app-themes/gnome-extensions/extensions.json
+
+  portabilidade:
+    name: Sem hardcoded paths
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Detectar hardcoded usernames
+        run: bash tests/test_portabilidade.sh
+
+  smoke-build:
+    name: Smoke test build
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Instalar dependências de build
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y jq librsvg2-bin libgtk-3-bin python3
+      - name: Rodar checar_ambiente.sh
+        run: ./scripts/checar_ambiente.sh || true  # warnings de GNOME/Pop! são esperados
+      - name: baixar_upstreams + build
+        run: |
+          ./scripts/baixar_upstreams.sh
+          ./build.sh
+      - name: Validar dist/
+        run: |
+          test -d dist/icons/Dracula-Icones
+          test -f dist/icons/Dracula-Icones/index.theme
+          # Pelo menos 1 PNG em 48x48 e 1 SVG em scalable
+          test "$(find dist/icons/Dracula-Icones/48x48/apps -name '*.png' | wc -l)" -gt 50
+          test "$(find dist/icons/Dracula-Icones/scalable/apps -name '*.svg' | wc -l)" -gt 50

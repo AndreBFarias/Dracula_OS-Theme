@@ -51,16 +51,28 @@ Desenvolvido e testado em **Pop!_OS 22.04 LTS / GNOME 42.9 / X11**.
 
 ### Instalação
 
-#### Via Script (Recomendado — clona o repo completo)
+#### Em outro PC Pop!_OS (rota mais curta — SPRINT_07)
+
+```bash
+git clone https://github.com/AndreBFarias/Dracula_OS-Theme.git
+cd Dracula_OS-Theme
+./install.sh --bootstrap
+```
+
+O `--bootstrap` chama `scripts/checar_ambiente.sh` (lista dependências faltantes com `sudo apt install` pronto para copiar), depois `baixar_upstreams.sh`, `build.sh` e `install.sh --user --all`. Funciona em Pop!_OS 22.04 e (preparado para) 24.04.
+
+#### Via Script (controle passo-a-passo)
 
 ```bash
 git clone https://github.com/AndreBFarias/Dracula_OS-Theme.git ~/Desenvolvimento/Dracula_OS-Theme
 cd ~/Desenvolvimento/Dracula_OS-Theme
 
+./scripts/checar_ambiente.sh           # opcional: valida dependências antes
 ./scripts/baixar_upstreams.sh          # baixa dracula-icons-main/circle (~120MB, git-ignored)
 python3 scripts/extrair_mapeamento.py  # gera mapping.json a partir dos .desktop do sistema
 ./build.sh                             # gera dist/ com ícones em todos os tamanhos
 ./install.sh --user --all              # instala + ativa + app-themes + pop-shell-css
+./install.sh --user --apt-hook         # (opcional) hook para reaplicar tema após apt upgrade
 ```
 
 #### Via Release (tarball)
@@ -86,8 +98,19 @@ cd Dracula_OS-Theme-v1.1.0
 ./install.sh --user --sounds             # instala tema de som Pop + ativa via gsettings
 ./install.sh --user --keybindings        # aplica snapshot de atalhos + silencia shutter
 ./install.sh --user --gnome-extensions   # reinstala + configura 13 extensões GNOME
-./install.sh --user --all                # tudo acima
+./install.sh --user --apt-hook           # instala hook APT (reaplica tema automaticamente pós upgrade)
+./install.sh --user --all                # tudo acima (não inclui --apt-hook; ative manualmente)
+./install.sh --bootstrap                 # rota completa para máquina Pop!_OS limpa
 ```
+
+#### Matriz de compatibilidade
+
+| Ambiente | Build | Install | Pop!_Shell CSS | Extensões GNOME | Testado |
+|---|---|---|---|---|---|
+| Pop!_OS 22.04 GNOME 42 | ✅ | ✅ | ✅ | ✅ | ✅ em produção |
+| Pop!_OS 24.04 GNOME 46 | ✅ | ✅ | ⚠️ paths podem diferir | ⚠️ `shell-version-max=46` declarado | ⚠️ preparado, não testado em VM |
+| Pop!_OS 24.04 COSMIC | ✅ | ✅ (ícones/GTK/sons) | ⚠️ não-aplicável | ⚠️ abortado com mensagem clara (`$XDG_CURRENT_DESKTOP`) | ⚠️ preparado |
+| Outras distros GNOME 42+ | ⚠️ | ⚠️ | ❌ (sem Pop!_Shell) | ✅ | ⚠️ provavelmente funcional |
 
 ---
 
@@ -232,6 +255,20 @@ gsettings reset org.gnome.desktop.interface cursor-theme
 ---
 
 ### Troubleshooting
+
+**Tema degradou após `apt full-upgrade` ou `flatpak update`** (SPRINT_06)
+```bash
+./scripts/diagnostico.sh           # lista regressões (exit 0 = OK, 1 = tem coisa errada)
+./scripts/reaplicar_tema.sh        # reaplica só o que regrediu (idempotente)
+sudo ./scripts/instalar_apt_hook.sh install   # automatiza daqui pra frente
+```
+O hook dispara `reaplicar_tema.sh` após toda operação apt. Log sistêmico em `/var/log/dracula-theme-reaplicar.log`. Desinstalar: `sudo ./scripts/instalar_apt_hook.sh --revert`.
+
+**Como saber se o ambiente está pronto** (SPRINT_07)
+```bash
+./scripts/checar_ambiente.sh       # doctor: valida binários, versões, distribuição
+```
+Lista binários faltantes com `sudo apt install ...` pronto para copiar.
 
 **Ícones não aparecem após instalar**
 ```bash

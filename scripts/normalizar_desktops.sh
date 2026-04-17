@@ -9,8 +9,6 @@
 
 set -euo pipefail
 
-REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-MAPPING="$REPO_ROOT/mapping.json"
 DRY_RUN=0
 BACKUP_DIR="$HOME/.cache/dracula_os_backup_$(date +%Y%m%d_%H%M%S)/desktops"
 
