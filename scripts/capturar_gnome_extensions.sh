@@ -33,8 +33,8 @@ total=0
 pulados=0
 for ns in $(dconf list /org/gnome/shell/extensions/ 2>/dev/null | sed 's:/$::'); do
     arquivo="$DIR/${ns}.dconf"
-    conteudo=$(dconf dump "/org/gnome/shell/extensions/$ns/" 2>/dev/null)
-    bytes=${#conteudo}
+    raw=$(dconf dump "/org/gnome/shell/extensions/$ns/" 2>/dev/null)
+    bytes=${#raw}
 
     if [[ $bytes -lt 10 ]]; then
         rm -f "$arquivo"
@@ -43,7 +43,7 @@ for ns in $(dconf list /org/gnome/shell/extensions/ 2>/dev/null | sed 's:/$::');
         continue
     fi
 
-    echo "$conteudo" > "$arquivo"
+    echo "$raw" > "$arquivo"
     _ok "$ns.dconf ($bytes bytes)"
     total=$((total + 1))
 done

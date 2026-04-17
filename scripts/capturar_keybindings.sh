@@ -35,13 +35,13 @@ _info "Capturando snapshots em $DIR/"
 for path in "${!NAMESPACES[@]}"; do
     arquivo="${NAMESPACES[$path]}"
     destino="$DIR/$arquivo"
-    conteudo=$(dconf dump "$path" 2>/dev/null)
-    if [[ -z "$conteudo" || "$conteudo" == $'[/]\n' ]]; then
+    raw=$(dconf dump "$path" 2>/dev/null)
+    if [[ -z "$raw" || "$raw" == $'[/]\n' ]]; then
         rm -f "$destino"
         _skip "$arquivo (sem customização — removido)"
         continue
     fi
-    echo "$conteudo" > "$destino"
+    echo "$raw" > "$destino"
     _ok "$arquivo ($(wc -l < "$destino") linhas)"
 done
 

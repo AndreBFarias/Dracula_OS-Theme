@@ -3,7 +3,7 @@
 Todas as mudanças notáveis deste projeto são documentadas neste arquivo.
 Formato: [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/) + SemVer.
 
-## [Não lançado] — Desenvolvimento
+## [1.1.0] — 2026-04-16
 
 ### Adicionado
 

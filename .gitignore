@@ -7,11 +7,16 @@ __pycache__/
 venv/
 *.log
 *.bak
+*.bak.*
+*.orig
+*.rej
 .DS_Store
 Thumbs.db
 backups/
 *_backup_*/
-# Upstreams vendored localmente mas NAO commitados (baixados via scripts/baixar_upstreams.sh)
-# Evita repo gigante no GitHub e permite atualizacoes separadas.
+.claude/
+.cache/
+# Upstreams vendored localmente mas NÃO commitados (baixados via scripts/baixar_upstreams.sh)
+# Evita repo gigante no GitHub e permite atualizações separadas.
 src/icons/upstream/
 releases/

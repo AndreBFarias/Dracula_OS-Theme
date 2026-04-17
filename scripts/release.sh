@@ -26,12 +26,19 @@ _info "Montando $NOME em $TMP/"
 # Copiar tudo exceto dist/, .git/, backups, upstreams (usuário baixa separado)
 rsync -a \
     --exclude='.git/' \
+    --exclude='.claude/' \
+    --exclude='.cache/' \
     --exclude='dist/' \
     --exclude='releases/' \
     --exclude='*_backup_*/' \
     --exclude='*.pyc' \
     --exclude='__pycache__/' \
     --exclude='src/icons/upstream/' \
+    --exclude='.DS_Store' \
+    --exclude='*.swp' \
+    --exclude='*.bak' \
+    --exclude='*.bak.*' \
+    --exclude='*.orig' \
     "$REPO_ROOT/" "$TMP/$NOME/"
 
 # Garantir que a nota de upstreams está no tarball
