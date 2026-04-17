@@ -2,6 +2,7 @@
 
 [![opensource](https://badges.frapsoft.com/os/v1/open-source.png?v=103)](#)
 [![Licença](https://img.shields.io/badge/licenca-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![Versão](https://img.shields.io/github/v/release/AndreBFarias/Dracula_OS-Theme?color=purple&label=versao)](https://github.com/AndreBFarias/Dracula_OS-Theme/releases/latest)
 [![Shell](https://img.shields.io/badge/shell-bash-green.svg)](https://www.gnu.org/software/bash/)
 [![Python](https://img.shields.io/badge/python-3.10+-green.svg)](https://www.python.org/)
 [![Pop!_OS](https://img.shields.io/badge/Pop!__OS-22.04-purple.svg)](https://pop.system76.com/)
@@ -65,9 +66,9 @@ python3 scripts/extrair_mapeamento.py  # gera mapping.json a partir dos .desktop
 #### Via Release (tarball)
 
 ```bash
-wget https://github.com/AndreBFarias/Dracula_OS-Theme/releases/latest/download/Dracula_OS-Theme-v1.0.0.tar.gz
-tar xzf Dracula_OS-Theme-v1.0.0.tar.gz
-cd Dracula_OS-Theme-v1.0.0
+wget https://github.com/AndreBFarias/Dracula_OS-Theme/releases/latest/download/Dracula_OS-Theme-v1.1.0.tar.gz
+tar xzf Dracula_OS-Theme-v1.1.0.tar.gz
+cd Dracula_OS-Theme-v1.1.0
 
 ./scripts/baixar_upstreams.sh
 ./build.sh
