@@ -20,3 +20,20 @@ backups/
 # Evita repo gigante no GitHub e permite atualizações separadas.
 src/icons/upstream/
 releases/
+
+# --- anti-IA (anonimato local) ---
+CLAUDE.md
+AGENTS.md
+GEMINI.md
+COPILOT.md
+HANDOFF-PROMPT.md
+HANDOFF.md
+HOW_TO_RESUME.md
+VALIDATOR_BRIEF.md
+STATE.md
+.cursorrules
+.windsurfrules
+.cursor/
+.aider*
+.continue/
+.github/copilot-instructions.md
