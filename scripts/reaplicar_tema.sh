@@ -48,6 +48,13 @@ for ext in pop-shell pop-cosmic; do
 done
 [[ $pop_shell_ok -eq 1 ]] && _ok "Pop!_Shell/Pop!_Cosmic dark.css preservados"
 
+# ─── 2.5 Localização pt-BR Pop!_Cosmic + higiene do launcher ───
+_info "Reaplicando localização pt-BR do launcher Pop!_Cosmic"
+"$REPO_ROOT/scripts/instalar_pop_cosmic_ptbr.sh" || _warn "instalar_pop_cosmic_ptbr.sh falhou (não-fatal)"
+
+_info "Reaplicando higiene do launcher (NoDisplay + folder-children)"
+"$REPO_ROOT/scripts/instalar_higiene_launcher.sh" || _warn "instalar_higiene_launcher.sh falhou (não-fatal)"
+
 # ─── 3. Overrides .desktop (ZapZap/WhatsApp Snap) ───
 _info "Reaplicando overrides .desktop"
 "$REPO_ROOT/scripts/aplicar_overrides.sh" || _warn "aplicar_overrides.sh falhou"
@@ -83,11 +90,42 @@ _info "Reaplicando app themes"
 _info "Atualizando ícones de jogos Steam"
 "$REPO_ROOT/scripts/atualizar_icones_steam.sh" || _warn "atualizar_icones_steam.sh falhou"
 
+# ─── 7.7 Keybindings (dconf) ───
+# Subscript reaplica snapshots de media-keys/wm-keybindings/terminal/sound.
+# Idempotente em resultado; cria backup pequeno em ~/.cache/dracula_os_backup/.
+_info "Reaplicando keybindings (dconf)"
+"$REPO_ROOT/scripts/instalar_keybindings.sh" || _warn "instalar_keybindings.sh falhou (não-fatal)"
+
+# ─── 7.8 dconf das extensões GNOME (sem re-download) ───
+# Usa --only-dconf: pula install/enable, aplica apenas configurações dconf
+# das extensões já presentes. Subscript detecta COSMIC e pula sozinho.
+_info "Reaplicando dconf das extensões GNOME (--only-dconf)"
+"$REPO_ROOT/scripts/instalar_gnome_extensions.sh" --only-dconf || _warn "instalar_gnome_extensions.sh --only-dconf falhou (não-fatal)"
+
 # ─── 8. Rebuild caches ───
 _info "Regenerando caches"
-gtk-update-icon-cache -f "$HOME/.local/share/icons/Dracula-Icones" 2>/dev/null || true
-update-desktop-database "$HOME/.local/share/applications" 2>/dev/null || true
+if ! gtk-update-icon-cache -f "$HOME/.local/share/icons/Dracula-Icones" 2>/dev/null; then
+    _warn "gtk-update-icon-cache falhou para Dracula-Icones"
+fi
+if ! update-desktop-database "$HOME/.local/share/applications" 2>/dev/null; then
+    _warn "update-desktop-database falhou para ~/.local/share/applications"
+fi
 _ok "Caches regenerados"
+
+# ─── 8.5 gsettings: icon-theme / gtk-theme / cursor-theme ───
+# Reativa o tema caso GNOME tenha resetado para Adwaita após upgrade.
+# Cada `gsettings set` é silencioso quando o valor já é o atual (no-op).
+_info "Reativando tema via gsettings (icon/gtk/cursor)"
+gsettings set org.gnome.desktop.interface icon-theme 'Dracula-Icones' \
+    && _ok "icon-theme=Dracula-Icones" || _warn "Falha ao setar icon-theme"
+gsettings set org.gnome.desktop.interface gtk-theme 'Dracula-standard-buttons' \
+    && _ok "gtk-theme=Dracula-standard-buttons" || _warn "Falha ao setar gtk-theme"
+gsettings set org.gnome.desktop.interface cursor-theme 'Dracula-Cursor' \
+    && _ok "cursor-theme=Dracula-Cursor" || _warn "Falha ao setar cursor-theme"
+if gsettings list-schemas 2>/dev/null | grep -q "^org.gnome.shell.extensions.user-theme$"; then
+    gsettings set org.gnome.shell.extensions.user-theme name 'Dracula-standard-buttons' 2>/dev/null \
+        && _ok "user-theme=Dracula-standard-buttons" || true
+fi
 
 # ─── 9. Verificação final ───
 echo ""
