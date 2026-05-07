@@ -218,6 +218,84 @@ gerar_mimetypes() {
     _ok "mimetypes gerados: $total nomes"
 }
 
+# ─── Fase C3: Propagar symbolic/* dos heritages ao Dracula-Icones ───
+# Merge com prioridade dracula-icons-circle: para cada nome único em
+# symbolic/<sub>, copia do circle se existir; senão do main.
+# Resultado: lookup local de qualquer X-symbolic disponível nos heritages,
+# sem depender de Inherits=.
+# Subdirs efetivamente populadas são exportadas no array global
+# SYMBOLIC_SUBDIRS_POPULADAS para gerar_index_theme() consumir.
+SYMBOLIC_SUBDIRS_POPULADAS=()
+
+gerar_symbolic_icons() {
+    _info "Propagando symbolic icons dos heritages (prioridade: circle)"
+    local destino_base="$DIST/icons/$TEMA_ICONES/symbolic"
+    local fonte_circle="$SRC/icons/upstream/dracula-icons-circle/symbolic"
+    local fonte_main="$SRC/icons/upstream/dracula-icons-main/symbolic"
+    local subdirs=(actions apps categories devices emblems emotes mimetypes places status)
+    local total_geral=0
+
+    for sub in "${subdirs[@]}"; do
+        local destino="$destino_base/$sub"
+        local count_circle=0 count_main_only=0
+
+        # Coletar nomes únicos (basename) das duas fontes.
+        # Heritages contêm também "dangling symlinks" cujo target é o próprio
+        # conteúdo SVG embutido (artefato do export upstream). Aceitamos arquivo
+        # regular OU symlink; a cópia trata cada caso adequadamente.
+        local -A nomes=()
+        if [[ -d "$fonte_circle/$sub" ]]; then
+            for svg in "$fonte_circle/$sub"/*.svg; do
+                [[ -e "$svg" || -L "$svg" ]] || continue
+                nomes["$(basename "$svg")"]="circle"
+            done
+        fi
+        if [[ -d "$fonte_main/$sub" ]]; then
+            for svg in "$fonte_main/$sub"/*.svg; do
+                [[ -e "$svg" || -L "$svg" ]] || continue
+                local n
+                n="$(basename "$svg")"
+                # circle vence; só seta main se ainda não tiver origem
+                if [[ -z "${nomes[$n]:-}" ]]; then
+                    nomes["$n"]="main"
+                fi
+            done
+        fi
+
+        local total=${#nomes[@]}
+        if [[ $total -eq 0 ]]; then
+            # Subdir vazia em ambos heritages — não criar e não declarar
+            continue
+        fi
+
+        mkdir -p "$destino"
+        for nome in "${!nomes[@]}"; do
+            local origem="${nomes[$nome]}"
+            local src_svg
+            if [[ "$origem" == "circle" ]]; then
+                src_svg="$fonte_circle/$sub/$nome"
+                count_circle=$((count_circle + 1))
+            else
+                src_svg="$fonte_main/$sub/$nome"
+                count_main_only=$((count_main_only + 1))
+            fi
+            # Symlink dangling com conteúdo SVG no próprio target → materializar
+            # o conteúdo lendo o readlink. Arquivo regular → cp -p preserva mtime.
+            if [[ -L "$src_svg" && ! -e "$src_svg" ]]; then
+                readlink "$src_svg" > "$destino/$nome"
+            else
+                cp -p "$src_svg" "$destino/$nome"
+            fi
+        done
+
+        SYMBOLIC_SUBDIRS_POPULADAS+=("symbolic/$sub")
+        total_geral=$((total_geral + total))
+        _ok "symbolic/$sub: $total ícones (circle=$count_circle, main-only=$count_main_only)"
+    done
+
+    _ok "symbolic propagado: ${#SYMBOLIC_SUBDIRS_POPULADAS[@]} subdirs, $total_geral SVGs"
+}
+
 # ─── Fase D: Gerar index.theme ───
 gerar_index_theme() {
     _info "Gerando index.theme"
@@ -249,6 +327,36 @@ Context=Applications
 Size=${size}
 Type=Fixed
 Context=MimeTypes
+"
+    done
+
+    # Após o loop de TAMANHOS, anexar symbolic/* populados (SPRINT 12)
+    declare -A CONTEXT_SYMBOLIC=(
+        [symbolic/actions]=Actions
+        [symbolic/apps]=Applications
+        [symbolic/categories]=Categories
+        [symbolic/devices]=Devices
+        [symbolic/emblems]=Emblems
+        [symbolic/emotes]=Emotes
+        [symbolic/mimetypes]=MimeTypes
+        [symbolic/places]=Places
+        [symbolic/status]=Status
+    )
+
+    for sub in "${SYMBOLIC_SUBDIRS_POPULADAS[@]}"; do
+        local ctx="${CONTEXT_SYMBOLIC[$sub]:-}"
+        if [[ -z "$ctx" ]]; then
+            _warn "index.theme: Context desconhecido para $sub — pulando"
+            continue
+        fi
+        dirs+=("$sub")
+        blocos+="
+[$sub]
+Size=16
+Type=Scalable
+MinSize=8
+MaxSize=512
+Context=$ctx
 "
     done
 
@@ -378,6 +486,7 @@ main() {
     copiar_upstreams
     gerar_tema_icones
     gerar_mimetypes
+    gerar_symbolic_icons
     gerar_index_theme
     copiar_cursor_gtk_shell
     preparar_extras
