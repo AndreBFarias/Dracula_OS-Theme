@@ -143,6 +143,7 @@ cd Dracula_OS-Theme-v1.1.0
 ~/.local/share/themes/Dracula-standard-buttons/
 ~/.local/share/applications/com.rtosta.zapzap.desktop                  # override WhatsApp
 ~/.local/share/applications/whatsapp-linux-app_whatsapp-linux-app.desktop  # Snap oculto (NoDisplay)
+~/.local/share/backgrounds/dracula/             # wallpapers Dracula (não troca o atual)
 
 # Com --pop-shell-css:
 /usr/share/gnome-shell/extensions/pop-shell@system76.com/dark.css       (backup em .orig)
@@ -157,6 +158,30 @@ cd Dracula_OS-Theme-v1.1.0
 # Spicetify aplicado via Spellbook-OS (tema Sleek + color scheme Dracula)
 # GNOME Terminal perfil importado via dconf
 ```
+
+---
+
+### Dependências externas
+
+Alguns app-themes delegam a setups externos não embutidos neste repositório:
+
+- **Spicetify** (Spotify Flatpak): a função `aplicar_spicetify` em
+  `scripts/instalar_app_themes.sh` busca `spicetify-setup.sh` do
+  [Spellbook-OS](https://github.com/AndreBFarias/Spellbook-OS) em quatro
+  caminhos conhecidos (`$REPO/../Spellbook-OS/scripts/`,
+  `$HOME/Desenvolvimento/Spellbook-OS/scripts/`,
+  `$XDG_DATA_HOME/Spellbook-OS/scripts/`, `/opt/Spellbook-OS/scripts/`).
+  Sem o Spellbook, o passo é pulado com warning. Alternativa: rodar
+  manualmente o setup oficial do [Spicetify CLI](https://spicetify.app).
+
+- Após `flatpak update`, o Spotify pode dessincronizar do Spicetify.
+  Resolução:
+
+  ```bash
+  bash scripts/atualizar_spicetify.sh --auto-fix
+  ```
+
+  Detalhes em `app-themes/spicetify/README.md`.
 
 ---
 
@@ -290,11 +315,17 @@ Depois: `Alt+F2` → `r` → Enter (X11) ou logout/login (Wayland).
 **Launcher do Pop!_OS continua opaco**
 Veja [docs/sprints/SPRINT_02_TRANSPARENCIA.md](docs/sprints/SPRINT_02_TRANSPARENCIA.md) para o estado da investigação e próximos passos.
 
-**Spicetify reclama de versão mismatched**
-Normal após update do Spotify Flatpak. Reaplicar:
+**Spicetify reclama de versão mismatched após `flatpak update`**
+
 ```bash
-~/Desenvolvimento/Spellbook-OS/scripts/spicetify-setup.sh
+bash scripts/atualizar_spicetify.sh --auto-fix
 ```
+
+O script mata o Spotify, limpa o cache em
+`~/.var/app/com.spotify.Client/cache/`, reinstala o bundle Flatpak
+(`flatpak install --reinstall`) e reaplica o tema. Sem flag, apenas avisa.
+Como fallback, o setup completo do Spellbook-OS continua disponível em
+`~/Desenvolvimento/Spellbook-OS/scripts/spicetify-setup.sh`.
 
 ---
 

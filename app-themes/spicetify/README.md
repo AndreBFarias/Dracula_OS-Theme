@@ -32,3 +32,46 @@ Evitar divergência: a lógica do Spellbook-OS já trata os edge cases
 (limpeza de cache do Flatpak, geração de prefs na primeira execução,
 validação pós-instalação). `scripts/instalar_app_themes.sh` apenas chama
 essa rotina.
+
+## Troubleshooting
+
+### "Spotify version and backup version are mismatched"
+
+Sintoma observado após `flatpak update` do `com.spotify.Client`:
+
+````
+warning Spotify version and backup version are mismatched.
+info Spotify cannot be backed up at this state.
+Please re-install Spotify then run "spicetify backup apply"
+````
+
+E no Theme Dev Tools dentro do Spotify:
+
+````
+Error: No marketplace theme installed
+Error: Class name list not found; please create an issue
+````
+
+Resolução em uma linha:
+
+```bash
+bash scripts/atualizar_spicetify.sh --auto-fix
+```
+
+O script encerra processos do Spotify, limpa o cache do Flatpak em
+`~/.var/app/com.spotify.Client/cache/`, executa
+`flatpak install --reinstall --noninteractive flathub com.spotify.Client`
+(download ~150 MB) e roda `spicetify apply`. Sem flag, o script apenas
+avisa e sugere a flag.
+
+### Equivalente manual
+
+```bash
+pgrep -f spotify | xargs -r kill -9
+rm -rf ~/.var/app/com.spotify.Client/cache/*
+flatpak install --reinstall --noninteractive flathub com.spotify.Client
+~/.spicetify/spicetify apply
+```
+
+`spicetify apply` (não `backup apply`): após reinstall, o Spicetify
+reconhece a versão limpa e re-cria o backup automaticamente.

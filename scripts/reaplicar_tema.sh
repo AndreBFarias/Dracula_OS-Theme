@@ -97,6 +97,12 @@ _info "Reaplicando app themes"
 _info "Atualizando ícones de jogos Steam"
 "$REPO_ROOT/scripts/atualizar_icones_steam.sh" || _warn "atualizar_icones_steam.sh falhou"
 
+# ─── 7.6 Spicetify / Spotify Flatpak (SPRINT_17) ───
+# Detecta dessincronia pós flatpak update. Default: avisa.
+# Para auto-fix: rode 'bash scripts/atualizar_spicetify.sh --auto-fix' manualmente.
+_info "Verificando Spicetify"
+"$REPO_ROOT/scripts/atualizar_spicetify.sh" || _warn "atualizar_spicetify.sh falhou (não-fatal)"
+
 # ─── 7.7 Keybindings (dconf) ───
 # Subscript reaplica snapshots de media-keys/wm-keybindings/terminal/sound.
 # Idempotente em resultado; cria backup pequeno em ~/.cache/dracula_os_backup/.

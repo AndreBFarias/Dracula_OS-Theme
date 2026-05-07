@@ -116,6 +116,12 @@ if [[ "$MODO" == "user" ]]; then
     "$REPO_ROOT/scripts/atualizar_icones_steam.sh" || _warn "atualizar_icones_steam.sh falhou (não-fatal)"
 fi
 
+# ─── Wallpapers Dracula (não-fatal; user-only) ───
+if [[ "$MODO" == "user" ]]; then
+    _info "Instalando wallpapers Dracula (não-fatal)"
+    "$REPO_ROOT/scripts/instalar_wallpapers.sh" || _warn "instalar_wallpapers.sh falhou (não-fatal)"
+fi
+
 # ─── Temas GTK/Shell ───
 _info "Instalando tema GTK + shell"
 $SUDO mkdir -p "$DEST_THEMES"

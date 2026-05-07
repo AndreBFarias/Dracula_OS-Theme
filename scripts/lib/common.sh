@@ -76,6 +76,8 @@ _allowlist_destrutiva=(
     "$HOME/.themes"
     "$HOME/.cache/dracula_os_theme"
     "$HOME/.cache/dracula_os_backup"
+    "$HOME/.var/app/com.spotify.Client/cache"
+    "$HOME/.local/share/backgrounds/dracula"
     "/usr/share/icons"
     "/usr/share/themes"
     "/usr/share/sounds"
@@ -195,6 +197,51 @@ _purgar_antigos() {
 # instalar_keybindings.sh e limpar_duplicatas.sh.
 _purgar_backups_antigos() {
     _purgar_antigos "$@"
+}
+
+# ─── Spicetify / Spotify Flatpak (SPRINT_17) ───
+# Retorna 0 se com.spotify.Client está instalado via Flatpak (user OU system).
+# Retorna 1 caso contrário. Sem stdout (silencioso).
+_detectar_spotify_flatpak() {
+    command -v flatpak >/dev/null 2>&1 || return 1
+    flatpak list --app --columns=application 2>/dev/null \
+        | grep -qx "com.spotify.Client"
+}
+
+# Resolve o estado "Spotify version and backup version are mismatched" do
+# Spicetify executando, em ordem: kill do Spotify -> limpeza do cache web do
+# Flatpak -> reinstall do bundle Flatpak -> spicetify apply. Não-fatal: cada
+# passo loga _warn em falha mas não aborta o roteiro. Respeita
+# DRACULA_DRY_RUN=1 (imprime os 4 comandos com prefixo [dry-run] e retorna 0).
+#
+# Pré-requisitos: caller já confirmou que (a) spicetify está instalado,
+# (b) Spotify Flatpak está instalado, (c) o sintoma de mismatch foi detectado.
+_resolver_spicetify_mismatch() {
+    local spicetify_bin="${1:-$HOME/.spicetify/spicetify}"
+    local cache_dir="$HOME/.var/app/com.spotify.Client/cache"
+    if [[ "${DRACULA_DRY_RUN:-0}" == "1" ]]; then
+        _dim "[dry-run] pgrep -f spotify | xargs -r kill -9"
+        _dim "[dry-run] rm -rf -- ${cache_dir}/*"
+        _dim "[dry-run] flatpak install --reinstall --noninteractive flathub com.spotify.Client"
+        _dim "[dry-run] $spicetify_bin apply"
+        return 0
+    fi
+    _info "Encerrando processos do Spotify (se houver)"
+    pgrep -f spotify | xargs -r kill -9 2>/dev/null || true
+    if [[ -d "$cache_dir" ]]; then
+        if validar_path_destrutivo "$cache_dir" >/dev/null 2>&1; then
+            _info "Limpando cache do Spotify Flatpak"
+            rm -rf -- "${cache_dir:?}"/* 2>/dev/null || _warn "rm cache do Spotify falhou"
+        else
+            _warn "Cache do Spotify fora da allowlist; pulando"
+        fi
+    fi
+    _info "Reinstalando bundle Flatpak (download ~150 MB)"
+    flatpak install --reinstall --noninteractive flathub com.spotify.Client \
+        || { _err "flatpak install --reinstall falhou"; return 1; }
+    _info "Reaplicando Spicetify"
+    "$spicetify_bin" apply || { _err "spicetify apply falhou após reinstall"; return 1; }
+    return 0
 }
 
 # "Nosce te ipsum." -- conhece-te a ti mesmo.

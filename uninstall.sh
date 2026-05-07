@@ -74,6 +74,12 @@ if [[ -d "$HOME/.local/share/sounds/Pop" ]] || [[ -d /usr/share/sounds/Pop ]]; t
     "$REPO_ROOT/scripts/instalar_sons.sh" "--$MODO" --revert 2>/dev/null || true
 fi
 
+# Reverter wallpapers Dracula (se instalados)
+if [[ -d "$HOME/.local/share/backgrounds/dracula" ]]; then
+    echo "Removendo wallpapers Dracula..."
+    "$REPO_ROOT/scripts/desinstalar_wallpapers.sh" || true
+fi
+
 echo "Desinstalação concluída. Reverta gsettings manualmente se necessário."
 
 # "Memento mori." -- lembra-te que és mortal.
