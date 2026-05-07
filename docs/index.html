@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dracula_OS-Theme — Pop!_OS / GNOME</title>
+<meta name="description" content="Experiência Dracula unificada para Pop!_OS / GNOME: ícones, cursor, GTK, shell, sons, app themes e launcher pt-BR.">
+<link rel="icon" href="assets/logo.png" type="image/png">
+<link rel="stylesheet" href="assets/css/style.css">
+<meta property="og:title" content="Dracula_OS-Theme">
+<meta property="og:description" content="Experiência Dracula unificada para Pop!_OS / GNOME.">
+<meta property="og:image" content="assets/screenshots/00-desktop-wallpaper.png">
+</head>
+<body>
+
+<!-- ========== HERO ========== -->
+<section class="hero">
+    <img src="assets/logo.png" alt="Logo Dracula_OS" class="logo">
+    <h1>Dracula<span class="accent">_OS</span>-Theme</h1>
+    <p class="tagline">
+        Experiência Dracula unificada para <strong>Pop!_OS / GNOME</strong>:
+        2235 ícones, cursor, GTK, shell, sons, app themes e launcher em pt-BR.
+        Build reprodutível — instalação reversível — auto-resiliente a <code>apt upgrade</code>.
+    </p>
+    <div class="badges">
+        <a href="https://github.com/AndreBFarias/Dracula_OS-Theme/releases/latest"><img src="https://img.shields.io/github/v/release/AndreBFarias/Dracula_OS-Theme?color=bd93f9&label=versao&style=flat-square" alt="Versão"></a>
+        <img src="https://img.shields.io/badge/Pop!__OS-22.04-bd93f9.svg?style=flat-square" alt="Pop!_OS 22.04">
+        <img src="https://img.shields.io/badge/GNOME-42.9-50fa7b.svg?style=flat-square" alt="GNOME 42.9">
+        <img src="https://img.shields.io/badge/licenca-GPLv3-ff79c6.svg?style=flat-square" alt="GPLv3">
+    </div>
+    <div class="cta">
+        <a href="#install" class="btn btn-primary">Instalar</a>
+        <a href="https://github.com/AndreBFarias/Dracula_OS-Theme" class="btn btn-ghost">GitHub</a>
+    </div>
+</section>
+
+<!-- ========== FEATURES ========== -->
+<section id="features">
+    <h2>Cobertura</h2>
+    <p class="subtitle">O tema cobre da camada visual mais profunda (cursor, ícones simbólicos) até a integração com extensões e apps específicos — todo monorepo, um único <code>install.sh</code>.</p>
+
+    <div class="features">
+        <div class="feature">
+            <h3><span class="icon">●</span>Tema de ícones</h3>
+            <p><code>Dracula-Icones</code> com 2235 arquivos (apps, mimetypes, places, devices, status, emblems, emotes). 1.558 symbolic icons propagados dos heritages com merge único — lookup local sem cair em <code>Adwaita</code>/<code>hicolor</code>.</p>
+        </div>
+        <div class="feature">
+            <h3><span class="icon">●</span>Cursor + GTK 2/3/4</h3>
+            <p><code>Dracula-Cursor</code> em escala 32px e tema <code>Dracula-standard-buttons</code> com override do shell para integração com Pop!_OS Launcher.</p>
+        </div>
+        <div class="feature">
+            <h3><span class="icon">●</span>Pop!_Shell + Pop!_Cosmic</h3>
+            <p>Substituição do <code>dark.css</code> nas duas extensões (com backup). Detecção de regressão por comparação byte-a-byte contra source canônico.</p>
+        </div>
+        <div class="feature">
+            <h3><span class="icon">●</span>Launcher em pt-BR</h3>
+            <p>Cópia user-local da extensão <code>pop-cosmic@system76.com</code> com strings traduzidas: <em>Library Home → Início</em>, <em>Create Folder → Criar pasta</em>, diálogos completos. Sobrevive a <code>apt upgrade</code>.</p>
+        </div>
+        <div class="feature">
+            <h3><span class="icon">●</span>App themes integrados</h3>
+            <p>Kitty, qBittorrent, GNOME Terminal (dconf), Spicetify/Spotify, Obsidian (itera vaults), Telegram, Discord (BetterDiscord/Vesktop/Vencord), OnlyOffice.</p>
+        </div>
+        <div class="feature">
+            <h3><span class="icon">●</span>Higiene do app-grid</h3>
+            <p>Esconde <code>gnome-session-properties</code> (rótulo confuso) via <code>NoDisplay=true</code> e remove pastas vendor (<code>Utilities</code>, <code>YaST</code>) do rodapé do launcher.</p>
+        </div>
+        <div class="feature">
+            <h3><span class="icon">●</span>Ícones de jogos Steam</h3>
+            <p>Patcher universal: varre <code>.desktop</code> Steam, gera PNG 256×256 da capsule (<code>library_600x900.jpg</code>) com square crop. Reaplicado por APT hook.</p>
+        </div>
+        <div class="feature">
+            <h3><span class="icon">●</span>Auto-resiliência pós-upgrade</h3>
+            <p>APT hook dispara <code>reaplicar_tema.sh</code> automaticamente após cada <code>apt upgrade</code>. 15 seções idempotentes em ~3.4s.</p>
+        </div>
+        <div class="feature">
+            <h3><span class="icon">●</span>Tema de som Pop</h3>
+            <p>Restaura <code>org.gnome.desktop.sound theme-name='Pop'</code> quando o GNOME upgrade reseta. Sons restaurados em <code>~/.local/share/sounds/Pop/</code>.</p>
+        </div>
+    </div>
+</section>
+
+<!-- ========== GALLERY ========== -->
+<section id="gallery">
+    <h2>Galeria</h2>
+    <p class="subtitle">Capturas em ambiente real (Pop!_OS 22.04 / GNOME 42.9 / X11), com wallpaper Dracula oficial e o tema completo aplicado.</p>
+
+    <div class="gallery">
+        <div class="shot">
+            <img src="assets/screenshots/00-desktop-wallpaper.png" alt="Desktop com wallpaper Dracula">
+            <div class="caption">
+                <strong>Desktop</strong>
+                <span>Wallpaper oficial Dracula (lua + morcegos), top bar GNOME 42 e dock Pop!_Cosmic com ícones temáticos.</span>
+            </div>
+        </div>
+        <div class="shot">
+            <img src="assets/screenshots/01-terminal-kitty.png" alt="Terminal kitty com fastfetch">
+            <div class="caption">
+                <strong>Terminal — kitty + fastfetch</strong>
+                <span>Paleta Dracula nas 16 cores ANSI, logo customizado, info do sistema.</span>
+            </div>
+        </div>
+        <div class="shot">
+            <img src="assets/screenshots/04-launcher-app-grid.png" alt="Launcher Pop!_Cosmic em pt-BR">
+            <div class="caption">
+                <strong>Launcher Pop!_Cosmic em pt-BR</strong>
+                <span>App-grid com ícones temáticos + rodapé localizado: <code>Início</code>, <code>Criar pasta</code>.</span>
+            </div>
+        </div>
+        <div class="shot">
+            <img src="assets/screenshots/02-nautilus-arquivos.png" alt="Nautilus com ícones de pasta Dracula">
+            <div class="caption">
+                <strong>Arquivos (Nautilus)</strong>
+                <span>Pastas com ícone de castelo + lua amarela: branding visual gótico consistente.</span>
+            </div>
+        </div>
+        <div class="shot">
+            <img src="assets/screenshots/03-gnome-tweaks.png" alt="GNOME Tweaks com tema Dracula">
+            <div class="caption">
+                <strong>Ajustes (GNOME Tweaks)</strong>
+                <span>UI integrada com paleta Dracula, controles GTK com cores corretas.</span>
+            </div>
+        </div>
+        <div class="shot">
+            <img src="assets/screenshots/05-launcher-busca-rapida.png" alt="Launcher de busca rápida">
+            <div class="caption">
+                <strong>Busca rápida (Pop!_Launcher)</strong>
+                <span>Spotlight-style com ícones temáticos, atalhos Alt+N nos resultados.</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ========== INSTALL ========== -->
+<section id="install">
+    <h2>Instalação</h2>
+    <p class="subtitle">Pop!_OS 22.04 / GNOME 42.x / X11 ou Wayland. Sem dependências obscuras — só <code>bash</code>, <code>git</code>, <code>convert</code>, <code>rsvg-convert</code>.</p>
+
+    <div class="install-block">
+        <h3>Rota curta (ambiente novo)</h3>
+        <p>Clone, build e install completo em uma linha:</p>
+        <pre><code>git clone https://github.com/AndreBFarias/Dracula_OS-Theme.git
+cd Dracula_OS-Theme
+./build.sh && ./install.sh --bootstrap</code></pre>
+    </div>
+
+    <div class="install-block">
+        <h3>Rota controlada (passo-a-passo)</h3>
+        <p>Útil para revisar o que vai acontecer antes:</p>
+        <pre><code># Build (gera dist/)
+./build.sh
+
+# Instala apenas o tema do usuário (sem mexer em /usr/share)
+./install.sh --user
+
+# Adiciona Pop!_Shell CSS, launcher pt-BR, higiene, ícones Steam
+./install.sh --pop-shell-css
+
+# APT hook para auto-reaplicação após apt upgrade
+sudo ./scripts/instalar_apt_hook.sh install</code></pre>
+    </div>
+
+    <div class="install-block">
+        <h3>Reaplicar (após upgrade)</h3>
+        <p>Idempotente. Roda em ~3.4s e cobre 15 seções:</p>
+        <pre><code>./scripts/reaplicar_tema.sh</code></pre>
+        <p>Já dispara automaticamente via APT hook se você instalou com <code>--apt-hook</code>.</p>
+    </div>
+
+    <div class="install-block">
+        <h3>Desinstalar</h3>
+        <p>Reverte tudo (com backup automático em <code>~/.cache/dracula_os_backup/</code>):</p>
+        <pre><code>./uninstall.sh</code></pre>
+    </div>
+</section>
+
+<!-- ========== FOOTER ========== -->
+<footer>
+    <div class="links">
+        <a href="https://github.com/AndreBFarias/Dracula_OS-Theme">GitHub</a> ·
+        <a href="https://github.com/AndreBFarias/Dracula_OS-Theme/blob/main/CHANGELOG.md">Changelog</a> ·
+        <a href="https://github.com/AndreBFarias/Dracula_OS-Theme/blob/main/docs/sprints/INDEX.md">Sprints</a> ·
+        <a href="https://github.com/AndreBFarias/Dracula_OS-Theme/issues">Issues</a> ·
+        <a href="https://draculatheme.com">Dracula Theme</a>
+    </div>
+    <div>
+        Licença GPLv3 · paleta original <a href="https://draculatheme.com/contribute">Dracula</a> ·
+        wallpaper oficial <a href="https://github.com/dracula/wallpaper">dracula/wallpaper</a>
+    </div>
+</footer>
+
+</body>
+</html>

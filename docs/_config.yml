@@ -1,0 +1,17 @@
+title: Dracula_OS-Theme
+description: Experiência Dracula unificada para Pop!_OS / GNOME — ícones, cursor, GTK, shell, sons e app themes.
+author: AndreBFarias
+url: https://andrebfarias.github.io
+baseurl: /Dracula_OS-Theme
+theme: null
+plugins: []
+exclude:
+  - sprints
+  - "*.md"
+keep_files:
+  - assets
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: null

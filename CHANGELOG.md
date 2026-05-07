@@ -74,10 +74,7 @@ Formato: [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/) + SemVer.
 
 ### Corrigido
 
-- Acentuação PT-BR em mensagens de log/assinatura:
-  - `build.sh`: "conversao" → "conversão"; "gotica" → "gótica"; "maxima sofisticacao" → "máxima sofisticação".
-  - `scripts/instalar_pop_shell_css.sh`: "sessao/shell" → "sessão/shell"; "proprio" → "próprio"; "substituido" → "substituído".
-  - `scripts/release.sh`: "esta no tarball" → "está no tarball".
+- Acentuação PT-BR em mensagens de log/assinatura: corrigidas formas sem acento em strings literais de `build.sh` (palavras "conversão", "gótica", "máxima sofisticação"), `scripts/instalar_pop_shell_css.sh` (palavras "sessão/shell", "próprio", "substituído") e `scripts/release.sh` ("está no tarball").
 - **Sprint 02 — Transparência do launcher Pop!_Cosmic concluída**: valor de alpha no `.cosmic-applications-dialog` ajustado de `rgba(40,42,54,0.70)` (opaco demais) para `rgba(40,42,54,0.45)` (translúcido visível). Hipóteses H4 e H5 confirmaram seletor correto e compositor aceitando alpha. `src/shell/pop-cosmic-dark.css` atualizado.
 
 ### Removido
