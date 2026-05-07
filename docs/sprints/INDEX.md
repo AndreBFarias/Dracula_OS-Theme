@@ -15,6 +15,7 @@ vira commit/PR atômico e tem sua entrada referenciada no `CHANGELOG.md`.
 | 07 | [Portabilidade universal](SPRINT_07_PORTABILIDADE.md) | Concluída | 2026-04-17 |
 | 08 | [Segurança e robustez dos scripts](SPRINT_08_SEGURANCA_ROBUSTEZ.md) | Concluída | 2026-04-17 |
 | 09 | [Testes, CI e suporte 24.04/COSMIC](SPRINT_09_TESTES_CI_COSMIC.md) | Concluída | 2026-04-17 |
+| 10 | [Localização pt-BR do launcher Pop!_Cosmic](SPRINT_10_LAUNCHER_PTBR.md) | Em implementação | 2026-05-07 |
 
 ## Convenção de nomenclatura
 

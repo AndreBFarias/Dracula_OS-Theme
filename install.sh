@@ -131,6 +131,10 @@ if [[ $POP_SHELL_CSS -eq 1 ]]; then
     echo ""
     _info "Substituindo Pop!_Shell dark.css (pede sudo)"
     sudo "$REPO_ROOT/scripts/instalar_pop_shell_css.sh" install || _warn "Pop!_Shell CSS falhou"
+
+    echo ""
+    _info "Localizando launcher Pop!_Cosmic em pt-BR (cópia para ~/.local/share)"
+    "$REPO_ROOT/scripts/instalar_pop_cosmic_ptbr.sh" || _warn "Localização pt-BR do pop-cosmic falhou (não-fatal)"
 fi
 
 # ─── Sons (tema Pop) ───

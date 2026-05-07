@@ -3,6 +3,12 @@
 Todas as mudanças notáveis deste projeto são documentadas neste arquivo.
 Formato: [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/) + SemVer.
 
+## [Unreleased]
+
+### Adicionado
+
+- **Sprint 10 — Localização pt-BR do launcher Pop!_Cosmic**: `scripts/instalar_pop_cosmic_ptbr.sh` instala uma cópia da extensão `pop-cosmic@system76.com` em `~/.local/share/gnome-shell/extensions/` (sem sudo, com precedência user-over-system do GNOME) com strings traduzidas: `Library Home` → `Início`, `Create Folder` → `Criar pasta`, `New Folder`/`Folder Name`/`Create` → `Nova pasta`/`Nome da pasta`/`Criar`, `Delete Folder?`/`Delete` → `Excluir pasta?`/`Excluir`, `Rename Folder`/`Rename` → `Renomear pasta`/`Renomear`, e descrição do diálogo de exclusão localizada. Sobrevive a `apt upgrade pop-cosmic`. Removível via `scripts/desinstalar_pop_cosmic_ptbr.sh`.
+
 ## [1.2.0] — 2026-04-17
 
 ### Adicionado
