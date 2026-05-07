@@ -79,6 +79,10 @@ fi
 _info "Reaplicando app themes"
 "$REPO_ROOT/scripts/instalar_app_themes.sh" || _warn "instalar_app_themes.sh falhou"
 
+# ─── 7.5 Ícones de jogos Steam (re-gera se sources foram baixados após últimos ícones) ───
+_info "Atualizando ícones de jogos Steam"
+"$REPO_ROOT/scripts/atualizar_icones_steam.sh" || _warn "atualizar_icones_steam.sh falhou"
+
 # ─── 8. Rebuild caches ───
 _info "Regenerando caches"
 gtk-update-icon-cache -f "$HOME/.local/share/icons/Dracula-Icones" 2>/dev/null || true

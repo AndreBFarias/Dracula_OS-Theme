@@ -110,6 +110,12 @@ for tema in Dracula-Icones dracula-icons-main dracula-icons-circle Dracula-Curso
 done
 _ok "ícones instalados"
 
+# ─── Ícones de jogos Steam (não-fatal) ───
+if [[ "$MODO" == "user" ]]; then
+    _info "Atualizando ícones de jogos Steam (não-fatal)"
+    "$REPO_ROOT/scripts/atualizar_icones_steam.sh" || _warn "atualizar_icones_steam.sh falhou (não-fatal)"
+fi
+
 # ─── Temas GTK/Shell ───
 _info "Instalando tema GTK + shell"
 $SUDO mkdir -p "$DEST_THEMES"

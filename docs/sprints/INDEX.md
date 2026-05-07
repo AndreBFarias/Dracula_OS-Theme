@@ -18,6 +18,7 @@ vira commit/PR atômico e tem sua entrada referenciada no `CHANGELOG.md`.
 | 10 | [Localização pt-BR do launcher Pop!_Cosmic](SPRINT_10_LAUNCHER_PTBR.md) | Em implementação | 2026-05-07 |
 | 11 | [Higiene do app-grid Pop!_Cosmic](SPRINT_11_LAUNCHER_HIGIENE.md) | Em implementação | 2026-05-07 |
 | 12 | [Propagação completa dos symbolic icons no Dracula-Icones](SPRINT_12_DELETE_ICON.md) | Em implementação | 2026-05-07 |
+| 13 | [Patcher universal de ícones Steam](SPRINT_13_STEAM_ICONS.md) | Em implementação | 2026-05-07 |
 
 ## Convenção de nomenclatura
 
