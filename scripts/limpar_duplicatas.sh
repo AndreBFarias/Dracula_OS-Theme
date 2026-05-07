@@ -106,6 +106,12 @@ main() {
         processar "$linha"
     done
 
+    # Purga backups antigos com TS YYYYMMDD_HHMMSS: mantém os 10 mais recentes.
+    # Pattern começa com dígito para NÃO casar 'keybindings_*' (gerido em outro script).
+    if [[ $DRY_RUN -eq 0 ]]; then
+        _purgar_backups_antigos "$HOME/.cache/dracula_os_backup/[0-9]*_[0-9]*" 10
+    fi
+
     echo ""
     _ok "Limpeza concluída. Backups em $BACKUP_DIR"
     _warn "Preserva: ~/.local/share/icons/dracula-icons-{main,circle} (upstreams)"

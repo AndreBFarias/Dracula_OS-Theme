@@ -53,9 +53,9 @@ check "Tema GTK Dracula-standard-buttons em ~/.local/share/themes" \
 
 # ─── Pop!_Shell / Pop!_Cosmic dark.css ───
 check "Pop!_Shell dark.css Dracula aplicado" \
-    "grep -q 'pop-shell-search.modal-dialog\\|bd93f9' /usr/share/gnome-shell/extensions/pop-shell@system76.com/dark.css 2>/dev/null"
+    "cmp -s '$REPO_ROOT/src/shell/pop-shell-dark.css' /usr/share/gnome-shell/extensions/pop-shell@system76.com/dark.css 2>/dev/null"
 check "Pop!_Cosmic dark.css Dracula aplicado" \
-    "grep -q 'rgba(40,\\s*42,\\s*54' /usr/share/gnome-shell/extensions/pop-cosmic@system76.com/dark.css 2>/dev/null"
+    "cmp -s '$REPO_ROOT/src/shell/pop-cosmic-dark.css' /usr/share/gnome-shell/extensions/pop-cosmic@system76.com/dark.css 2>/dev/null"
 
 # ─── Overrides .desktop ───
 check "Override ZapZap→WhatsApp" \

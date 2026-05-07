@@ -82,6 +82,9 @@ for arquivo in "${!ALVOS[@]}"; do
 done
 _ok "backup feito"
 
+# Purga backups antigos: mantém apenas os 10 mais recentes
+_purgar_backups_antigos "$HOME/.cache/dracula_os_backup/keybindings_*" 10
+
 # Aplicar cada snapshot — marca estado para o trap de cleanup
 _estado_aplicacao="em-progresso"
 for arquivo in "${!ALVOS[@]}"; do

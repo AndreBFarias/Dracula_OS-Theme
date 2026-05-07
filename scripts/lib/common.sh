@@ -155,4 +155,33 @@ backup_com_manifest() {
     return 0
 }
 
+# ─── Purga de backups antigos (SPRINT_15) ───
+# Mantém os N backups mais recentes que casam com <pattern> (glob expandido pelo
+# chamador) e remove o restante via `rm -rf`. No-op se o pattern não casa nada.
+# Restringe remoção a paths sob $HOME/.cache/dracula_os_backup/ por segurança.
+# Uso:
+#   _purgar_backups_antigos "$HOME/.cache/dracula_os_backup/keybindings_*" 10
+_purgar_backups_antigos() {
+    local pattern="${1:-}"
+    local manter="${2:-10}"
+    [[ -z "$pattern" ]] && { _err "_purgar_backups_antigos: pattern vazio"; return 2; }
+    local prefixo_seguro="$HOME/.cache/dracula_os_backup/"
+    local lista
+    # Ordena por mtime decrescente; ignora erro se não casa nada
+    lista="$(ls -1dt $pattern 2>/dev/null)" || true
+    [[ -z "$lista" ]] && return 0
+    local i=0 alvo
+    while IFS= read -r alvo; do
+        i=$((i+1))
+        [[ $i -le $manter ]] && continue
+        # Defesa: só remove sob o prefixo seguro
+        if [[ "$alvo" != "$prefixo_seguro"* ]]; then
+            _warn "_purgar_backups_antigos: ignorando '$alvo' (fora de $prefixo_seguro)"
+            continue
+        fi
+        rm -rf "$alvo"
+    done <<< "$lista"
+    return 0
+}
+
 # "Nosce te ipsum." -- conhece-te a ti mesmo.

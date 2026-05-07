@@ -60,12 +60,12 @@ EOF
 _info "Gerando ${NOME}.tar.gz"
 cd "$TMP"
 tar czf "$DIST_DIR/${NOME}.tar.gz" "$NOME/"
-cd - >/dev/null
+cd - >/dev/null || exit 1
 
 # Checksum
 cd "$DIST_DIR"
 sha256sum "${NOME}.tar.gz" > "${NOME}.tar.gz.sha256"
-cd - >/dev/null
+cd - >/dev/null || exit 1
 
 # Cleanup
 rm -rf "$TMP"
