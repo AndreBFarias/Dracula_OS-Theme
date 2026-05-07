@@ -2,8 +2,8 @@
 # desinstalar_higiene_launcher.sh — reverte instalar_higiene_launcher.sh.
 # Para Parte A: se override foi criado por nós (marca # dracula-os: created),
 # remove o arquivo inteiro; senão, remove só a linha NoDisplay=true.
-# Para Parte B: re-adiciona 'Utilities' a folder-children (reset do dconf
-# relocatable não é restaurado — limitação documentada).
+# Para Parte B: re-adiciona pastas vendor (Utilities, YaST) a folder-children
+# (reset do dconf relocatable não é restaurado — limitação documentada).
 # Suporta DRACULA_DRY_RUN=1 para imprimir comandos sem executar.
 
 set -euo pipefail
@@ -11,6 +11,7 @@ set -euo pipefail
 DESKTOP_USER="${HOME}/.local/share/applications/gnome-session-properties.desktop"
 MARCA_CRIADO="# dracula-os: created"
 DRY_RUN="${DRACULA_DRY_RUN:-0}"
+PASTAS_VENDOR=("Utilities" "YaST")
 
 # ─── Parte A reverter ───
 reverter_a() {
@@ -48,23 +49,28 @@ reverter_b() {
         return 0
     fi
 
-    local atual
+    local atual novo pasta faltam=()
     atual="$(gsettings get org.gnome.desktop.app-folders folder-children 2>/dev/null || echo "[]")"
+    for pasta in "${PASTAS_VENDOR[@]}"; do
+        if ! echo "$atual" | grep -q "'${pasta}'"; then
+            faltam+=("$pasta")
+        fi
+    done
 
-    if echo "$atual" | grep -q "'Utilities'"; then
-        echo "OK: Parte B já revertida (Utilities presente em folder-children)."
+    if [[ ${#faltam[@]} -eq 0 ]]; then
+        echo "OK: Parte B já revertida (todas pastas vendor presentes em folder-children)."
         return 0
     fi
 
-    # Re-adiciona 'Utilities' como primeiro item.
-    # Casos: lista vazia "@as []" / "[]"  → ['Utilities']
-    #        lista não-vazia ['YaST']     → ['Utilities', 'YaST']
-    local novo
-    if [[ "$atual" == "@as []" ]] || [[ "$atual" == "[]" ]]; then
-        novo="['Utilities']"
-    else
-        novo="$(echo "$atual" | sed -E "s/^\[/['Utilities', /")"
-    fi
+    # Re-adiciona as faltantes como primeiros itens, preservando o que já existe.
+    novo="$atual"
+    for pasta in "${faltam[@]}"; do
+        if [[ "$novo" == "@as []" ]] || [[ "$novo" == "[]" ]]; then
+            novo="['${pasta}']"
+        else
+            novo="$(echo "$novo" | sed -E "s/^\[/['${pasta}', /")"
+        fi
+    done
 
     if [[ "$DRY_RUN" == "1" ]]; then
         echo "DRY_RUN: gsettings set org.gnome.desktop.app-folders folder-children \"$novo\""
@@ -72,8 +78,8 @@ reverter_b() {
         gsettings set org.gnome.desktop.app-folders folder-children "$novo"
     fi
     echo "OK: Parte B — folder-children agora $novo"
-    echo "    (reset do schema relocatable /folders/Utilities/ não é restaurado;"
-    echo "     o vendor default repovoa em logout/login.)"
+    echo "    (reset do schema relocatable das pastas vendor não é restaurado;"
+    echo "     o vendor default do GNOME repovoa em logout/login.)"
 }
 
 reverter_a || echo "AVISO: reverter Parte A falhou (não-fatal)"

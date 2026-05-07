@@ -71,8 +71,8 @@ Copia origem (arquivo ou diretório) para `destino_dir/` E gera `destino_dir/<no
 
 ## Referências
 
-- Meta-regra §9.3 "Soberania de subsistema" (CLAUDE.md) — justificativa para allowlist restrita.
-- Padrão "Graceful Degradation" (CLAUDE.md §8) — cleanup em trap cumpre esse princípio.
+- Meta-regra §9.3 "Soberania de subsistema" (GUIDE.md) — justificativa para allowlist restrita.
+- Padrão "Graceful Degradation" (GUIDE.md §8) — cleanup em trap cumpre esse princípio.
 
 ---
 

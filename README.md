@@ -40,6 +40,10 @@ Desenvolvido e testado em **Pop!_OS 22.04 LTS / GNOME 42.9 / X11**.
 | **Cursor** | `Dracula-Cursor` preservado |
 | **Tema GTK (2/3/4)** | `Dracula-standard-buttons` com override shell para Pop!_OS Launcher |
 | **Pop!_Shell + Pop!_Cosmic** | Substitui `dark.css` das duas extensões por versão Dracula (com backup) |
+| **Pop!_Cosmic em pt-BR** | Cópia user-local da extensão (precedência sobre `/usr/share/`) com strings traduzidas: `Library Home` → `Início`, `Create Folder` → `Criar pasta`, diálogos de criar/excluir/renomear pasta em pt-BR — sobrevive a `apt upgrade pop-cosmic` |
+| **Higiene do app-grid** | Esconde `gnome-session-properties.desktop` (rótulo "Aplicativos iniciais de sessão") e remove pastas vendor `Utilities`/`YaST` do rodapé do launcher |
+| **Symbolic icons completos** | Build do `Dracula-Icones` propaga ~1.558 ícones symbolic dos heritages (lookup local sem depender de `Inherits=`) |
+| **Ícones de jogos Steam** | Patcher `atualizar_icones_steam.sh` gera PNG 256x256 de cada jogo a partir das capsules em `~/.steam/.../librarycache/`; idempotente, re-aplicado por APT hook |
 | **App themes** | kitty, qBittorrent, GNOME Terminal (dconf), Spicetify/Spotify, Obsidian (itera vaults), Telegram, Discord (BetterDiscord/Vesktop/Vencord), OnlyOffice |
 | **Overrides `.desktop`** | ZapZap → "WhatsApp" com ícone próprio; Snap `whatsapp-linux-app` oculto por `NoDisplay` para evitar duplicata |
 | **Normalização** | `scripts/normalizar_desktops.sh` reescreve `Icon=<path_absoluto>` para `Icon=<app_id>` (com backup) |

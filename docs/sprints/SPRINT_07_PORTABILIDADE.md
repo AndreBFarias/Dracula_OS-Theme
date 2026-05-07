@@ -74,8 +74,8 @@ Sequência interna:
 
 ## Referências
 
-- CLAUDE.md §3 "Paths relativos via Path/equivalente (nunca hardcoded absolutos)".
-- CLAUDE.md §8 "Local First. Graceful Degradation".
+- GUIDE.md §3 "Paths relativos via Path/equivalente (nunca hardcoded absolutos)".
+- GUIDE.md §8 "Local First. Graceful Degradation".
 
 ---
 

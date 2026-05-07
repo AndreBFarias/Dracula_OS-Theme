@@ -3,7 +3,7 @@
 Sumir do launcher do Pop!_Cosmic dois ruídos visuais distintos que o usuário confundia como "pasta de aplicativos que sempre se cria":
 
 - **Parte A**: o app individual `gnome-session-properties.desktop` (rótulo pt-BR `Aplicativos iniciais de sessão`, ícone Dracula `session-properties.svg` que parece uma pasta com 3 mini-apps).
-- **Parte B**: a pasta `Utilitários` (`X-GNOME-Utilities`) no rodapé do launcher, que se recria em logout/login mesmo após excluir pela UI.
+- **Parte B**: as pastas vendor (`Utilitários`/`X-GNOME-Utilities` e `suse-yast.directory`/`X-SuSE-YaST`) no rodapé do launcher, que se recriam em logout/login mesmo após excluir pela UI. (A sprint inicialmente cobria apenas `Utilities`; foi estendida para incluir `YaST` na finalização do ciclo 10–14, controladas via array `PASTAS_VENDOR` do script.)
 
 Ambos resolvidos em `MODO=user`, sem `sudo`, idempotentes, com reversão via `desinstalar_*.sh`.
 

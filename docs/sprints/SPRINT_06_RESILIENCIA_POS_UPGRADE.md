@@ -103,7 +103,7 @@ Dois ajustes ficam em aberto para sua decisão — ambos em `scripts/instalar_ap
 ## Referências
 
 - Desenho original: [SPRINT_01_POS_UPGRADE.md](SPRINT_01_POS_UPGRADE.md)
-- Padrão de logging: CLAUDE.md §3
+- Padrão de logging: GUIDE.md §3
 - Incidente base (GIMP Flatpak 600): [SPRINT_01:23-25](SPRINT_01_POS_UPGRADE.md)
 
 ---
