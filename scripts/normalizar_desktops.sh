@@ -5,12 +5,14 @@
 # Uso: ./scripts/normalizar_desktops.sh [--dry-run]
 #
 # Segurança: cada .desktop alterado é copiado antes para
-# ~/.cache/dracula_os_backup_<timestamp>/desktops/
+# ~/.cache/dracula_os_backup/desktops_<timestamp>/desktops/
 
 set -euo pipefail
 
+source "$(dirname "${BASH_SOURCE[0]}")/lib/common.sh"
+
 DRY_RUN=0
-BACKUP_DIR="$HOME/.cache/dracula_os_backup_$(date +%Y%m%d_%H%M%S)/desktops"
+BACKUP_DIR="$HOME/.cache/dracula_os_backup/desktops_$(date +%Y%m%d_%H%M%S)/desktops"
 
 for arg in "$@"; do
     [[ "$arg" == "--dry-run" ]] && DRY_RUN=1
@@ -98,6 +100,9 @@ main() {
     done
 
     _ok "Processados $total .desktop files"
+
+    # Rotação: mantém só os 10 backups mais recentes desta família
+    _purgar_antigos "$HOME/.cache/dracula_os_backup/desktops_*" 10
 }
 
 main "$@"

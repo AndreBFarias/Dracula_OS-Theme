@@ -49,12 +49,17 @@ _log_dir() {
     echo "$dir"
 }
 
-# Retorna caminho de arquivo de log com timestamp; chamador redireciona via | tee -a
+# Retorna caminho de arquivo de log com timestamp; chamador redireciona via | tee -a.
+# Antes de retornar, purga os logs antigos da mesma família (mesmo <nome>),
+# mantendo apenas os 10 mais recentes já existentes (SPRINT_16).
 _log_file() {
     local nome="${1:-operacao}"
     local ts
     ts="$(date +%Y%m%d_%H%M%S)"
-    echo "$(_log_dir)/${nome}_${ts}.log"
+    local dir
+    dir="$(_log_dir)"
+    _purgar_antigos "${dir}/${nome}_*.log" 10
+    echo "${dir}/${nome}_${ts}.log"
 }
 
 # ─── Validação de path destrutivo (SPRINT_08) ───
@@ -155,17 +160,19 @@ backup_com_manifest() {
     return 0
 }
 
-# ─── Purga de backups antigos (SPRINT_15) ───
-# Mantém os N backups mais recentes que casam com <pattern> (glob expandido pelo
-# chamador) e remove o restante via `rm -rf`. No-op se o pattern não casa nada.
-# Restringe remoção a paths sob $HOME/.cache/dracula_os_backup/ por segurança.
-# Uso:
-#   _purgar_backups_antigos "$HOME/.cache/dracula_os_backup/keybindings_*" 10
-_purgar_backups_antigos() {
+# ─── Retenção de artefatos antigos (SPRINT_15 + SPRINT_16) ───
+# Mantém apenas os N artefatos mais recentes (por mtime, desc) que casam com
+# <pattern> e remove os mais antigos. Funciona para arquivos OU diretórios.
+# Cada candidato a remoção passa por validar_path_destrutivo (defesa contra
+# patterns corrompidos). Sem matches → no-op silencioso.
+#
+# Uso típico:
+#   _purgar_antigos "$HOME/.cache/dracula_os_backup/keybindings_*" 10
+#   _purgar_antigos "$HOME/.cache/dracula_os_theme/reaplicar_tema_*.log" 10
+_purgar_antigos() {
     local pattern="${1:-}"
     local manter="${2:-10}"
-    [[ -z "$pattern" ]] && { _err "_purgar_backups_antigos: pattern vazio"; return 2; }
-    local prefixo_seguro="$HOME/.cache/dracula_os_backup/"
+    [[ -z "$pattern" ]] && { _err "_purgar_antigos: pattern vazio"; return 2; }
     local lista
     # Ordena por mtime decrescente; ignora erro se não casa nada
     lista="$(ls -1dt $pattern 2>/dev/null)" || true
@@ -174,14 +181,20 @@ _purgar_backups_antigos() {
     while IFS= read -r alvo; do
         i=$((i+1))
         [[ $i -le $manter ]] && continue
-        # Defesa: só remove sob o prefixo seguro
-        if [[ "$alvo" != "$prefixo_seguro"* ]]; then
-            _warn "_purgar_backups_antigos: ignorando '$alvo' (fora de $prefixo_seguro)"
+        # Defesa: cada alvo precisa estar na allowlist destrutiva
+        if ! validar_path_destrutivo "$alvo" >/dev/null 2>&1; then
+            _warn "_purgar_antigos: pulando '$alvo' (fora da allowlist)"
             continue
         fi
-        rm -rf "$alvo"
+        rm -rf -- "$alvo" 2>/dev/null || _warn "_purgar_antigos: rm falhou em '$alvo'"
     done <<< "$lista"
     return 0
+}
+
+# Wrapper de compatibilidade SPRINT_15. Mantém assinatura para os call-sites
+# instalar_keybindings.sh e limpar_duplicatas.sh.
+_purgar_backups_antigos() {
+    _purgar_antigos "$@"
 }
 
 # "Nosce te ipsum." -- conhece-te a ti mesmo.
