@@ -13,6 +13,10 @@ Formato: [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/) + SemVer.
 - **Sprint 13 — Patcher universal de ícones Steam**: `scripts/atualizar_icones_steam.sh` varre `~/.local/share/applications/*.desktop` por entradas `Icon=steam_icon_<APPID>`, gera PNG 256x256 em `~/.local/share/icons/hicolor/256x256/apps/steam_icon_<APPID>.png` a partir da capsule 300x450 do `librarycache` da Steam (com fallback para header 460x215 e, em último caso, upscale do 32x32 já presente em `hicolor`), e regenera `icon-theme.cache`. Idempotente por mtime, sem sudo, com flag `--force` e suporte a `DRACULA_DRY_RUN=1`. Integrado ao `install.sh` (fase user, não-fatal) e à seção 7.5 nova de `scripts/reaplicar_tema.sh`, herdando assim a robustez pós-`apt full-upgrade` do APT hook (Sprint 06). Dependência runtime: `imagemagick` (`convert`). Substitui o ícone genérico exibido no launcher Pop!_Cosmic por arte real do jogo.
 - **Sprint 14 — Cobertura completa de `scripts/reaplicar_tema.sh`**: cinco gaps de reaplicação pós-`apt upgrade` fechados via reuso dos subscripts existentes, sem criar scripts novos. Novas seções idempotentes: 2.5 (`instalar_pop_cosmic_ptbr.sh` + `instalar_higiene_launcher.sh`), 7.7 (`instalar_keybindings.sh`), 7.8 (`instalar_gnome_extensions.sh --only-dconf`, sem re-download), 8.5 (`gsettings set` icon-theme/gtk-theme/cursor-theme/user-theme). Endurecimento da seção 8: `gtk-update-icon-cache` e `update-desktop-database` agora capturam exit code e logam `_warn` em falha em vez de silenciar. Tempo total em ambiente já configurado < 10s.
 
+### Alterado
+
+- **Detecção de regressão Pop!_Shell/Pop!_Cosmic dark.css**: comparação byte-a-byte (`cmp -s`) entre o arquivo instalado e o source canônico do repo (`src/shell/pop-shell-dark.css`, `src/shell/pop-cosmic-dark.css`) em vez de grep heurístico de paleta (`bd93f9|rgba(40,42,54|...`). Captura QUALQUER divergência (paleta nova, regressão parcial, edição manual) sem precisar atualizar a regex quando o build mudar.
+
 ## [1.2.0] — 2026-04-17
 
 ### Adicionado

@@ -34,19 +34,26 @@ if [[ ! -d "$HOME/.local/share/icons/Dracula-Icones" ]]; then
 fi
 
 # ─── 2. Pop!_Shell e Pop!_Cosmic dark.css (se regrediram) ───
+# Detecção robusta: compara byte-a-byte o dark.css instalado com o source
+# canônico do repo (src/shell/<ext>-dark.css). Qualquer divergência indica
+# regressão — independente de paleta de cor ou marca textual.
 pop_shell_ok=1
+declare -A SHELL_SOURCES=(
+    [pop-shell]="$REPO_ROOT/src/shell/pop-shell-dark.css"
+    [pop-cosmic]="$REPO_ROOT/src/shell/pop-cosmic-dark.css"
+)
 for ext in pop-shell pop-cosmic; do
     base="/usr/share/gnome-shell/extensions/${ext}@system76.com"
-    if [[ -f "$base/dark.css" ]]; then
-        # Detecta marca Dracula no conteúdo atual
-        if ! grep -qE 'bd93f9|rgba\(40,\s*42,\s*54|pop-shell-search.modal-dialog' "$base/dark.css" 2>/dev/null; then
-            _info "$ext dark.css regrediu — reaplicando"
-            sudo "$REPO_ROOT/scripts/instalar_pop_shell_css.sh" install || _warn "Falha ao reaplicar $ext"
-            pop_shell_ok=0
-        fi
+    src="${SHELL_SOURCES[$ext]}"
+    instalado="$base/dark.css"
+    [[ -f "$instalado" && -f "$src" ]] || continue
+    if ! cmp -s "$src" "$instalado"; then
+        _info "$ext dark.css regrediu (diff vs $src) — reaplicando"
+        sudo "$REPO_ROOT/scripts/instalar_pop_shell_css.sh" install || _warn "Falha ao reaplicar $ext"
+        pop_shell_ok=0
     fi
 done
-[[ $pop_shell_ok -eq 1 ]] && _ok "Pop!_Shell/Pop!_Cosmic dark.css preservados"
+[[ $pop_shell_ok -eq 1 ]] && _ok "Pop!_Shell/Pop!_Cosmic dark.css preservados (byte-a-byte vs source)"
 
 # ─── 2.5 Localização pt-BR Pop!_Cosmic + higiene do launcher ───
 _info "Reaplicando localização pt-BR do launcher Pop!_Cosmic"
