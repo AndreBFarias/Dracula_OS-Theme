@@ -56,6 +56,12 @@ if [[ -d "$HOME/.local/share/gnome-shell/extensions/pop-cosmic@system76.com" ]];
     "$REPO_ROOT/scripts/desinstalar_pop_cosmic_ptbr.sh" || true
 fi
 
+# Reverter higiene do launcher (esconder gnome-session-properties + pasta Utilities)
+if [[ -x "$REPO_ROOT/scripts/desinstalar_higiene_launcher.sh" ]]; then
+    echo "Revertendo higiene do app-grid Pop!_Cosmic..."
+    "$REPO_ROOT/scripts/desinstalar_higiene_launcher.sh" || true
+fi
+
 # Reverter Pop!_Shell dark.css se backup existir
 if [[ -f /usr/share/gnome-shell/extensions/pop-shell@system76.com/dark.css.orig ]]; then
     echo "Revertendo Pop!_Shell dark.css (pede sudo)..."

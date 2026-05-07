@@ -135,6 +135,10 @@ if [[ $POP_SHELL_CSS -eq 1 ]]; then
     echo ""
     _info "Localizando launcher Pop!_Cosmic em pt-BR (cópia para ~/.local/share)"
     "$REPO_ROOT/scripts/instalar_pop_cosmic_ptbr.sh" || _warn "Localização pt-BR do pop-cosmic falhou (não-fatal)"
+
+    echo ""
+    _info "Higiene do app-grid Pop!_Cosmic (esconder gnome-session-properties + remover pasta Utilities)"
+    "$REPO_ROOT/scripts/instalar_higiene_launcher.sh" || _warn "Higiene do launcher falhou (não-fatal)"
 fi
 
 # ─── Sons (tema Pop) ───
