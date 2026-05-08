@@ -113,22 +113,46 @@ _buscar_spicetify_setup() {
 }
 
 aplicar_spicetify() {
-    local setup
-    if ! setup="$(_buscar_spicetify_setup)"; then
-        _skip "spicetify-setup.sh não encontrado em Spellbook-OS (procurado em \$REPO/../Spellbook-OS, \$HOME/Desenvolvimento/Spellbook-OS, \$XDG_DATA_HOME/Spellbook-OS, /opt/Spellbook-OS)"
+    # SPRINT 18: script local é fonte primária. Spellbook-OS vira fallback
+    # opcional via DRACULA_PREFER_SPELLBOOK_SPICETIFY=1.
+    local repo_root
+    repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+    local local_setup="$repo_root/scripts/instalar_spicetify.sh"
+
+    # Branch 1: Spellbook explicitamente preferido
+    if [[ "${DRACULA_PREFER_SPELLBOOK_SPICETIFY:-0}" == "1" ]]; then
+        local setup
+        if setup="$(_buscar_spicetify_setup)"; then
+            _info "Spicetify: delegando para Spellbook-OS (DRACULA_PREFER_SPELLBOOK_SPICETIFY=1)"
+            if [[ $DRY_RUN -eq 0 ]]; then
+                if "$setup"; then
+                    _ok "Spicetify aplicado via Spellbook-OS"
+                else
+                    _warn "Spicetify retornou erro via Spellbook-OS (não fatal)"
+                fi
+            else
+                echo "  [dry-run] $setup"
+            fi
+            return 0
+        else
+            _warn "Spellbook-OS solicitado mas não encontrado, caindo para script local"
+        fi
+    fi
+
+    # Branch 2: script local (default)
+    if [[ ! -x "$local_setup" ]]; then
+        _skip "Spicetify: $local_setup não encontrado/executável"
         return 0
     fi
-    _info "Spicetify: delegando para Spellbook-OS"
-    # Spicetify pode falhar por incompatibilidade de versão do Spotify.
-    # Nao e fatal para o tema geral do sistema — continuar.
+    _info "Spicetify: aplicando via instalar_spicetify.sh (autônomo)"
     if [[ $DRY_RUN -eq 0 ]]; then
-        if "$setup"; then
-            _ok "Spicetify aplicado via Spellbook-OS"
+        if "$local_setup"; then
+            _ok "Spicetify aplicado via instalar_spicetify.sh"
         else
-            _warn "Spicetify retornou erro (possível incompatibilidade de versão do Spotify — não fatal)"
+            _warn "instalar_spicetify.sh retornou erro (Spotify ausente ou falha — não fatal)"
         fi
     else
-        echo "  [dry-run] $setup"
+        echo "  [dry-run] $local_setup"
     fi
 }
 

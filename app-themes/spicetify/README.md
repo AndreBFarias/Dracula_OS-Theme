@@ -1,20 +1,29 @@
 # Spicetify — Spotify com tema Dracula
 
-O Spotify (Flatpak) deste sistema já está configurado com Spicetify + tema
-**Sleek** + paleta **Dracula** via o script `spicetify-setup.sh` mantido em
-Spellbook-OS.
+O Spotify (Flatpak) deste sistema é configurado com Spicetify + tema
+**Sleek** + paleta **Dracula** via `scripts/instalar_spicetify.sh`,
+autocontido neste repositório (SPRINT 18; antes da SPRINT 18, o setup
+era delegado ao Spellbook-OS).
 
 ## Reaplicar
 
 ```bash
-~/Desenvolvimento/Spellbook-OS/scripts/spicetify-setup.sh
+bash scripts/instalar_spicetify.sh
 ```
 
 O script detecta automaticamente se o Spotify é Flatpak, snap ou nativo,
-instala Spicetify (se necessário), clona o repositório de temas
-(`spicetify/spicetify-themes`), configura `prefs_path` para o Flatpak,
-aplica extensions + custom apps (marketplace, lyrics-plus, reddit,
-new-releases) e executa `spicetify backup apply`.
+instala Spicetify (se necessário, via `curl | sh` oficial), clona o
+repositório de temas (`spicetify/spicetify-themes`), configura
+`prefs_path` para o Flatpak (rodando o Spotify uma vez se necessário),
+aplica 13 chaves de config + extensions + custom apps (marketplace,
+lyrics-plus, reddit, new-releases) e executa `spicetify backup apply`.
+
+Idempotente: rodar 2× consecutivas é seguro. Suporta `DRACULA_DRY_RUN=1`,
+`--apenas-detectar` (imprime tipo de Spotify e sai), e `--skip-marketplace`.
+
+Como fallback, o setup mantido em
+`~/Desenvolvimento/Spellbook-OS/scripts/spicetify-setup.sh` continua
+disponível: `DRACULA_PREFER_SPELLBOOK_SPICETIFY=1 bash scripts/instalar_app_themes.sh`.
 
 ## Configuração atual ativa
 
@@ -26,12 +35,16 @@ inject_css = 1
 replace_colors = 1
 ```
 
-## Por que não duplicar no Dracula_OS-Theme
+## Boundary com Spellbook-OS
 
-Evitar divergência: a lógica do Spellbook-OS já trata os edge cases
-(limpeza de cache do Flatpak, geração de prefs na primeira execução,
-validação pós-instalação). `scripts/instalar_app_themes.sh` apenas chama
-essa rotina.
+A SPRINT 18 internalizou o setup de Spicetify neste repositório
+(`scripts/instalar_spicetify.sh`) para que o Dracula_OS-Theme não
+dependa de outro repo para configurar o Spotify. O `spicetify-setup.sh`
+mantido em Spellbook-OS continua reutilizável via
+`DRACULA_PREFER_SPELLBOOK_SPICETIFY=1` quando o usuário já tem aquele
+repo clonado e prefere a versão de lá. Os dois setups produzem o mesmo
+estado final (mesmas 13 chaves de config, mesma lista de extensions
+e custom apps, mesma sanitização de `custom_apps` espúrio).
 
 ## Troubleshooting
 

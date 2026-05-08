@@ -49,7 +49,7 @@ Desenvolvido e testado em **Pop!_OS 22.04 LTS / GNOME 42.9 / X11**.
 | **Normalização** | `scripts/normalizar_desktops.sh` reescreve `Icon=<path_absoluto>` para `Icon=<app_id>` (com backup) |
 | **Limpeza segura** | `scripts/limpar_duplicatas.sh` remove `Dracula-*` antigos com backup em `~/.cache/dracula_os_backup_<ts>/` |
 | **Release reprodutível** | `scripts/release.sh` gera tarball + SHA256 |
-| **Integração Spellbook-OS** | `rebuild_dracula_theme` + cobertura de `~/.local/share/icons/` em `_reconstruir_caches_icones` |
+| **Integração Spellbook-OS** | `rebuild_dracula_theme` + cobertura de `~/.local/share/icons/` em `_reconstruir_caches_icones`. Spicetify deixou de ser dependência (SPRINT 18 internalizou o setup); Spellbook permanece reutilizável via `DRACULA_PREFER_SPELLBOOK_SPICETIFY=1`. |
 
 ---
 
@@ -98,6 +98,7 @@ cd Dracula_OS-Theme-v1.1.0
 ./install.sh --system           # instala em /usr/share/ (requer sudo)
 ./install.sh --user --activate  # instala + ativa via gsettings
 ./install.sh --user --app-themes         # instala + aplica temas internos de apps
+./install.sh --user --spicetify          # instala + aplica somente Spicetify (autônomo, SPRINT 18)
 ./install.sh --user --pop-shell-css      # instala + substitui dark.css das extensões (requer sudo)
 ./install.sh --user --sounds             # instala tema de som Pop + ativa via gsettings
 ./install.sh --user --keybindings        # aplica snapshot de atalhos + silencia shutter
@@ -155,7 +156,7 @@ cd Dracula_OS-Theme-v1.1.0
 ~/.var/app/md.obsidian.Obsidian/config/obsidian/<vault>/.obsidian/themes/Dracula/
 ~/.config/BetterDiscord/themes/Dracula.theme.css    # (se instalado)
 ~/.cache/dracula-telegram/dracula.tdesktop-theme    # importar manualmente no Telegram
-# Spicetify aplicado via Spellbook-OS (tema Sleek + color scheme Dracula)
+# Spicetify aplicado via scripts/instalar_spicetify.sh (tema Sleek + color scheme Dracula)
 # GNOME Terminal perfil importado via dconf
 ```
 
@@ -165,14 +166,17 @@ cd Dracula_OS-Theme-v1.1.0
 
 Alguns app-themes delegam a setups externos não embutidos neste repositório:
 
-- **Spicetify** (Spotify Flatpak): a função `aplicar_spicetify` em
-  `scripts/instalar_app_themes.sh` busca `spicetify-setup.sh` do
-  [Spellbook-OS](https://github.com/AndreBFarias/Spellbook-OS) em quatro
-  caminhos conhecidos (`$REPO/../Spellbook-OS/scripts/`,
-  `$HOME/Desenvolvimento/Spellbook-OS/scripts/`,
-  `$XDG_DATA_HOME/Spellbook-OS/scripts/`, `/opt/Spellbook-OS/scripts/`).
-  Sem o Spellbook, o passo é pulado com warning. Alternativa: rodar
-  manualmente o setup oficial do [Spicetify CLI](https://spicetify.app).
+- **Spicetify** (Spotify Flatpak): a partir da SPRINT 18, a função
+  `aplicar_spicetify` em `scripts/instalar_app_themes.sh` chama
+  `scripts/instalar_spicetify.sh` (autocontido neste repo) por padrão.
+  O setup detecta o tipo de Spotify (Flatpak/snap/nativo), instala
+  Spicetify via `curl | sh` oficial, clona `spicetify/spicetify-themes`,
+  configura `prefs_path`, aplica 13 chaves de config + extensions +
+  custom apps (marketplace, lyrics-plus, reddit, new-releases) e roda
+  `spicetify backup apply`. Para reusar o setup mantido em
+  [Spellbook-OS](https://github.com/AndreBFarias/Spellbook-OS) como
+  fallback, exporte `DRACULA_PREFER_SPELLBOOK_SPICETIFY=1` antes de
+  rodar o instalador.
 
 - Após `flatpak update`, o Spotify pode dessincronizar do Spicetify.
   Resolução:
@@ -265,14 +269,22 @@ O `build.sh` executa em ordem:
 ### Desinstalação
 
 ```bash
-./uninstall.sh --user           # remove tudo que foi instalado no user
-./uninstall.sh --system         # versão sudo
+./uninstall.sh --user                          # remove tudo que foi instalado no user
+./uninstall.sh --system                        # versão sudo
+DRACULA_SPICETIFY_FULL=1 ./uninstall.sh --user # + remove ~/.spicetify e ~/.config/spicetify
 ```
 
 Reverte automaticamente:
 - Temas em `~/.local/share/{icons,themes}/`
 - Overrides `.desktop` em `~/.local/share/applications/`
 - `dark.css` original de Pop!_Shell e Pop!_Cosmic (de `.orig`)
+- Sons (tema Pop) e wallpapers Dracula
+- Higiene do app-grid Pop!_Cosmic e localização pt-BR
+- **Spicetify** via `desinstalar_spicetify.sh` (restore por padrão; `--full` opcional via `DRACULA_SPICETIFY_FULL=1`)
+- **APT hook** (`/etc/apt/apt.conf.d/99-dracula-os-theme`, pede sudo)
+- **Extensões GNOME** do manifesto (desativa via `gnome-extensions disable`)
+- **Atalhos de teclado** (restaura backup mais recente do dconf)
+- **Ícones de jogos Steam** patcheados em `hicolor/{256x256,32x32}/apps/steam_icon_*.png`
 
 Depois, resete temas via `gsettings`:
 ```bash

@@ -80,6 +80,58 @@ if [[ -d "$HOME/.local/share/backgrounds/dracula" ]]; then
     "$REPO_ROOT/scripts/desinstalar_wallpapers.sh" || true
 fi
 
+# Reverter Spicetify (SPRINT 18). DRACULA_SPICETIFY_FULL=1 remove
+# ~/.spicetify e ~/.config/spicetify; sem a flag, apenas restaura o
+# Spotify ao estado original (preservando configs do Spicetify).
+if [[ -x "$HOME/.spicetify/spicetify" ]] || [[ -d "$HOME/.spicetify" ]]; then
+    echo "Revertendo Spicetify..."
+    if [[ "${DRACULA_SPICETIFY_FULL:-0}" == "1" ]]; then
+        "$REPO_ROOT/scripts/desinstalar_spicetify.sh" --full || true
+    else
+        "$REPO_ROOT/scripts/desinstalar_spicetify.sh" || true
+    fi
+fi
+
+# Reverter APT hook (requer sudo; remove o gatilho pós apt upgrade)
+if [[ -f /etc/apt/apt.conf.d/99-dracula-os-theme ]]; then
+    echo "Removendo APT hook (pede sudo)..."
+    sudo "$REPO_ROOT/scripts/instalar_apt_hook.sh" --revert || true
+fi
+
+# Reverter extensões GNOME do manifesto (desativa via gnome-extensions disable)
+if [[ "$MODO" == "user" ]] && command -v gnome-extensions >/dev/null 2>&1; then
+    echo "Desativando extensões GNOME do manifesto..."
+    "$REPO_ROOT/scripts/instalar_gnome_extensions.sh" --revert || true
+fi
+
+# Reverter atalhos de teclado (restaura backup mais recente do dconf)
+if [[ "$MODO" == "user" ]]; then
+    if compgen -G "$HOME/.cache/dracula_os_backup/keybindings_*" >/dev/null 2>&1 \
+       || compgen -G "$HOME/.cache/dracula_os_backup_keybindings_*" >/dev/null 2>&1; then
+        echo "Restaurando atalhos de teclado anteriores..."
+        "$REPO_ROOT/scripts/instalar_keybindings.sh" --revert || true
+    fi
+fi
+
+# Reverter ícones de jogos Steam patcheados (PNGs em hicolor/{256x256,32x32}/apps)
+if [[ "$MODO" == "user" ]]; then
+    removidos=0
+    for tamanho in 256x256 32x32; do
+        dir="$HOME/.local/share/icons/hicolor/$tamanho/apps"
+        [[ -d "$dir" ]] || continue
+        if validar_path_destrutivo "$dir" >/dev/null 2>&1; then
+            shopt -s nullglob
+            for png in "$dir"/steam_icon_*.png; do
+                rm -f "$png" && removidos=$((removidos+1))
+            done
+            shopt -u nullglob
+        fi
+    done
+    if [[ $removidos -gt 0 ]]; then
+        echo "Removidos $removidos ícone(s) Steam patcheado(s)."
+    fi
+fi
+
 echo "Desinstalação concluída. Reverta gsettings manualmente se necessário."
 
 # "Memento mori." -- lembra-te que és mortal.

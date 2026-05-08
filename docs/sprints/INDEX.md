@@ -23,6 +23,7 @@ vira commit/PR atômico e tem sua entrada referenciada no `CHANGELOG.md`.
 | 15 | [Housekeeping: rotação de backups e correções secundárias](SPRINT_15_HOUSEKEEPING.md) | Concluída | 2026-05-07 |
 | 16 | [Housekeeping II: rotação de backups de .desktop e de logs](SPRINT_16_HOUSEKEEPING_DESKTOPS_LOGS.md) | Concluída | 2026-05-07 |
 | 17 | [Cobertura de gaps: wallpapers, Spicetify pós-update, dependências externas](SPRINT_17_COBERTURA_GAPS.md) | Em implementação | 2026-05-07 |
+| 18 | [Spicetify autônomo (sem Spellbook-OS)](SPRINT_18_SPICETIFY_AUTONOMO.md) | Em implementação | 2026-05-07 |
 
 ## Convenção de nomenclatura
 

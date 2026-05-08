@@ -6,6 +6,7 @@
 #   ./install.sh --system            # copia para /usr/share/{icons,themes}/ (sudo)
 #   ./install.sh --user --activate   # + ativa via gsettings
 #   ./install.sh --user --app-themes # + aplica temas internos (kitty, qbittorrent, etc.)
+#   ./install.sh --user --spicetify  # + instala/aplica somente Spicetify (SPRINT 18)
 #   ./install.sh --user --all        # tudo acima
 #   ./install.sh --user --apt-hook   # + instala hook que reaplica tema pós apt upgrade
 #   ./install.sh --bootstrap         # checa ambiente, baixa upstreams, build, install --user --all, diagnóstico
@@ -18,6 +19,7 @@ DIST="$REPO_ROOT/dist"
 MODO=""
 ATIVAR=0
 APP_THEMES=0
+SPICETIFY=0
 POP_SHELL_CSS=0
 SOUNDS=0
 KEYBINDINGS=0
@@ -31,12 +33,15 @@ for arg in "$@"; do
         --system)  MODO="system" ;;
         --activate) ATIVAR=1 ;;
         --app-themes) APP_THEMES=1 ;;
+        --spicetify) SPICETIFY=1 ;;
         --pop-shell-css) POP_SHELL_CSS=1 ;;
         --sounds) SOUNDS=1 ;;
         --keybindings) KEYBINDINGS=1 ;;
         --gnome-extensions) GNOME_EXT=1 ;;
         --apt-hook) APT_HOOK=1 ;;
         --bootstrap) BOOTSTRAP=1 ;;
+        # --all: SPICETIFY não é incluído porque APP_THEMES já chama
+        # aplicar_spicetify() (que roda instalar_spicetify.sh). Evita duplicação.
         --all) ATIVAR=1; APP_THEMES=1; POP_SHELL_CSS=1; SOUNDS=1; KEYBINDINGS=1; GNOME_EXT=1 ;;
     esac
 done
@@ -60,7 +65,7 @@ if [[ $BOOTSTRAP -eq 1 ]]; then
 fi
 
 if [[ -z "$MODO" ]]; then
-    echo "Uso: $0 --user|--system [--activate] [--app-themes] [--pop-shell-css] [--sounds] [--keybindings] [--gnome-extensions] [--apt-hook] [--all]"
+    echo "Uso: $0 --user|--system [--activate] [--app-themes] [--spicetify] [--pop-shell-css] [--sounds] [--keybindings] [--gnome-extensions] [--apt-hook] [--all]"
     echo "     $0 --bootstrap  (rota completa para máquina limpa Pop!_OS)"
     exit 1
 fi
@@ -165,6 +170,13 @@ if [[ $APP_THEMES -eq 1 ]]; then
     echo ""
     _info "Aplicando app themes"
     "$REPO_ROOT/scripts/instalar_app_themes.sh"
+fi
+
+# ─── Spicetify (atalho dedicado; se --app-themes já rodou, é no-op idempotente) ───
+if [[ $SPICETIFY -eq 1 && "$MODO" == "user" ]]; then
+    echo ""
+    _info "Aplicando Spicetify (autônomo, SPRINT 18)"
+    "$REPO_ROOT/scripts/instalar_spicetify.sh" || _warn "instalar_spicetify.sh falhou (não-fatal)"
 fi
 
 # ─── Extensões GNOME ───
