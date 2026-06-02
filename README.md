@@ -2,12 +2,12 @@
 
 [![opensource](https://badges.frapsoft.com/os/v1/open-source.png?v=103)](#)
 [![Licença](https://img.shields.io/badge/licenca-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
-[![Versão](https://img.shields.io/github/v/release/AndreBFarias/Dracula_OS-Theme?color=purple&label=versao)](https://github.com/AndreBFarias/Dracula_OS-Theme/releases/latest)
+[![Versão](https://img.shields.io/github/v/release/[REDACTED]/Dracula_OS-Theme?color=purple&label=versao)](https://github.com/[REDACTED]/Dracula_OS-Theme/releases/latest)
 [![Shell](https://img.shields.io/badge/shell-bash-green.svg)](https://www.gnu.org/software/bash/)
 [![Python](https://img.shields.io/badge/python-3.10+-green.svg)](https://www.python.org/)
 [![Pop!_OS](https://img.shields.io/badge/Pop!__OS-22.04-purple.svg)](https://pop.system76.com/)
-[![Estrelas](https://img.shields.io/github/stars/AndreBFarias/Dracula_OS-Theme.svg?style=social)](https://github.com/AndreBFarias/Dracula_OS-Theme/stargazers)
-[![Contribuições](https://img.shields.io/badge/contribuicoes-bem--vindas-brightgreen.svg)](https://github.com/AndreBFarias/Dracula_OS-Theme/issues)
+[![Estrelas](https://img.shields.io/github/stars/[REDACTED]/Dracula_OS-Theme.svg?style=social)](https://github.com/[REDACTED]/Dracula_OS-Theme/stargazers)
+[![Contribuições](https://img.shields.io/badge/contribuicoes-bem--vindas-brightgreen.svg)](https://github.com/[REDACTED]/Dracula_OS-Theme/issues)
 
 <div align="center">
 <div style="text-align: center;">
@@ -58,7 +58,7 @@ Desenvolvido e testado em **Pop!_OS 22.04 LTS / GNOME 42.9 / X11**.
 #### Em outro PC Pop!_OS (rota mais curta — SPRINT_07)
 
 ```bash
-git clone https://github.com/AndreBFarias/Dracula_OS-Theme.git
+git clone https://github.com/[REDACTED]/Dracula_OS-Theme.git
 cd Dracula_OS-Theme
 ./install.sh --bootstrap
 ```
@@ -68,7 +68,7 @@ O `--bootstrap` chama `scripts/checar_ambiente.sh` (lista dependências faltante
 #### Via Script (controle passo-a-passo)
 
 ```bash
-git clone https://github.com/AndreBFarias/Dracula_OS-Theme.git ~/Desenvolvimento/Dracula_OS-Theme
+git clone https://github.com/[REDACTED]/Dracula_OS-Theme.git ~/Desenvolvimento/Dracula_OS-Theme
 cd ~/Desenvolvimento/Dracula_OS-Theme
 
 ./scripts/checar_ambiente.sh           # opcional: valida dependências antes
@@ -82,7 +82,7 @@ python3 scripts/extrair_mapeamento.py  # gera mapping.json a partir dos .desktop
 #### Via Release (tarball)
 
 ```bash
-wget https://github.com/AndreBFarias/Dracula_OS-Theme/releases/latest/download/Dracula_OS-Theme-v1.1.0.tar.gz
+wget https://github.com/[REDACTED]/Dracula_OS-Theme/releases/latest/download/Dracula_OS-Theme-v1.1.0.tar.gz
 tar xzf Dracula_OS-Theme-v1.1.0.tar.gz
 cd Dracula_OS-Theme-v1.1.0
 
@@ -99,12 +99,13 @@ cd Dracula_OS-Theme-v1.1.0
 ./install.sh --user --activate  # instala + ativa via gsettings
 ./install.sh --user --app-themes         # instala + aplica temas internos de apps
 ./install.sh --user --spicetify          # instala + aplica somente Spicetify (autônomo, SPRINT 18)
+./install.sh --user --gimp               # instala GIMP (Flatpak) + aplica PhotoGIMP (autônomo, SPRINT 20)
 ./install.sh --user --pop-shell-css      # instala + substitui dark.css das extensões (requer sudo)
 ./install.sh --user --sounds             # instala tema de som Pop + ativa via gsettings
 ./install.sh --user --keybindings        # aplica snapshot de atalhos + silencia shutter
 ./install.sh --user --gnome-extensions   # reinstala + configura 13 extensões GNOME
 ./install.sh --user --apt-hook           # instala hook APT (reaplica tema automaticamente pós upgrade)
-./install.sh --user --all                # tudo acima (não inclui --apt-hook; ative manualmente)
+./install.sh --user --all                # tudo acima, incl. --gimp (~150 MB Flatpak); não inclui --apt-hook
 ./install.sh --bootstrap                 # rota completa para máquina Pop!_OS limpa
 ```
 
@@ -112,10 +113,10 @@ cd Dracula_OS-Theme-v1.1.0
 
 | Ambiente | Build | Install | Pop!_Shell CSS | Extensões GNOME | Testado |
 |---|---|---|---|---|---|
-| Pop!_OS 22.04 GNOME 42 | ✅ | ✅ | ✅ | ✅ | ✅ em produção |
-| Pop!_OS 24.04 GNOME 46 | ✅ | ✅ | ⚠️ paths podem diferir | ⚠️ `shell-version-max=46` declarado | ⚠️ preparado, não testado em VM |
-| Pop!_OS 24.04 COSMIC | ✅ | ✅ (ícones/GTK/sons) | ⚠️ não-aplicável | ⚠️ abortado com mensagem clara (`$XDG_CURRENT_DESKTOP`) | ⚠️ preparado |
-| Outras distros GNOME 42+ | ⚠️ | ⚠️ | ❌ (sem Pop!_Shell) | ✅ | ⚠️ provavelmente funcional |
+| Pop!_OS 22.04 GNOME 42 |  |  |  |  |  em produção |
+| Pop!_OS 24.04 GNOME 46 |  |  |  paths podem diferir |  `shell-version-max=46` declarado |  preparado, não testado em VM |
+| Pop!_OS 24.04 COSMIC |  |  (ícones/GTK/sons) |  não-aplicável |  abortado com mensagem clara (`$XDG_CURRENT_DESKTOP`) |  preparado |
+| Outras distros GNOME 42+ |  |  |  (sem Pop!_Shell) |  |  provavelmente funcional |
 
 ---
 
@@ -158,6 +159,12 @@ cd Dracula_OS-Theme-v1.1.0
 ~/.cache/dracula-telegram/dracula.tdesktop-theme    # importar manualmente no Telegram
 # Spicetify aplicado via scripts/instalar_spicetify.sh (tema Sleek + color scheme Dracula)
 # GNOME Terminal perfil importado via dconf
+
+# Com --gimp:
+~/.config/GIMP/<versão>/                      # config PhotoGIMP aplicada na versão-dir ativa (ex.: 3.2)
+~/.local/share/applications/org.gimp.GIMP.desktop  # launcher "PhotoGIMP" (sombreia o do Flatpak)
+~/.local/share/icons/hicolor/**/apps/photogimp.png # ícone PhotoGIMP
+~/.cache/dracula_os_backup/gimp_<timestamp>/  # backup da config anterior (manifest sha256, retém 10)
 ```
 
 ---
@@ -174,7 +181,7 @@ Alguns app-themes delegam a setups externos não embutidos neste repositório:
   configura `prefs_path`, aplica 13 chaves de config + extensions +
   custom apps (marketplace, lyrics-plus, reddit, new-releases) e roda
   `spicetify backup apply`. Para reusar o setup mantido em
-  [Spellbook-OS](https://github.com/AndreBFarias/Spellbook-OS) como
+  [Spellbook-OS](https://github.com/[REDACTED]/Spellbook-OS) como
   fallback, exporte `DRACULA_PREFER_SPELLBOOK_SPICETIFY=1` antes de
   rodar o instalador.
 
@@ -186,6 +193,28 @@ Alguns app-themes delegam a setups externos não embutidos neste repositório:
   ```
 
   Detalhes em `app-themes/spicetify/README.md`.
+
+- **GIMP + PhotoGIMP** (Flatpak): `scripts/instalar_gimp.sh` (autocontido,
+  acionado por `--gimp` e incluído em `--all`/`--bootstrap`) garante o remote
+  `flathub`, instala/atualiza `org.gimp.GIMP` e aplica o
+  [PhotoGIMP](https://github.com/Diolinux/PhotoGIMP) (tag `3.0`, asset
+  `PhotoGIMP-linux.zip`, sha256 fixado) — layout/atalhos estilo Photoshop,
+  splash e launcher próprio. A versão-dir de config é **detectada
+  dinamicamente** (host `~/.config/GIMP/<versão>` quando o Flatpak tem o
+  override `xdg-config/GIMP`, senão o sandbox), e a config atual é respaldada
+  com manifest sha256 em `~/.cache/dracula_os_backup/gimp_<timestamp>/` antes
+  de sobrescrever. O passo `flatpak update` preempta o relink de runtime que
+  pode fazer o **primeiro** start do GIMP parecer travado.
+
+  Para reverter ao estado anterior:
+
+  ```bash
+  cp -rT ~/.cache/dracula_os_backup/gimp_<timestamp>/<versão> ~/.config/GIMP/<versão>
+  rm ~/.local/share/applications/org.gimp.GIMP.desktop   # volta ao launcher do Flatpak
+  ```
+
+  > Feche o GIMP antes de aplicar/reverter: ao sair, ele reescreve a config
+  > e desfaz a troca.
 
 ---
 
@@ -362,7 +391,7 @@ Preserva `~/.local/share/icons/dracula-icons-{main,circle}/` (os upstreams que o
 
 ### Integração com Spellbook-OS
 
-Se você usa o [Spellbook-OS](https://github.com/AndreBFarias/Spellbook-OS):
+Se você usa o [Spellbook-OS](https://github.com/[REDACTED]/Spellbook-OS):
 
 - A função `_reconstruir_caches_icones` (em `functions/sistema.zsh`) agora cobre também `~/.local/share/icons/`
 - Nova função `rebuild_dracula_theme` roda `build.sh` + `install.sh --user` em um passo

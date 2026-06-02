@@ -7,6 +7,7 @@
 #   ./install.sh --user --activate   # + ativa via gsettings
 #   ./install.sh --user --app-themes # + aplica temas internos (kitty, qbittorrent, etc.)
 #   ./install.sh --user --spicetify  # + instala/aplica somente Spicetify (SPRINT 18)
+#   ./install.sh --user --gimp       # + instala GIMP (Flatpak) e aplica PhotoGIMP (SPRINT 20)
 #   ./install.sh --user --all        # tudo acima
 #   ./install.sh --user --apt-hook   # + instala hook que reaplica tema pós apt upgrade
 #   ./install.sh --bootstrap         # checa ambiente, baixa upstreams, build, install --user --all, diagnóstico
@@ -25,6 +26,7 @@ SOUNDS=0
 KEYBINDINGS=0
 GNOME_EXT=0
 APT_HOOK=0
+GIMP=0
 BOOTSTRAP=0
 
 for arg in "$@"; do
@@ -39,10 +41,11 @@ for arg in "$@"; do
         --keybindings) KEYBINDINGS=1 ;;
         --gnome-extensions) GNOME_EXT=1 ;;
         --apt-hook) APT_HOOK=1 ;;
+        --gimp) GIMP=1 ;;
         --bootstrap) BOOTSTRAP=1 ;;
         # --all: SPICETIFY não é incluído porque APP_THEMES já chama
         # aplicar_spicetify() (que roda instalar_spicetify.sh). Evita duplicação.
-        --all) ATIVAR=1; APP_THEMES=1; POP_SHELL_CSS=1; SOUNDS=1; KEYBINDINGS=1; GNOME_EXT=1 ;;
+        --all) ATIVAR=1; APP_THEMES=1; POP_SHELL_CSS=1; SOUNDS=1; KEYBINDINGS=1; GNOME_EXT=1; GIMP=1 ;;
     esac
 done
 
@@ -65,7 +68,7 @@ if [[ $BOOTSTRAP -eq 1 ]]; then
 fi
 
 if [[ -z "$MODO" ]]; then
-    echo "Uso: $0 --user|--system [--activate] [--app-themes] [--spicetify] [--pop-shell-css] [--sounds] [--keybindings] [--gnome-extensions] [--apt-hook] [--all]"
+    echo "Uso: $0 --user|--system [--activate] [--app-themes] [--spicetify] [--gimp] [--pop-shell-css] [--sounds] [--keybindings] [--gnome-extensions] [--apt-hook] [--all]"
     echo "     $0 --bootstrap  (rota completa para máquina limpa Pop!_OS)"
     exit 1
 fi
@@ -177,6 +180,13 @@ if [[ $SPICETIFY -eq 1 && "$MODO" == "user" ]]; then
     echo ""
     _info "Aplicando Spicetify (autônomo, SPRINT 18)"
     "$REPO_ROOT/scripts/instalar_spicetify.sh" || _warn "instalar_spicetify.sh falhou (não-fatal)"
+fi
+
+# ─── GIMP + PhotoGIMP (Flatpak + config estilo Photoshop) ───
+if [[ $GIMP -eq 1 && "$MODO" == "user" ]]; then
+    echo ""
+    _info "Instalando/atualizando GIMP (Flatpak) + aplicando PhotoGIMP"
+    "$REPO_ROOT/scripts/instalar_gimp.sh" || _warn "instalar_gimp.sh falhou (não-fatal)"
 fi
 
 # ─── Extensões GNOME ───
