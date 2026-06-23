@@ -169,7 +169,9 @@ aplicar_photogimp() {
         _dim "[dry-run] config alvo: ${cfg_dir:-<detectada/criada em runtime>}"
         _dim "[dry-run] backup_com_manifest \$cfg $BACKUP_BASE/gimp_<ts> + _purgar_antigos 10"
         _dim "[dry-run] unzip $PHOTOGIMP_ZIP → cp .config/GIMP/3.0/* → \$cfg"
+        _dim "[dry-run] rm \$cfg/sessionrc (PhotoGIMP 3.0 trava o GIMP 3.2 → GIMP recria)"
         _dim "[dry-run] cp .local/share/* (launcher org.gimp.GIMP.desktop + ícones photogimp) → ~/.local/share"
+        _dim "[dry-run] sed --command=gimp-3.0→gimp em org.gimp.GIMP.desktop (inexistente no 3.2+)"
         _dim "[dry-run] update-desktop-database + gtk-update-icon-cache"
         return 0
     fi
@@ -217,9 +219,22 @@ aplicar_photogimp() {
     _info "Aplicando config PhotoGIMP em $cfg_dir"
     cp -rT "$src/.config/GIMP/3.0" "$cfg_dir"
 
+    # O sessionrc do PhotoGIMP v3.0 salva um layout que recria o painel
+    # "gimp-vectors-list". No GIMP 3.2 (vectors→paths) esse painel não existe
+    # e a restauração da janela TRAVA na inicialização (GIMP "não abre", sem
+    # erro). Removemos o sessionrc para o GIMP recriar uma sessão compatível —
+    # atalhos (shortcutsrc), ferramentas, pincéis, tema e splash seguem intactos.
+    rm -f "$cfg_dir/sessionrc"
+
     _info "Instalando launcher + ícones PhotoGIMP"
     mkdir -p "$HOME/.local/share"
     cp -rT "$src/.local/share" "$HOME/.local/share"
+
+    # PhotoGIMP v3.0 traz Exec=--command=gimp-3.0, binário inexistente no GIMP
+    # 3.2+ (bwrap: execvp gimp-3.0: No such file or directory → "não abre").
+    # Normaliza p/ 'gimp' (genérico) para sobreviver a upgrades de versão.
+    sed -i 's/--command=gimp-3\.0/--command=gimp/' \
+        "$HOME/.local/share/applications/org.gimp.GIMP.desktop"
 
     update-desktop-database "$HOME/.local/share/applications" 2>/dev/null || true
     gtk-update-icon-cache -f -t "$HOME/.local/share/icons/hicolor" 2>/dev/null || true
