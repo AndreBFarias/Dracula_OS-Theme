@@ -33,6 +33,7 @@ vira commit/PR atômico e tem sua entrada referenciada no `CHANGELOG.md`.
 | 24 | [Cobertura de ícones nativos via aliases técnicos](SPRINT_24_ICONES_NATIVOS_ALIASES.md) | Concluída | 2026-06-25 |
 | 26 | [Captura da config completa do Obsidian](SPRINT_26_OBSIDIAN_CONFIG.md) | Concluída | 2026-06-25 |
 | 27 | [Pasta "Utilitários"/YaST escondida de forma durável](SPRINT_27_LAUNCHER_UTILITARIOS_DURAVEL.md) | Concluída | 2026-06-25 |
+| 29 | [Wire das logos curadas do depósito apps-global](SPRINT_29_LOGOS_APPS_GLOBAL.md) | Concluída | 2026-06-25 |
 
 ## Convenção de nomenclatura
 

@@ -247,6 +247,53 @@
     "name": "Firefox",
     "origem": "logo-usuario"
   },
+  "citrix": {
+    "aliases": [
+      "citrix",
+      "Ubuntu-configmgr",
+      "Ubuntu-conncenter",
+      "Ubuntu-fido2_llt",
+      "Ubuntu-logmgr",
+      "Ubuntu-nfcui",
+      "Ubuntu-receiver",
+      "Ubuntu-receiver_fido2",
+      "Ubuntu-selfservice",
+      "Ubuntu-sendfeedback",
+      "Ubuntu-wfica"
+    ],
+    "aliases_humanos": [
+      "citrix"
+    ],
+    "fonte": "current/48x48/apps-global/citrix.png",
+    "icon_original": "citrix",
+    "name": "Citrix Workspace",
+    "origem": "logo-usuario"
+  },
+  "dbeaver": {
+    "aliases": [
+      "dbeaver",
+      "io.dbeaver.DBeaverCommunity"
+    ],
+    "aliases_humanos": [
+      "dbeaver"
+    ],
+    "fonte": "current/48x48/apps-global/dbeaver.png",
+    "icon_original": "dbeaver",
+    "name": "DBeaver",
+    "origem": "logo-usuario"
+  },
+  "photogimp": {
+    "aliases": [
+      "photogimp"
+    ],
+    "aliases_humanos": [
+      "photogimp"
+    ],
+    "fonte": "current/48x48/apps-global/gimp.png",
+    "icon_original": "photogimp",
+    "name": "PhotoGIMP",
+    "origem": "logo-usuario"
+  },
   "com.github.tchx84.Flatseal": {
     "aliases": [
       "com.github.tchx84.Flatseal"
