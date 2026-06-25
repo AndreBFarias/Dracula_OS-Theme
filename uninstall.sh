@@ -68,11 +68,13 @@ if [[ -f /usr/share/gnome-shell/extensions/pop-shell@system76.com/dark.css.orig 
     sudo "$REPO_ROOT/scripts/instalar_pop_shell_css.sh" --revert || true
 fi
 
-# Remover tema de som Pop instalado por --sounds
-if [[ -d "$HOME/.local/share/sounds/Pop" ]] || [[ -d /usr/share/sounds/Pop ]]; then
-    echo "Removendo tema de som Pop..."
-    "$REPO_ROOT/scripts/instalar_sons.sh" "--$MODO" --revert 2>/dev/null || true
-fi
+# Remover temas de som instalados por --sounds (Dracula default + Pop legado)
+for tema_som in Dracula Pop; do
+    if [[ -d "$HOME/.local/share/sounds/$tema_som" ]] || [[ -d "/usr/share/sounds/$tema_som" ]]; then
+        echo "Removendo tema de som $tema_som..."
+        "$REPO_ROOT/scripts/instalar_sons.sh" "--$MODO" --theme "$tema_som" --revert 2>/dev/null || true
+    fi
+done
 
 # Reverter wallpapers Dracula (se instalados)
 if [[ -d "$HOME/.local/share/backgrounds/dracula" ]]; then

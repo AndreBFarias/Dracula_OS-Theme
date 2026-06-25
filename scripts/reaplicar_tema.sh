@@ -78,15 +78,22 @@ fi
 _info "Normalizando Icon= absoluto em .desktop"
 "$REPO_ROOT/scripts/normalizar_desktops.sh" || _warn "normalizar_desktops.sh falhou"
 
-# ─── 6. Tema de som Pop (gsettings costuma regredir com upgrade do GNOME) ───
+# ─── 6. Tema de som Dracula (gsettings costuma regredir com upgrade do GNOME) ───
+# Default Dracula (SPRINT 25); cai para Pop se só ele estiver instalado.
 sound_atual="$(gsettings get org.gnome.desktop.sound theme-name 2>/dev/null || echo '')"
-if [[ "$sound_atual" != "'Pop'" ]]; then
-    if [[ -d "$HOME/.local/share/sounds/Pop" || -d /usr/share/sounds/Pop ]]; then
-        _info "Tema som regrediu ($sound_atual) — reativando via gsettings"
-        gsettings set org.gnome.desktop.sound theme-name 'Pop' && _ok "theme-name='Pop' restaurado"
-    else
-        _warn "Tema som Pop não instalado. Rode: ./scripts/instalar_sons.sh"
+tema_som=""
+if [[ -d "$HOME/.local/share/sounds/Dracula" || -d /usr/share/sounds/Dracula ]]; then
+    tema_som="Dracula"
+elif [[ -d "$HOME/.local/share/sounds/Pop" || -d /usr/share/sounds/Pop ]]; then
+    tema_som="Pop"
+fi
+if [[ -n "$tema_som" ]]; then
+    if [[ "$sound_atual" != "'$tema_som'" ]]; then
+        _info "Tema som regrediu ($sound_atual) — reativando $tema_som via gsettings"
+        gsettings set org.gnome.desktop.sound theme-name "$tema_som" && _ok "theme-name='$tema_som' restaurado"
     fi
+else
+    _warn "Nenhum tema de som instalado. Rode: ./scripts/instalar_sons.sh"
 fi
 
 # ─── 7. App themes (idempotentes: kitty include, qbittorrent, etc.) ───

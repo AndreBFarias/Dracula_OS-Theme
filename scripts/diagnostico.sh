@@ -69,11 +69,11 @@ check "kitty: include current-theme.conf" \
 check "qBittorrent: dracula.qbtheme" \
     "[[ -f \$HOME/.themes/dracula.qbtheme ]]"
 
-# ─── Sons e keybindings ───
-check "Tema som Pop ativo" \
-    "[[ \"\$(gsettings get org.gnome.desktop.sound theme-name 2>/dev/null)\" == \"'Pop'\" ]]"
-check "Pasta sons Pop instalada" \
-    "[[ -d \$HOME/.local/share/sounds/Pop || -d /usr/share/sounds/Pop ]]"
+# ─── Sons e keybindings (SPRINT 25: default Dracula, Pop aceitável) ───
+check "Tema de som ativo (Dracula ou Pop)" \
+    "[[ \"\$(gsettings get org.gnome.desktop.sound theme-name 2>/dev/null)\" =~ ^\'(Dracula|Pop)\'\$ ]]"
+check "Pasta de sons instalada (Dracula ou Pop)" \
+    "[[ -d \$HOME/.local/share/sounds/Dracula || -d /usr/share/sounds/Dracula || -d \$HOME/.local/share/sounds/Pop || -d /usr/share/sounds/Pop ]]"
 
 # ─── Extensões GNOME (itera manifesto) ───
 if command -v jq >/dev/null 2>&1 && [[ -f "$MANIFESTO" ]]; then

@@ -28,6 +28,7 @@ vira commit/PR atômico e tem sua entrada referenciada no `CHANGELOG.md`.
 | 22 | [Logo do Clapper no app e nos arquivos de vídeo](SPRINT_22_CLAPPER_ICONE_VIDEO.md) | Concluída | 2026-06-25 |
 | 20 | [GIMP (Flatpak) + PhotoGIMP autônomo](SPRINT_20_GIMP.md) | Concluída | 2026-06-02 |
 | 21 | [Wallpaper de vídeo (Hidamari)](SPRINT_21_WALLPAPER_VIDEO.md) | Concluída | 2026-06-25 |
+| 25 | [Tema de som cyberpunk/sci-fi (Kenney CC0)](SPRINT_25_SONS_CYBERPUNK.md) | Concluída | 2026-06-25 |
 | 23 | [Topbar em múltiplos monitores](SPRINT_23_TOPBAR_MULTI_MONITOR.md) | Concluída | 2026-06-25 |
 | 24 | [Cobertura de ícones nativos via aliases técnicos](SPRINT_24_ICONES_NATIVOS_ALIASES.md) | Concluída | 2026-06-25 |
 | 26 | [Captura da config completa do Obsidian](SPRINT_26_OBSIDIAN_CONFIG.md) | Concluída | 2026-06-25 |
