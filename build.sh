@@ -111,8 +111,8 @@ gerar_tema_icones() {
 
     # Desativa set -e dentro do loop para não abortar em uma falha isolada
     set +e
-    # Processa cada app: lemos app_id, fonte e aliases_humanos (separados por ',')
-    while IFS=$'\t' read -r app_id fonte aliases_humanos; do
+    # Processa cada app: lemos app_id, fonte, aliases_humanos e aliases (técnicos)
+    while IFS=$'\t' read -r app_id fonte aliases_humanos aliases_tecnicos; do
         # Pular linhas vazias ou "null"
         if [[ -z "$app_id" || "$fonte" == "null" || "$fonte" == "None" ]]; then
             ignorados=$((ignorados + 1))
@@ -133,14 +133,22 @@ gerar_tema_icones() {
         fi
 
         local ext="${src_path##*.}"
-        # Lista de nomes-alvo: app_id + aliases_humanos (virgula-separado)
+        # Lista de nomes-alvo: app_id + aliases_humanos + aliases (técnicos),
+        # deduplicados. Inclui os aliases técnicos para cobrir nomes como
+        # org.gnome.Settings (o Icon= real do .desktop nativo) que não estão
+        # em aliases_humanos — sem eles o ícone do app cai no fallback Adwaita.
         local -a alvos=("$app_id")
-        if [[ -n "$aliases_humanos" && "$aliases_humanos" != "null" ]]; then
-            IFS=',' read -ra extras <<< "$aliases_humanos"
+        local grupo extra a ja
+        for grupo in "$aliases_humanos" "$aliases_tecnicos"; do
+            [[ -z "$grupo" || "$grupo" == "null" ]] && continue
+            IFS=',' read -ra extras <<< "$grupo"
             for extra in "${extras[@]}"; do
-                [[ -n "$extra" ]] && alvos+=("$extra")
+                [[ -z "$extra" ]] && continue
+                ja=0
+                for a in "${alvos[@]}"; do [[ "$a" == "$extra" ]] && { ja=1; break; }; done
+                [[ $ja -eq 0 ]] && alvos+=("$extra")
             done
-        fi
+        done
 
         for nome_alvo in "${alvos[@]}"; do
             case "$ext" in
@@ -172,7 +180,7 @@ gerar_tema_icones() {
             esac
         done
         processados=$((processados + 1))
-    done < <(jq -r 'to_entries[] | "\(.key)\t\(.value.fonte)\t\(if .value.aliases_humanos then (.value.aliases_humanos | join(",")) else "" end)"' "$MAPPING")
+    done < <(jq -r 'to_entries[] | "\(.key)\t\(.value.fonte)\t\(if .value.aliases_humanos then (.value.aliases_humanos | join(",")) else "" end)\t\(if .value.aliases then (.value.aliases | join(",")) else "" end)"' "$MAPPING")
     set -e
 
     _ok "Tema gerado: $processados apps processados, $ignorados ignorados, $falhas falhas de conversão"

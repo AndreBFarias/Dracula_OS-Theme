@@ -234,6 +234,19 @@
     "name": "Clapper",
     "origem": "logo-usuario"
   },
+  "firefox": {
+    "aliases": [
+      "firefox",
+      "firefox-esr"
+    ],
+    "aliases_humanos": [
+      "firefox"
+    ],
+    "fonte": "current/48x48/apps-global/firefox.png",
+    "icon_original": "firefox",
+    "name": "Firefox",
+    "origem": "logo-usuario"
+  },
   "com.github.tchx84.Flatseal": {
     "aliases": [
       "com.github.tchx84.Flatseal"
