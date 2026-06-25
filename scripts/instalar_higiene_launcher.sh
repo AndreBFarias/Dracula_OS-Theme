@@ -75,17 +75,25 @@ parte_b() {
     if [[ "$DRY_RUN" == "1" ]]; then
         echo "DRY_RUN: gsettings set org.gnome.desktop.app-folders folder-children \"$novo\""
         for pasta in "${PASTAS_VENDOR[@]}"; do
-            (( tem_dconf )) && echo "DRY_RUN: dconf reset -f /org/gnome/desktop/app-folders/folders/${pasta}/"
+            (( tem_dconf )) && echo "DRY_RUN: dconf write .../folders/${pasta}/{apps,categories,excluded-apps} = []"
         done
     else
         gsettings set org.gnome.desktop.app-folders folder-children "$novo"
         if (( tem_dconf )); then
+            # SPRINT 27: ESVAZIAR a pasta (apps/categories/excluded-apps = [])
+            # em vez de `dconf reset` — o reset revertia ao default POPULADO do
+            # Pop (50_pop-*.gschema.override + /usr/bin/pop-app-folders), por
+            # isso reaparecia. Pasta vazia é escondida pelo GNOME e o valor de
+            # usuário sobrevive ao login (pop-app-folders é cache-gated e só
+            # toca pastas Pop-*; não reseta Utilities/YaST esvaziadas).
             for pasta in "${PASTAS_VENDOR[@]}"; do
-                dconf reset -f "/org/gnome/desktop/app-folders/folders/${pasta}/" || true
+                dconf write "/org/gnome/desktop/app-folders/folders/${pasta}/apps" "@as []" || true
+                dconf write "/org/gnome/desktop/app-folders/folders/${pasta}/categories" "@as []" || true
+                dconf write "/org/gnome/desktop/app-folders/folders/${pasta}/excluded-apps" "@as []" || true
             done
         fi
     fi
-    echo "OK: Parte B — folder-children agora $novo"
+    echo "OK: Parte B — folder-children agora $novo (pastas vendor esvaziadas)"
 }
 
 parte_a || echo "AVISO: Parte A falhou (não-fatal)"
@@ -93,5 +101,6 @@ parte_b || echo "AVISO: Parte B falhou (não-fatal)"
 
 echo ""
 echo "Para aplicar visualmente: Alt+F2, digitar 'r', Enter (X11) ou logout/login."
-echo "Limitação Parte B: vendor schema do GNOME/Pop!_Cosmic pode reinjetar pastas vendor (Utilities, YaST) em logout/login."
-echo "Se voltar, basta rodar este script novamente."
+echo "Parte B (SPRINT 27): pastas vendor ESVAZIADAS (não mais 'dconf reset'), então"
+echo "permanecem escondidas após logout. Só reaparecem se um upgrade do pop-default-settings"
+echo "bumpar a versão de ~/.cache/pop-app-folders; o APT hook reaplica esta higiene nesse caso."

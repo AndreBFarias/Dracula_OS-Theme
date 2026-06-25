@@ -74,12 +74,20 @@ reverter_b() {
 
     if [[ "$DRY_RUN" == "1" ]]; then
         echo "DRY_RUN: gsettings set org.gnome.desktop.app-folders folder-children \"$novo\""
+        command -v dconf >/dev/null 2>&1 && for pasta in "${PASTAS_VENDOR[@]}"; do
+            echo "DRY_RUN: dconf reset -f /org/gnome/desktop/app-folders/folders/${pasta}/"
+        done
     else
         gsettings set org.gnome.desktop.app-folders folder-children "$novo"
+        # SPRINT 27: restaura o conteúdo das pastas vendor que a instalação
+        # esvaziou (reset volta ao default populado do Pop).
+        if command -v dconf >/dev/null 2>&1; then
+            for pasta in "${PASTAS_VENDOR[@]}"; do
+                dconf reset -f "/org/gnome/desktop/app-folders/folders/${pasta}/" || true
+            done
+        fi
     fi
-    echo "OK: Parte B — folder-children agora $novo"
-    echo "    (reset do schema relocatable das pastas vendor não é restaurado;"
-    echo "     o vendor default do GNOME repovoa em logout/login.)"
+    echo "OK: Parte B — folder-children agora $novo (conteúdo das pastas vendor restaurado)"
 }
 
 reverter_a || echo "AVISO: reverter Parte A falhou (não-fatal)"

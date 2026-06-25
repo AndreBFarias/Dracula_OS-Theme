@@ -30,6 +30,7 @@ Formato: [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/) + SemVer.
 
 ### Alterado
 
+- **Sprint 27 — Pasta "Utilitários"/YaST escondida de forma durável**: `scripts/instalar_higiene_launcher.sh` (Parte B) passa a **esvaziar** as pastas vendor (`dconf write apps/categories/excluded-apps = []`) em vez de `dconf reset` — o reset revertia ao default POPULADO do Pop!_OS (`50_pop-session.gschema.override` + `/usr/bin/pop-app-folders`), por isso reapareciam. Pasta vazia é escondida pelo GNOME e o valor de usuário sobrevive ao login (`pop-app-folders` é cache-gated e só toca pastas `Pop-*`). `scripts/desinstalar_higiene_launcher.sh` restaura o conteúdo via `dconf reset` na reversão. Validado ao vivo: do estado `['Utilities','YaST']` → `folder-children []` + pastas vazias; `diagnostico --quiet` exit 0.
 - **Detecção de regressão Pop!_Shell/Pop!_Cosmic dark.css**: comparação byte-a-byte (`cmp -s`) entre o arquivo instalado e o source canônico do repo (`src/shell/pop-shell-dark.css`, `src/shell/pop-cosmic-dark.css`) em vez de grep heurístico de paleta (`bd93f9|rgba(40,42,54|...`). Captura QUALQUER divergência (paleta nova, regressão parcial, edição manual) sem precisar atualizar a regex quando o build mudar. Aplicado também em `scripts/diagnostico.sh` (Sprint 15).
 
 ## [1.2.0] — 2026-04-17
