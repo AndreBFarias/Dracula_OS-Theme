@@ -191,6 +191,9 @@ aplicar_obsidian() {
         return 0
     fi
 
+    # Config completa capturada (settings + hotkeys + snippets + plugins), SPRINT 26.
+    local fonte_config="$APP_THEMES/obsidian/config"
+
     local count=0
     while IFS= read -r vault; do
         [[ -z "$vault" || ! -d "$vault" ]] && continue
@@ -199,13 +202,28 @@ aplicar_obsidian() {
         _run "mkdir -p '$temas_dir'"
         _run "cp '$fonte_theme' '$temas_dir/theme.css'"
         [[ -f "$fonte_manifest" ]] && _run "cp '$fonte_manifest' '$temas_dir/manifest.json'"
+
+        # Deploy da config completa + plugins (preserva workspace.json do vault,
+        # que não faz parte da captura). Backup do .obsidian existente antes.
+        # Pular com DRACULA_OBSIDIAN_SKIP_CONFIG=1.
+        if [[ -d "$fonte_config" && "${DRACULA_OBSIDIAN_SKIP_CONFIG:-0}" != "1" ]]; then
+            local obs_dir="$vault/.obsidian"
+            if [[ -d "$obs_dir" && "${DRACULA_DRY_RUN:-0}" != "1" ]]; then
+                local bkp="$HOME/.cache/dracula_os_backup/obsidian_$(date +%Y%m%d_%H%M%S)"
+                mkdir -p "$bkp" && cp -a "$obs_dir" "$bkp/" 2>/dev/null \
+                    && _purgar_antigos "$HOME/.cache/dracula_os_backup/obsidian_*" 10
+            fi
+            _info "Obsidian: aplicando config + plugins (backup salvo) em $vault"
+            _run "mkdir -p '$obs_dir'"
+            _run "cp -a '$fonte_config/.' '$obs_dir/'"
+        fi
         count=$((count + 1))
     done <<< "$vaults"
 
     if [[ $count -eq 0 ]]; then
         _skip "Obsidian: vaults listados mas nenhum diretório acessível"
     else
-        _ok "Obsidian: tema instalado em $count vault(s) — ative em Settings → Appearance"
+        _ok "Obsidian: instalado em $count vault(s) — ative o tema em Settings → Appearance"
     fi
 }
 

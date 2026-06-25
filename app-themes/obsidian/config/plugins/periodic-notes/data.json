@@ -1,0 +1,33 @@
+{
+  "showGettingStartedBanner": false,
+  "hasMigratedDailyNoteSettings": false,
+  "hasMigratedWeeklyNoteSettings": false,
+  "daily": {
+    "format": "DD-MM-YYYY",
+    "folder": "Diario/{{date:YYYY}}",
+    "template": ".sistema/templates/daily.md",
+    "enabled": true
+  },
+  "weekly": {
+    "format": "YYYY-[W]ww",
+    "folder": "Diario/{{date:YYYY}}/Semanas",
+    "template": "",
+    "enabled": false
+  },
+  "monthly": {
+    "format": "YYYY-MM",
+    "folder": "Diario/{{date:YYYY}}/Retrospectivas",
+    "template": "",
+    "enabled": false
+  },
+  "quarterly": {
+    "format": "",
+    "template": "",
+    "folder": ""
+  },
+  "yearly": {
+    "format": "",
+    "template": "",
+    "folder": ""
+  }
+}

@@ -29,6 +29,7 @@ vira commit/PR atômico e tem sua entrada referenciada no `CHANGELOG.md`.
 | 21 | [Wallpaper de vídeo (Hidamari)](SPRINT_21_WALLPAPER_VIDEO.md) | Concluída | 2026-06-25 |
 | 23 | [Topbar em múltiplos monitores](SPRINT_23_TOPBAR_MULTI_MONITOR.md) | Concluída | 2026-06-25 |
 | 24 | [Cobertura de ícones nativos via aliases técnicos](SPRINT_24_ICONES_NATIVOS_ALIASES.md) | Concluída | 2026-06-25 |
+| 26 | [Captura da config completa do Obsidian](SPRINT_26_OBSIDIAN_CONFIG.md) | Concluída | 2026-06-25 |
 
 ## Convenção de nomenclatura
 

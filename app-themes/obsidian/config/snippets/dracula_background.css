@@ -1,0 +1,157 @@
+/* ======================================================================== */
+/* #DECRETO FINAL v8: A LEI DOS QUATRO CANTOS                               */
+/* ======================================================================== */
+
+/* Seção de Layout: Padding aplicado individualmente para forçar a simetria. */
+
+.markdown-reading-view .markdown-preview-sizer,
+.cm-editor .cm-sizer {
+    max-width: 850px !important;
+    margin: 1.5rem auto !important;
+    background-color: #313442 !important;
+    border-radius: 3px;
+    box-sizing: border-box !important; /* Garante consistência no cálculo do espaço */
+
+    /* << LEI APLICADA INDIVIDUALMENTE A CADA BORDA >> */
+    padding-top: 2rem !important;
+    padding-right: 2rem !important;
+    padding-bottom: 2rem !important;
+    padding-left: 2rem !important;
+}
+
+
+/* ======================================================================== */
+/* #ESTILOS GERAIS (Ajustados para a nova ordem)                            */
+/* ======================================================================== */
+
+body {
+  background-color: #282A36 !important; /* COR DE FUNDO DO PROGRAMA */
+  color: #F8F8F2 !important;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Inter", sans-serif;
+}
+
+/* Força a fonte correta nos modos de edição e leitura */
+.markdown-reading-view,
+.cm-editor {
+    font-size: 14px !important;
+    line-height: 1.6 !important;
+    background-color: transparent !important;
+}
+
+.cm-s-obsidian .cm-quote,
+blockquote {
+  background-color: transparent !important;
+  border-left: 2px solid #6272A4 !important;
+  color: inherit !important;
+  padding: 0.2em 1.5em;
+  margin: 1em 0;
+  border-radius: 0;
+}
+
+.cm-s-obsidian .cm-strong,
+blockquote strong {
+  color: inherit !important;
+  font-weight: 600;
+}
+
+/* Domando os Títulos em Ambos os Modos (Leitura e Edição) */
+.markdown-reading-view h1, .cm-editor .cm-header-1 { font-size: 1.8em !important; }
+.markdown-reading-view h2, .cm-editor .cm-header-2 { font-size: 1.5em !important; }
+.markdown-reading-view h3, .cm-editor .cm-header-3 { font-size: 1.3em !important; }
+
+.cm-s-obsidian .cm-header,
+h1, h2, h3, h4, h5, h6 {
+  color: #8BE9FD !important;
+  font-weight: 500;
+  border-bottom: 1px solid #44475A;
+  padding-bottom: 0.3em;
+  margin-top: 1.5em;
+  margin-bottom: 1em;
+  background-color: transparent !important;
+}
+
+.cm-s-obsidian .cm-link,
+.cm-s-obsidian .cm-url,
+a {
+  color: #FF79C6 !important;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+.cm-s-obsidian .cm-inline-code,
+:not(pre) > code {
+  background-color: #44475A !important;
+  color: #50FA7B !important;
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  font-size: 0.9em;
+}
+
+pre, .HyperMD-codeblock {
+  background-color: #22212C !important;
+  border: 1px solid #44475A;
+  border-radius: 5px;
+  padding: 1.5em;
+  font-size: 13px !important;
+}
+
+.internal-link.is-unresolved {
+  color: #FF5555 !important;
+}
+.cm-s-obsidian .cm-comment {
+  color: #6272A4 !important;
+}
+
+/* ======================================================================== */
+/* #DECRETO DE EXPORTAÇÃO (Mantido e Reforçado)                             */
+/* ======================================================================== */
+@media print {
+  body {
+    background: #313442 !important;
+    color: #F8F8F2 !important;
+    font-size: 10.5pt !important;
+    line-height: 1.5 !important;
+    -webkit-print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+
+  p, li { color: #F8F8F2 !important; }
+
+  blockquote {
+    background-color: transparent !important;
+    border-left: 2px solid #6272A4 !important;
+  }
+  blockquote p, blockquote strong { color: #F8F8F2 !important; }
+  blockquote strong { font-weight: 600 !important; }
+
+  h1, h2, h3, h4, h5, h6 {
+    color: #8BE9FD !important;
+    border-bottom: 1px solid #44475A !important;
+    background-color: transparent !important;
+  }
+
+  pre {
+    background-color: #22212C !important;
+    border: 1px solid #44475A !important;
+    white-space: pre-wrap !important;
+    word-wrap: break-word !important;
+  }
+
+  pre code, pre code span {
+    font-family: "Courier New", Courier, monospace !important;
+    font-size: 9pt !important;
+    line-height: 1.4 !important;
+    color: #50FA7B !important;
+    font-style: normal !important;
+    font-weight: normal !important;
+  }
+
+  a {
+    color: #FF79C6 !important;
+    text-decoration: none !important;
+  }
+  img { max-width: 100% !important; }
+  .frontmatter, iframe { display: none !important; }
+}

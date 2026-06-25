@@ -1,0 +1,11 @@
+{
+  "enabledCssSnippets": [
+    "dracula_background"
+  ],
+  "baseFontSizeAction": true,
+  "cssTheme": "Dracula Gemini",
+  "accentColor": "",
+  "theme": "obsidian",
+  "nativeMenus": true,
+  "baseFontSize": 14
+}

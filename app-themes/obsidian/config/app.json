@@ -1,0 +1,12 @@
+{
+  "promptDelete": false,
+  "alwaysUpdateLinks": true,
+  "newFileLocation": "folder",
+  "newFileFolderPath": "Inbox",
+  "attachmentFolderPath": "_Attachments",
+  "newLinkFormat": "relative",
+  "showUnsupportedFiles": true,
+  "openBehavior": "daily",
+  "showLineNumber": true,
+  "uriCallbacks": true
+}

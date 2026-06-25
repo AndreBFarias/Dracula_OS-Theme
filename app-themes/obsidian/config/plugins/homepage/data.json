@@ -1,0 +1,16 @@
+{
+  "version": 4,
+  "homepages": {
+    "Main Homepage": {
+      "name": "Main Homepage",
+      "kind": "File",
+      "value": "Home.md",
+      "openOnStartup": true,
+      "openMode": "Replace all open notes",
+      "view": "Default view",
+      "revert": true,
+      "openWhenEmpty": true,
+      "refreshDataview": true
+    }
+  }
+}

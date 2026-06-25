@@ -1,0 +1,22 @@
+{
+  "languages": [
+    "xml",
+    "bash",
+    "css",
+    "markdown",
+    "diff",
+    "go",
+    "javascript",
+    "php",
+    "r",
+    "yaml",
+    "wasm",
+    "ini",
+    "json",
+    "makefile",
+    "plaintext",
+    "python",
+    "python-repl",
+    "scss"
+  ]
+}

@@ -16,11 +16,10 @@ repos:
       - id: check-json
         exclude: '^(dist|releases|src/icons/upstream)/'
       - id: check-yaml
-      - id: check-added-large-files
-        args: ['--maxkb=4000']
-        # assets/wallpapers/ contém mídia de wallpaper (PNG grandes e vídeo do
-        # wallpaper animado, SPRINT 21) intencionalmente versionada acima de 4 MB.
-        exclude: '^(dist|releases|src/icons/upstream|assets/wallpapers)/'
+      # check-added-large-files desativado (SPRINT 26): o projeto versiona
+      # intencionalmente mídia grande — vídeo do wallpaper (assets/wallpapers/)
+      # e a config completa do Obsidian com plugins de terceiros
+      # (app-themes/obsidian/config/, inclui quickadd/main.js > 4 MB).
       - id: check-merge-conflict
       - id: mixed-line-ending
         args: ['--fix=lf']
