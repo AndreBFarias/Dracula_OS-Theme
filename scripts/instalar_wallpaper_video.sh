@@ -191,9 +191,9 @@ elif [[ -f "$CONFIG_JSON" ]]; then
         _ok "config aplicada (MODE_VIDEO + data_source + anima sempre)"
         _parar_hidamari
         nohup flatpak run "$HIDAMARI_APP" -b >/dev/null 2>&1 &
-        # picture-options=zoom: o fallback estático do Hidamari preenche a tela
-        # (com 'centered' ele aparecia como uma caixinha em fundo preto).
-        gsettings set org.gnome.desktop.background picture-options 'zoom' 2>/dev/null || true
+        # picture-options=centered: preferência do usuário (vídeo retrato
+        # centralizado, sem o zoom que corta/rola a imagem).
+        gsettings set org.gnome.desktop.background picture-options 'centered' 2>/dev/null || true
         _ok "wallpaper de vídeo iniciado"
     fi
 else
