@@ -38,6 +38,7 @@ Formato: [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/) + SemVer.
 
 ### Corrigido
 
+- **Wallpaper de vídeo "parava"/não preenchia (SPRINT 21)**: `instalar_wallpaper_video.sh` agora seta `is_pause_when_maximized=false` no Hidamari (o default `true` pausava o vídeo sempre que havia janela maximizada — parecia estático no uso diário) e `picture-options='zoom'` (o fallback estático do Hidamari ficava como uma caixinha centralizada em fundo preto com `'centered'`). Nota: o vídeo `Only_god_is_real_art.mp4` é 720x900 (retrato), então em monitor landscape mantém barras laterais — para preencher 100% seria preciso um vídeo landscape ou crop.
 - **CI verde de novo**: tanto `anonymity-check` quanto `ci.yml` falhavam em todo push há meses. (1) `.github/workflows/anonymity-check.yml` tinha um erro de sintaxe bash (faltava o `if` do check de trailer, deixando um `fi` órfão) — reconstruído usando `NOREPLY_RE`. (2) `scripts/baixar_upstreams.sh`: o repo `m4thewz/dracula-icons-circle` foi removido do GitHub e a variante virou a **branch `circle`** do repo principal — atualizado o source (com suporte a branch), consertando o `--bootstrap` para máquinas novas (o smoke-build do CI estava falhando com `could not read Username for github.com`). (3) Zerados os warnings de `shellcheck --severity=warning` em todos os scripts (`SC2155`, `SC2294` ×2, `SC2034`), deixando o job de lint verde.
 
 ## [1.2.0] — 2026-04-17

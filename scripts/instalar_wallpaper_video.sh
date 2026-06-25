@@ -174,19 +174,26 @@ elif [[ -f "$CONFIG_JSON" ]]; then
         if (.mode == "MODE_VIDEO")
            and ([.data_source[]] | length > 0)
            and (all(.data_source[]; . == $v))
+           and (.is_pause_when_maximized == false)
         then "sim" else "nao" end' "$CONFIG_JSON" 2>/dev/null || echo "nao")"
     if [[ "$ja_ok" == "sim" ]]; then
         _dim "= config já aponta para o vídeo (idempotente)"
     else
         tmp="$(mktemp)"
+        # is_pause_when_maximized=false: anima sempre, mesmo com janela
+        # maximizada (o default true fazia o vídeo "parar" no uso diário).
         jq --arg v "$VIDEO_DEST" '
             .mode = "MODE_VIDEO"
             | .is_first_time = false
+            | .is_pause_when_maximized = false
             | .data_source = ((.data_source // {}) + {"Default": $v} | with_entries(.value = $v))
         ' "$CONFIG_JSON" > "$tmp" && mv "$tmp" "$CONFIG_JSON"
-        _ok "config aplicada (MODE_VIDEO + data_source)"
+        _ok "config aplicada (MODE_VIDEO + data_source + anima sempre)"
         _parar_hidamari
         nohup flatpak run "$HIDAMARI_APP" -b >/dev/null 2>&1 &
+        # picture-options=zoom: o fallback estático do Hidamari preenche a tela
+        # (com 'centered' ele aparecia como uma caixinha em fundo preto).
+        gsettings set org.gnome.desktop.background picture-options 'zoom' 2>/dev/null || true
         _ok "wallpaper de vídeo iniciado"
     fi
 else
