@@ -70,7 +70,8 @@ jobs:
             COMMITTER_EMAIL=$(git log -1 --pretty=format:'%ce' "$SHA")
             SUBJECT=$(printf '%s\n' "$MSG" | head -1)
 
-              echo "::error::commit $SHA tem trailer de coautoria com IA"
+            if printf '%s\n' "$MSG" | grep -qiE "${NOREPLY_RE}"; then
+              echo "::error::commit $SHA tem email de provedor IA na mensagem (trailer)"
               FAIL=1
             fi
 
