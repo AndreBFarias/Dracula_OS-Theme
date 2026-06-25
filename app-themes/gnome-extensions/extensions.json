@@ -115,6 +115,16 @@
       "dconf": "user-theme.dconf",
       "shell-version-min": 42,
       "shell-version-max": 46
+    },
+    {
+      "uuid": "multi-monitors-add-on@spin83",
+      "name": "Multi Monitors Add-On",
+      "repo": "https://github.com/lazanet/multi-monitors-add-on",
+      "repo_branch": "gnome-42_44",
+      "repo_subdir": "multi-monitors-add-on@spin83",
+      "dconf": "multi-monitors-add-on.dconf",
+      "shell-version-min": 40,
+      "shell-version-max": 44
     }
   ]
 }
