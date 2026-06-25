@@ -80,6 +80,21 @@ if [[ -d "$HOME/.local/share/backgrounds/dracula" ]]; then
     "$REPO_ROOT/scripts/desinstalar_wallpapers.sh" || true
 fi
 
+# Reverter wallpaper de vídeo (Hidamari). DRACULA_HIDAMARI_FULL=1 também
+# desinstala o Flatpak e remove o vídeo copiado; sem a flag, apenas remove o
+# autostart e reseta o modo do Hidamari (some o vídeo, app permanece).
+if [[ "$MODO" == "user" ]]; then
+    if [[ -f "$HOME/.config/autostart/dracula-hidamari.desktop" ]] \
+       || flatpak info io.github.jeffshee.Hidamari >/dev/null 2>&1; then
+        echo "Revertendo wallpaper de vídeo (Hidamari)..."
+        if [[ "${DRACULA_HIDAMARI_FULL:-0}" == "1" ]]; then
+            "$REPO_ROOT/scripts/instalar_wallpaper_video.sh" --revert --full || true
+        else
+            "$REPO_ROOT/scripts/instalar_wallpaper_video.sh" --revert || true
+        fi
+    fi
+fi
+
 # Reverter Spicetify (SPRINT 18). DRACULA_SPICETIFY_FULL=1 remove
 # ~/.spicetify e ~/.config/spicetify; sem a flag, apenas restaura o
 # Spotify ao estado original (preservando configs do Spicetify).

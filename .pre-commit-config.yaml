@@ -18,7 +18,9 @@ repos:
       - id: check-yaml
       - id: check-added-large-files
         args: ['--maxkb=4000']
-        exclude: '^(dist|releases|src/icons/upstream)/'
+        # assets/wallpapers/ contém mídia de wallpaper (PNG grandes e vídeo do
+        # wallpaper animado, SPRINT 21) intencionalmente versionada acima de 4 MB.
+        exclude: '^(dist|releases|src/icons/upstream|assets/wallpapers)/'
       - id: check-merge-conflict
       - id: mixed-line-ending
         args: ['--fix=lf']
