@@ -83,15 +83,27 @@ if [[ $REVERT -eq 1 ]]; then
     exit 0
 fi
 
-# ─── 1. Pré-requisitos ───
-faltando=()
-command -v mpv >/dev/null 2>&1 || faltando+=("mpv")
-command -v gcc >/dev/null 2>&1 || faltando+=("gcc")
-command -v xrandr >/dev/null 2>&1 || faltando+=("x11-xserver-utils")
-if [[ ${#faltando[@]} -gt 0 ]]; then
-    _err "Faltam pré-requisitos: ${faltando[*]}"
-    _err "Instale: sudo apt install -y mpv libx11-dev libxext-dev libxrender-dev gcc"
-    exit 1
+# ─── 1. Pré-requisitos (instala via apt automaticamente se faltarem) ───
+PKGS_APT=(mpv libx11-dev libxext-dev libxrender-dev gcc x11-xserver-utils)
+precisa_apt=0
+command -v mpv    >/dev/null 2>&1 || precisa_apt=1
+command -v gcc    >/dev/null 2>&1 || precisa_apt=1
+command -v xrandr >/dev/null 2>&1 || precisa_apt=1
+[[ -f /usr/include/X11/Xlib.h ]]                  || precisa_apt=1
+[[ -f /usr/include/X11/extensions/Xrender.h ]]    || precisa_apt=1
+[[ -f /usr/include/X11/extensions/shape.h ]]      || precisa_apt=1
+if [[ $precisa_apt -eq 1 ]]; then
+    _info "Instalando pré-requisitos via apt (pede sudo): ${PKGS_APT[*]}"
+    if [[ "$DRY" == "1" ]]; then
+        _dim "[dry-run] sudo apt-get install -y ${PKGS_APT[*]}"
+    elif sudo apt-get install -y "${PKGS_APT[@]}"; then
+        _ok "pré-requisitos instalados"
+    else
+        _err "Falha no apt. Rode manualmente: sudo apt install -y ${PKGS_APT[*]}"
+        exit 1
+    fi
+else
+    _dim "= pré-requisitos já presentes"
 fi
 
 # ─── 2. Compilar xwinwrap (idempotente: só se ausente ou fonte mais nova) ───
@@ -148,8 +160,12 @@ else
     _ok "autostart criado: $AUTOSTART"
 fi
 
-# Remove o autostart do antigo backend Hidamari, se sobrou.
+# Remove o antigo backend Hidamari (autostart + Flatpak), substituído por este.
 [[ -f "$HOME/.config/autostart/dracula-hidamari.desktop" ]] && _run "rm -f '$HOME/.config/autostart/dracula-hidamari.desktop'"
+if command -v flatpak >/dev/null 2>&1 && flatpak info io.github.jeffshee.Hidamari >/dev/null 2>&1; then
+    _info "Removendo backend antigo Hidamari (Flatpak)"
+    _run "flatpak uninstall --user -y io.github.jeffshee.Hidamari" || _warn "uninstall do Hidamari falhou (não-fatal)"
+fi
 
 # ─── 6. Iniciar agora ───
 if [[ "$DRY" == "1" ]]; then

@@ -8,7 +8,7 @@ O backend Hidamari (SPRINT 21) **não renderizava** o vídeo na área de trabalh
 > - **`--hwdec=no`**: o VAAPI (AMD) corrompia o vídeo com barras verdes; software decode de um vídeo 720x900 é trivial (Ryzen 12 threads).
 > - **Centralizado por padrão** (`--keepaspect=yes --panscan=0`); `DRACULA_WALLPAPER_SCALE=panscan` preenche cortando.
 > - **xwinwrap vendorizado** (`src/wallpaper/xwinwrap.c`, GPL, de ujjwal96/xwinwrap), compilado no install — não está no apt.
-> - **Pré-requisitos apt**: `mpv libx11-dev libxext-dev libxrender-dev gcc` (o instalador erra com a mensagem se faltarem).
+> - **Pré-requisitos apt instalados automaticamente**: o instalador roda `sudo apt-get install -y mpv libx11-dev libxext-dev libxrender-dev gcc x11-xserver-utils` quando algum falta (pede sudo). E **remove o Hidamari Flatpak** antigo (substituído por este backend).
 
 ## Causa-raiz (verificada ao vivo)
 
@@ -40,8 +40,8 @@ Validação visual: captura limpa (`wmctrl -k on`) confirma o vídeo glitch cent
 
 - **Reload de shell**: o xwinwrap pode cair num restart do GNOME Shell (como o Hidamari) — mas o autostart religa no login, e `dracula-video-wallpaper` religa na hora. A diferença é que ele **renderiza** no Mutter (o Hidamari não renderizava aqui).
 - **Vídeo retrato 720x900**: centralizado com fundo ao redor em monitor landscape (preferência do usuário). `DRACULA_WALLPAPER_SCALE=panscan` preenche cortando.
-- **Hidamari Flatpak**: continua instalado mas não é mais usado; pode ser removido com `flatpak uninstall --user io.github.jeffshee.Hidamari`.
-- **Pré-requisitos apt**: numa máquina nova, instalar `mpv libx11-dev libxext-dev libxrender-dev gcc` antes (o instalador erra com a instrução).
+- **Hidamari Flatpak**: removido automaticamente pelo instalador (era o backend antigo).
+- **Pré-requisitos apt**: instalados pelo próprio instalador via `sudo apt-get` (pede sudo na primeira vez de máquina nova).
 
 ---
 
