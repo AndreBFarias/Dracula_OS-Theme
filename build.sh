@@ -189,29 +189,53 @@ gerar_mimetypes() {
         mkdir -p "$destino/${size}x${size}/mimetypes"
     done
 
-    # formato: "svg-fonte|nome1,nome2,nome3,..."
+    # formato: "fonte|nome1,nome2,nome3,..."
+    # A fonte com "/" é relativa a src/icons/; sem "/" assume new-sessao-atual/.
+    # Aceita SVG (converter_svg) ou PNG (redimensionar_png).
+    # Os mimetypes de vídeo usam a logo do Clapper, para que arquivos de vídeo
+    # exibam o mesmo ícone do player (decisão do usuário).
     local -a MIMETYPES=(
         "spellbook.svg|text-markdown,text-x-markdown,text-md,application-x-markdown,text-plain+markdown"
         "spell.svg|application-x-shellscript,shellscript,text-x-script,gnome-mime-application-x-shellscript,application-x-sh,text-x-sh"
         "gate.svg|application-x-desktop,gnome-mime-application-x-desktop"
-        "mobile-game.svg|video-mp4,video-x-mp4,application-mp4"
+        "current/48x48/apps-global/Clapper.png|video-x-generic,video-mp4,video-x-mp4,video-x-matroska,video-webm,video-quicktime,video-x-msvideo,video-x-flv,video-x-ms-wmv,application-mp4"
     )
 
     local total=0
     for entry in "${MIMETYPES[@]}"; do
-        local svg_fonte="${entry%%|*}"
+        local fonte="${entry%%|*}"
         local nomes_csv="${entry#*|}"
-        local src="$SRC/icons/new-sessao-atual/$svg_fonte"
+        local src
+        if [[ "$fonte" == */* ]]; then
+            src="$SRC/icons/$fonte"
+        else
+            src="$SRC/icons/new-sessao-atual/$fonte"
+        fi
         if [[ ! -f "$src" ]]; then
-            _warn "mimetype: fonte não existe: $svg_fonte"
+            _warn "mimetype: fonte não existe: $fonte"
             continue
         fi
+        local ext="${src##*.}"
         IFS=',' read -ra nomes <<< "$nomes_csv"
         for nome in "${nomes[@]}"; do
-            cp "$src" "$destino/scalable/mimetypes/${nome}.svg"
-            for size in "${TAMANHOS[@]}"; do
-                converter_svg "$src" "$destino/${size}x${size}/mimetypes/${nome}.png" "$size" 2>/dev/null || true
-            done
+            case "$ext" in
+                svg|SVG)
+                    cp "$src" "$destino/scalable/mimetypes/${nome}.svg"
+                    for size in "${TAMANHOS[@]}"; do
+                        converter_svg "$src" "$destino/${size}x${size}/mimetypes/${nome}.png" "$size" 2>/dev/null || true
+                    done
+                    ;;
+                png|PNG)
+                    cp "$src" "$destino/scalable/mimetypes/${nome}.png"
+                    for size in "${TAMANHOS[@]}"; do
+                        redimensionar_png "$src" "$destino/${size}x${size}/mimetypes/${nome}.png" "$size" 2>/dev/null || true
+                    done
+                    ;;
+                *)
+                    _warn "mimetype: extensão não suportada: $fonte"
+                    continue
+                    ;;
+            esac
             total=$((total + 1))
         done
     done

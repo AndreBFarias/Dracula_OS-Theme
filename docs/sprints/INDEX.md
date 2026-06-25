@@ -25,6 +25,7 @@ vira commit/PR atômico e tem sua entrada referenciada no `CHANGELOG.md`.
 | 17 | [Cobertura de gaps: wallpapers, Spicetify pós-update, dependências externas](SPRINT_17_COBERTURA_GAPS.md) | Concluída | 2026-05-07 |
 | 18 | [Spicetify autônomo (sem Spellbook-OS)](SPRINT_18_SPICETIFY_AUTONOMO.md) | Concluída | 2026-05-07 |
 | 19 | [`test_portabilidade.sh`: filtrar arquivos não-versionados](SPRINT_19_TEST_PORTABILIDADE_FILTRO_UNTRACKED.md) | Concluída | 2026-05-07 |
+| 22 | [Logo do Clapper no app e nos arquivos de vídeo](SPRINT_22_CLAPPER_ICONE_VIDEO.md) | Concluída | 2026-06-25 |
 
 ## Convenção de nomenclatura
 
