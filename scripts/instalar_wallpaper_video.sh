@@ -1,28 +1,21 @@
 #!/usr/bin/env bash
-# instalar_wallpaper_video.sh — instala o Hidamari (Flatpak) e configura um
-# vídeo como wallpaper animado, com autostart no login. Idempotente, sem sudo.
-# (SPRINT 21)
+# instalar_wallpaper_video.sh — wallpaper de vídeo no GNOME/Mutter X11 via
+# xwinwrap + mpv. (SPRINT 30 — substitui o backend Hidamari, que não renderiza
+# de forma confiável nesta GPU AMD+NVIDIA sem VDPAU.)
 #
-# Fluxo:
-#   1. Garante o remote flathub (user) e instala/atualiza io.github.jeffshee.Hidamari.
-#   2. Dá ao Flatpak acesso à pasta de vídeos (xdg-videos).
-#   3. Copia o vídeo-fonte para <Vídeos>/Hidamari/ (idempotente via cmp -s).
-#   4. Garante o config.json do Hidamari (gera no primeiro run se ausente).
-#   5. Aplica via jq: mode=MODE_VIDEO + todos os data_source (por monitor) -> vídeo.
-#   6. (Re)inicia o wallpaper em background e cria autostart em ~/.config/autostart.
+# Compila o xwinwrap da fonte vendorizada (src/wallpaper/xwinwrap.c), instala
+# um launcher por-monitor (~/.local/bin/dracula-video-wallpaper) + autostart, e
+# inicia o wallpaper. Idempotente, sem sudo (mas exige pacotes apt abaixo).
+#
+# Pré-requisitos (apt — o script avisa se faltarem):
+#   sudo apt install -y mpv libx11-dev libxext-dev libxrender-dev gcc
 #
 # Variáveis:
-#   DRACULA_DRY_RUN=1         imprime comandos com prefixo [dry-run]; não altera nada.
-#   DRACULA_WALLPAPER_VIDEO   caminho do vídeo-fonte (default:
-#                             assets/wallpapers/Only_god_is_real_art.mp4).
+#   DRACULA_DRY_RUN=1          imprime e não altera nada.
+#   DRACULA_WALLPAPER_VIDEO    vídeo-fonte (default assets/wallpapers/Only_god_is_real_art.mp4).
+#   DRACULA_WALLPAPER_SCALE    keepaspect (centralizado, default) | panscan (preenche).
 #
-# Flags:
-#   --revert            remove autostart, encerra o Hidamari e reseta o modo
-#                       para MODE_NULL (some o vídeo). Não desinstala o Flatpak.
-#   --full              (com --revert) também desinstala o Flatpak e remove o
-#                       vídeo copiado para <Vídeos>/Hidamari/.
-#   --apenas-detectar   imprime o estado (instalado? modo? vídeo?) e sai (exit 0).
-#   --help|-h           mostra esta ajuda.
+# Flags: --revert  --apenas-detectar  --help
 
 set -euo pipefail
 
@@ -31,30 +24,24 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$SCRIPT_DIR/lib/common.sh"
 REPO_ROOT="$(_repo_root "${BASH_SOURCE[0]}")"
 
-HIDAMARI_APP="io.github.jeffshee.Hidamari"
-CONFIG_JSON="$HOME/.var/app/$HIDAMARI_APP/config/hidamari/config.json"
-AUTOSTART="$HOME/.config/autostart/dracula-hidamari.desktop"
+XWINWRAP_SRC="$REPO_ROOT/src/wallpaper/xwinwrap.c"
+XWINWRAP_BIN="$HOME/.local/bin/dracula-xwinwrap"
+LAUNCHER_SRC="$SCRIPT_DIR/dracula_video_wallpaper.sh"
+LAUNCHER_BIN="$HOME/.local/bin/dracula-video-wallpaper"
+VIDEO_DEST_DIR="$HOME/.local/share/backgrounds/dracula-video"
+AUTOSTART="$HOME/.config/autostart/dracula-video-wallpaper.desktop"
 DRY="${DRACULA_DRY_RUN:-0}"
 
 VIDEO_SRC="${DRACULA_WALLPAPER_VIDEO:-$REPO_ROOT/assets/wallpapers/Only_god_is_real_art.mp4}"
-
-VIDEOS_DIR="$(xdg-user-dir VIDEOS 2>/dev/null || true)"
-[[ -z "$VIDEOS_DIR" || ! -d "$VIDEOS_DIR" ]] && VIDEOS_DIR="$HOME/Vídeos"
-[[ -d "$VIDEOS_DIR" ]] || VIDEOS_DIR="$HOME/Videos"
-VIDEO_DEST_DIR="$VIDEOS_DIR/Hidamari"
 VIDEO_DEST="$VIDEO_DEST_DIR/$(basename "$VIDEO_SRC")"
 
 REVERT=0
-FULL=0
 APENAS_DETECTAR=0
 for arg in "$@"; do
     case "$arg" in
         --revert)          REVERT=1 ;;
-        --full)            FULL=1 ;;
         --apenas-detectar) APENAS_DETECTAR=1 ;;
-        -h|--help)
-            sed -n '2,40p' "${BASH_SOURCE[0]}" | sed 's/^# \{0,1\}//'
-            exit 0 ;;
+        -h|--help) sed -n '2,28p' "${BASH_SOURCE[0]}" | sed 's/^# \{0,1\}//'; exit 0 ;;
         *) _warn "Argumento ignorado: $arg" ;;
     esac
 done
@@ -63,91 +50,70 @@ _run() {
     if [[ "$DRY" == "1" ]]; then
         _dim "[dry-run] $*"
     else
-        # callers passam uma string com aspas internas; eval é intencional
+        # callers passam string com aspas internas; eval é intencional
         # shellcheck disable=SC2294
         eval "$@"
     fi
 }
 
-# ─── Encerrar Hidamari com segurança (sem auto-matar a própria shell) ───
-_parar_hidamari() {
-    flatpak kill "$HIDAMARI_APP" 2>/dev/null || true
-    pkill -x hidamari-server 2>/dev/null || true
-    pkill -x hidamari 2>/dev/null || true
-}
-
 # ─── Detecção ───
-_detectar() {
-    if flatpak info "$HIDAMARI_APP" >/dev/null 2>&1; then
-        _ok "Hidamari instalado: $(flatpak info "$HIDAMARI_APP" 2>/dev/null | awk -F': ' '/Version:/{print $2; exit}')"
-    else
-        _warn "Hidamari NÃO instalado"
-    fi
-    if [[ -f "$CONFIG_JSON" ]]; then
-        _info "modo: $(jq -r '.mode' "$CONFIG_JSON" 2>/dev/null)"
-        _info "vídeo (Default): $(jq -r '.data_source.Default // ""' "$CONFIG_JSON" 2>/dev/null)"
-    else
-        _info "sem config.json ainda"
-    fi
-    [[ -f "$AUTOSTART" ]] && _ok "autostart presente: $AUTOSTART" || _warn "sem autostart"
-}
-
 if [[ $APENAS_DETECTAR -eq 1 ]]; then
-    _detectar
+    [[ -x "$XWINWRAP_BIN" ]] && _ok "xwinwrap: $XWINWRAP_BIN" || _warn "xwinwrap não compilado"
+    [[ -x "$LAUNCHER_BIN" ]] && _ok "launcher: $LAUNCHER_BIN" || _warn "launcher ausente"
+    [[ -f "$AUTOSTART" ]] && _ok "autostart presente" || _warn "sem autostart"
+    command -v mpv >/dev/null && _ok "mpv: $(command -v mpv)" || _warn "mpv ausente"
+    _info "instâncias rodando: $(pgrep -fc 'x11-name=dracula-wallpaper' 2>/dev/null || echo 0)"
     exit 0
 fi
 
 # ─── Revert ───
 if [[ $REVERT -eq 1 ]]; then
-    _info "Revertendo wallpaper de vídeo (Hidamari)"
-    if [[ -f "$AUTOSTART" ]]; then
-        _run "rm -f '$AUTOSTART'" && _ok "autostart removido"
+    _info "Revertendo wallpaper de vídeo (xwinwrap+mpv)"
+    [[ -x "$LAUNCHER_BIN" && "$DRY" != "1" ]] && "$LAUNCHER_BIN" --stop 2>/dev/null || true
+    _run "pkill -f dracula-xwinwrap" || true
+    for f in "$AUTOSTART" "$LAUNCHER_BIN" "$XWINWRAP_BIN"; do
+        [[ -e "$f" ]] && _run "rm -f '$f'" && _dim "removido: $f"
+    done
+    if [[ -d "$VIDEO_DEST_DIR" ]] && validar_path_destrutivo "$VIDEO_DEST_DIR" >/dev/null 2>&1; then
+        _run "rm -rf -- '$VIDEO_DEST_DIR'"
     fi
-    _parar_hidamari
-    if [[ -f "$CONFIG_JSON" ]]; then
-        tmp="$(mktemp)"
-        if [[ "$DRY" == "1" ]]; then
-            _dim "[dry-run] jq .mode=MODE_NULL em $CONFIG_JSON"
-        else
-            jq '.mode = "MODE_NULL"' "$CONFIG_JSON" > "$tmp" && mv "$tmp" "$CONFIG_JSON"
-            _ok "modo resetado para MODE_NULL"
-        fi
-    fi
-    if [[ $FULL -eq 1 ]]; then
-        _run "flatpak uninstall -y --user '$HIDAMARI_APP'" || _warn "uninstall do Hidamari falhou"
-        [[ -f "$VIDEO_DEST" ]] && _run "rm -f '$VIDEO_DEST'" && _ok "vídeo copiado removido"
-    fi
+    # limpa também o autostart do antigo backend Hidamari, se existir
+    _run "rm -f '$HOME/.config/autostart/dracula-hidamari.desktop'" || true
     _ok "Revertido"
     exit 0
 fi
 
-# ─── 1. Flatpak + flathub ───
-if ! command -v flatpak >/dev/null 2>&1; then
-    _err "flatpak não encontrado. Instale: sudo apt install flatpak"
+# ─── 1. Pré-requisitos ───
+faltando=()
+command -v mpv >/dev/null 2>&1 || faltando+=("mpv")
+command -v gcc >/dev/null 2>&1 || faltando+=("gcc")
+command -v xrandr >/dev/null 2>&1 || faltando+=("x11-xserver-utils")
+if [[ ${#faltando[@]} -gt 0 ]]; then
+    _err "Faltam pré-requisitos: ${faltando[*]}"
+    _err "Instale: sudo apt install -y mpv libx11-dev libxext-dev libxrender-dev gcc"
     exit 1
 fi
-if ! flatpak remotes --user 2>/dev/null | grep -q flathub; then
-    _info "Adicionando remote flathub (user)"
-    _run "flatpak remote-add --if-not-exists --user flathub https://flathub.org/repo/flathub.flatpakrepo"
-fi
 
-# ─── 2. Instalar/atualizar Hidamari ───
-if flatpak info "$HIDAMARI_APP" >/dev/null 2>&1; then
-    _ok "Hidamari já instalado (mantendo; use flatpak update para atualizar)"
+# ─── 2. Compilar xwinwrap (idempotente: só se ausente ou fonte mais nova) ───
+[[ -f "$XWINWRAP_SRC" ]] || _err "Fonte do xwinwrap ausente: $XWINWRAP_SRC"
+if [[ -x "$XWINWRAP_BIN" && "$XWINWRAP_BIN" -nt "$XWINWRAP_SRC" ]]; then
+    _dim "= xwinwrap já compilado"
 else
-    _info "Instalando Hidamari (Flatpak)"
-    _run "flatpak install -y --user flathub '$HIDAMARI_APP'" || { _err "Falha ao instalar Hidamari"; exit 1; }
+    _info "Compilando xwinwrap"
+    _run "mkdir -p '$HOME/.local/bin'"
+    if [[ "$DRY" == "1" ]]; then
+        _dim "[dry-run] gcc $XWINWRAP_SRC -lX11 -lXext -lXrender -o $XWINWRAP_BIN"
+    elif gcc "$XWINWRAP_SRC" -L/usr/lib/x86_64-linux-gnu -lX11 -lXext -lXrender -o "$XWINWRAP_BIN" 2>/tmp/xwinwrap_build.log; then
+        _ok "xwinwrap compilado: $XWINWRAP_BIN"
+    else
+        _err "Falha ao compilar xwinwrap (faltam libs?). Instale: sudo apt install -y libx11-dev libxext-dev libxrender-dev"
+        head -5 /tmp/xwinwrap_build.log >&2
+        exit 1
+    fi
 fi
 
-# ─── 3. Acesso do Flatpak à pasta de vídeos ───
-_run "flatpak override --user --filesystem=xdg-videos '$HIDAMARI_APP'"
-
-# ─── 4. Copiar vídeo-fonte (idempotente) ───
-if [[ ! -f "$VIDEO_SRC" ]]; then
-    _err "Vídeo-fonte não encontrado: $VIDEO_SRC"
-    _err "Defina DRACULA_WALLPAPER_VIDEO ou coloque o arquivo em assets/wallpapers/."
-    exit 1
-fi
+# ─── 3. Copiar vídeo (idempotente) ───
+[[ -f "$VIDEO_SRC" ]] || _err "Vídeo-fonte não encontrado: $VIDEO_SRC"
 _run "mkdir -p '$VIDEO_DEST_DIR'"
 if [[ -f "$VIDEO_DEST" ]] && cmp -s "$VIDEO_SRC" "$VIDEO_DEST"; then
     _dim "= vídeo já idêntico em $VIDEO_DEST"
@@ -155,58 +121,20 @@ else
     _run "cp -f '$VIDEO_SRC' '$VIDEO_DEST'" && _ok "vídeo copiado: $VIDEO_DEST"
 fi
 
-# ─── 5. Garantir config.json (gerar no primeiro run se ausente) ───
-if [[ ! -f "$CONFIG_JSON" && "$DRY" != "1" ]]; then
-    _info "Gerando config inicial do Hidamari (primeiro run)"
-    nohup flatpak run "$HIDAMARI_APP" -b >/dev/null 2>&1 &
-    for _ in $(seq 1 30); do
-        [[ -f "$CONFIG_JSON" ]] && break
-        sleep 0.5
-    done
-    _parar_hidamari
-fi
-
-# ─── 6. Aplicar vídeo na config (idempotente) ───
-if [[ "$DRY" == "1" ]]; then
-    _dim "[dry-run] jq .mode=MODE_VIDEO + data_source(todos)='$VIDEO_DEST' em $CONFIG_JSON"
-elif [[ -f "$CONFIG_JSON" ]]; then
-    ja_ok="$(jq -r --arg v "$VIDEO_DEST" '
-        if (.mode == "MODE_VIDEO")
-           and ([.data_source[]] | length > 0)
-           and (all(.data_source[]; . == $v))
-           and (.is_pause_when_maximized == false)
-        then "sim" else "nao" end' "$CONFIG_JSON" 2>/dev/null || echo "nao")"
-    if [[ "$ja_ok" == "sim" ]]; then
-        _dim "= config já aponta para o vídeo (idempotente)"
-    else
-        tmp="$(mktemp)"
-        # is_pause_when_maximized=false: anima sempre, mesmo com janela
-        # maximizada (o default true fazia o vídeo "parar" no uso diário).
-        jq --arg v "$VIDEO_DEST" '
-            .mode = "MODE_VIDEO"
-            | .is_first_time = false
-            | .is_pause_when_maximized = false
-            | .data_source = ((.data_source // {}) + {"Default": $v} | with_entries(.value = $v))
-        ' "$CONFIG_JSON" > "$tmp" && mv "$tmp" "$CONFIG_JSON"
-        _ok "config aplicada (MODE_VIDEO + data_source + anima sempre)"
-        _parar_hidamari
-        nohup flatpak run "$HIDAMARI_APP" -b >/dev/null 2>&1 &
-        # picture-options=centered: preferência do usuário (vídeo retrato
-        # centralizado, sem o zoom que corta/rola a imagem).
-        gsettings set org.gnome.desktop.background picture-options 'centered' 2>/dev/null || true
-        _ok "wallpaper de vídeo iniciado"
-    fi
+# ─── 4. Instalar launcher (idempotente) ───
+if [[ -f "$LAUNCHER_BIN" ]] && cmp -s "$LAUNCHER_SRC" "$LAUNCHER_BIN"; then
+    _dim "= launcher já idêntico"
 else
-    _warn "config.json não disponível; abra o Hidamari uma vez e rode novamente"
+    _run "install -m 0755 '$LAUNCHER_SRC' '$LAUNCHER_BIN'" && _ok "launcher: $LAUNCHER_BIN"
 fi
 
-# ─── 7. Autostart no login (idempotente) ───
+# ─── 5. Autostart (idempotente) ───
 read -r -d '' AUTOSTART_CONTENT <<EOF || true
 [Desktop Entry]
 Type=Application
-Name=Dracula_OS — Wallpaper de vídeo (Hidamari)
-Comment=Inicia o wallpaper animado do Dracula_OS-Theme no login
-Exec=flatpak run $HIDAMARI_APP -b
+Name=Dracula_OS — Wallpaper de vídeo
+Comment=Inicia o wallpaper de vídeo (xwinwrap+mpv) no login
+Exec=$LAUNCHER_BIN
 X-GNOME-Autostart-enabled=true
 NoDisplay=true
 EOF
@@ -220,5 +148,15 @@ else
     _ok "autostart criado: $AUTOSTART"
 fi
 
-_ok "Wallpaper de vídeo configurado. Se não aparecer, recarregue a sessão."
+# Remove o autostart do antigo backend Hidamari, se sobrou.
+[[ -f "$HOME/.config/autostart/dracula-hidamari.desktop" ]] && _run "rm -f '$HOME/.config/autostart/dracula-hidamari.desktop'"
+
+# ─── 6. Iniciar agora ───
+if [[ "$DRY" == "1" ]]; then
+    _dim "[dry-run] $LAUNCHER_BIN"
+else
+    "$LAUNCHER_BIN" || _warn "launcher retornou erro (veja a saída)"
+fi
+
+_ok "Wallpaper de vídeo (xwinwrap+mpv) pronto. Centralizado por padrão; DRACULA_WALLPAPER_SCALE=panscan para preencher."
 exit 0

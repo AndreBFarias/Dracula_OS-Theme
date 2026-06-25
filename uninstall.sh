@@ -82,18 +82,14 @@ if [[ -d "$HOME/.local/share/backgrounds/dracula" ]]; then
     "$REPO_ROOT/scripts/desinstalar_wallpapers.sh" || true
 fi
 
-# Reverter wallpaper de vídeo (Hidamari). DRACULA_HIDAMARI_FULL=1 também
-# desinstala o Flatpak e remove o vídeo copiado; sem a flag, apenas remove o
-# autostart e reseta o modo do Hidamari (some o vídeo, app permanece).
+# Reverter wallpaper de vídeo (xwinwrap+mpv; SPRINT 30). Encerra as instâncias,
+# remove launcher/binário/autostart/vídeo copiado e o autostart antigo do Hidamari.
 if [[ "$MODO" == "user" ]]; then
-    if [[ -f "$HOME/.config/autostart/dracula-hidamari.desktop" ]] \
-       || flatpak info io.github.jeffshee.Hidamari >/dev/null 2>&1; then
-        echo "Revertendo wallpaper de vídeo (Hidamari)..."
-        if [[ "${DRACULA_HIDAMARI_FULL:-0}" == "1" ]]; then
-            "$REPO_ROOT/scripts/instalar_wallpaper_video.sh" --revert --full || true
-        else
-            "$REPO_ROOT/scripts/instalar_wallpaper_video.sh" --revert || true
-        fi
+    if [[ -x "$HOME/.local/bin/dracula-video-wallpaper" ]] \
+       || [[ -f "$HOME/.config/autostart/dracula-video-wallpaper.desktop" ]] \
+       || [[ -f "$HOME/.config/autostart/dracula-hidamari.desktop" ]]; then
+        echo "Revertendo wallpaper de vídeo..."
+        "$REPO_ROOT/scripts/instalar_wallpaper_video.sh" --revert || true
     fi
 fi
 

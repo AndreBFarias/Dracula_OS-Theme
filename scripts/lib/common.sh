@@ -78,6 +78,7 @@ _allowlist_destrutiva=(
     "$HOME/.cache/dracula_os_backup"
     "$HOME/.var/app/com.spotify.Client/cache"
     "$HOME/.local/share/backgrounds/dracula"
+    "$HOME/.local/share/backgrounds/dracula-video"
     "$HOME/.spicetify"
     "$HOME/.config/spicetify"
     "/usr/share/icons"
