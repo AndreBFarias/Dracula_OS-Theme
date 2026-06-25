@@ -6,7 +6,8 @@ Fazer a barra superior do GNOME aparecer em **todos os monitores** (notebook + m
 > - **Numeração**: SPRINT 23.
 > - **Extensão**: `multi-monitors-add-on@spin83`. O repo original `spin83` só vai até GNOME 3.38; o fork mantido **`lazanet/multi-monitors-add-on`** branch `gnome-42_44` declara `shell-version: ["40","41","42","43","44"]` — cobre o host (GNOME 42.9).
 > - **Sem sudo**: extensão é user-level (`~/.local/share/gnome-shell/extensions/`). Integra ao pipeline existente (`extensions.json` + `instalar_gnome_extensions.sh`), nada de script novo.
-> - **`show-indicator=false`**: no Pop!_OS 22.04 (GNOME 42~44) o indicador de tray dos monitores extras é buggy (mostra erro e desativa o toggle). Desligá-lo evita isso; o **painel superior continua funcionando em todos os monitores**.
+> - **`show-indicator=false`**: no Pop!_OS 22.04 (GNOME 42~44) o indicador de tray dos monitores extras é buggy. Desligá-lo evita ruído; o painel superior continua funcionando.
+> - **`thumbnails-slider-position='none'`** (descoberto na validação ao vivo): no GNOME **42.9** específico deste host, a feature de *overview thumbnails* nos monitores extras crasha no `enable()` (`mmoverview.js:370 TypeError: stateAdjustment is undefined` — API de overview mudou no 42.9). Com `'none'`, o `_showThumbnailsSlider()` faz early-return (`extension.js:97-101`) e o `enable()` completa — o `showPanel()` (a topbar, o objetivo) carrega. Sacrifica-se só o overview-no-monitor-extra, mantendo a barra superior.
 
 ## Contexto
 
@@ -50,16 +51,15 @@ ls /tmp/mm/multi-monitors-add-on@spin83/schemas/org.gnome.shell.extensions.multi
 
 Resultado verificado: JSON válido, schema mínimo do hook OK, clone resolve subdir/metadata/schema. O caminho de instalação está provado offline.
 
-## Validação de runtime (executada pelo usuário ou sob autorização)
-
-Requer aplicar na sessão + reload do Shell + o monitor externo conectado:
+## Validação de runtime (EXECUTADA ao vivo neste host)
 
 ```bash
-./install.sh --user --gnome-extensions
-# Recarregar: X11 → Alt+F2, r, Enter   (Wayland → logout/login)
+# extensão instalada em ~/.local/share/gnome-shell/extensions/multi-monitors-add-on@spin83
+# dconf aplicado; uuid adicionado a org.gnome.shell enabled-extensions; Alt+F2 r
+gnome-extensions info multi-monitors-add-on@spin83 | grep State    # State: ENABLED
 ```
 
-Esperado: barra superior aparece também no monitor externo (sem o indicador MM, por `show-indicator=false`). Captura visual no monitor secundário confirma.
+Resultado (captura `scrot` 3840x1080): **os dois monitores com barra superior** — o externo (HDMI-1-0) com a barra completa (Aplicativos/X-Kill + relógio + indicadores) e o vídeo-wallpaper renderizando; o interno (eDP) com o painel clonado pela extensão (Atividades + relógio), que antes não existia. Primeira tentativa com o dconf default (`thumbnails-slider-position` ausente → 'auto') deu `State: ERROR`; após `'none'`, `State: ENABLED` e a topbar apareceu.
 
 ## Riscos conhecidos
 
