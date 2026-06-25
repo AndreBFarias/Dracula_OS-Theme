@@ -175,8 +175,7 @@ configurar_paths() {
                 fi
                 flatpak run com.spotify.Client &>/dev/null &
                 local pid=$!
-                local i
-                for i in $(seq 1 10); do
+                for _ in $(seq 1 10); do
                     [[ -f "$flatpak_prefs" ]] && break
                     sleep 2
                 done

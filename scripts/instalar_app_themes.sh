@@ -209,7 +209,8 @@ aplicar_obsidian() {
         if [[ -d "$fonte_config" && "${DRACULA_OBSIDIAN_SKIP_CONFIG:-0}" != "1" ]]; then
             local obs_dir="$vault/.obsidian"
             if [[ -d "$obs_dir" && "${DRACULA_DRY_RUN:-0}" != "1" ]]; then
-                local bkp="$HOME/.cache/dracula_os_backup/obsidian_$(date +%Y%m%d_%H%M%S)"
+                local bkp
+                bkp="$HOME/.cache/dracula_os_backup/obsidian_$(date +%Y%m%d_%H%M%S)"
                 mkdir -p "$bkp" && cp -a "$obs_dir" "$bkp/" 2>/dev/null \
                     && _purgar_antigos "$HOME/.cache/dracula_os_backup/obsidian_*" 10
             fi

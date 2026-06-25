@@ -18,10 +18,15 @@ _ok()   { echo -e "  ${C_GREEN}OK${C_RESET} $*"; }
 
 mkdir -p "$UPSTREAM"
 
-# Fontes conhecidas dos upstreams
+# Fontes conhecidas dos upstreams.
+# A variante "circle" deixou de ser repo próprio (m4thewz/dracula-icons-circle
+# foi removido) e virou a branch `circle` do repo principal m4thewz/dracula-icons.
 declare -A FONTES=(
     ["dracula-icons-main"]="https://github.com/m4thewz/dracula-icons.git"
-    ["dracula-icons-circle"]="https://github.com/m4thewz/dracula-icons-circle.git"
+    ["dracula-icons-circle"]="https://github.com/m4thewz/dracula-icons.git"
+)
+declare -A BRANCHES=(
+    ["dracula-icons-circle"]="circle"
 )
 
 # Tenta primeiro: cache local do usuário (se já instalou antes)
@@ -43,10 +48,13 @@ for nome in "${!FONTES[@]}"; do
         continue
     fi
 
-    # 2. Clonar do upstream
+    # 2. Clonar do upstream (com branch opcional p/ a variante circle)
     url="${FONTES[$nome]}"
+    branch="${BRANCHES[$nome]:-}"
+    clone_args=(--depth 1)
+    [[ -n "$branch" ]] && clone_args+=(-b "$branch")
     tmp_dir=$(mktemp -d)
-    if git clone --depth 1 "$url" "$tmp_dir" 2>&1 | tail -3; then
+    if git clone "${clone_args[@]}" "$url" "$tmp_dir" 2>&1 | tail -3; then
         cp -r "$tmp_dir"/* "$destino/" 2>/dev/null || cp -r "$tmp_dir" "$destino"
         rm -rf "$tmp_dir"
         _ok "$nome clonado"

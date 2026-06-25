@@ -60,7 +60,13 @@ for arg in "$@"; do
 done
 
 _run() {
-    if [[ "$DRY" == "1" ]]; then _dim "[dry-run] $*"; else eval "$@"; fi
+    if [[ "$DRY" == "1" ]]; then
+        _dim "[dry-run] $*"
+    else
+        # callers passam uma string com aspas internas; eval é intencional
+        # shellcheck disable=SC2294
+        eval "$@"
+    fi
 }
 
 # ─── Encerrar Hidamari com segurança (sem auto-matar a própria shell) ───

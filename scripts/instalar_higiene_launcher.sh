@@ -18,6 +18,8 @@ _run() {
     if [[ "$DRY_RUN" == "1" ]]; then
         echo "DRY_RUN: $*"
     else
+        # callers passam uma string com aspas internas; eval é intencional
+        # shellcheck disable=SC2294
         eval "$@"
     fi
 }
