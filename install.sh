@@ -8,7 +8,7 @@
 #   ./install.sh --user --app-themes # + aplica temas internos (kitty, qbittorrent, etc.)
 #   ./install.sh --user --spicetify  # + instala/aplica somente Spicetify (SPRINT 18)
 #   ./install.sh --user --gimp       # + instala GIMP (Flatpak) e aplica PhotoGIMP (SPRINT 20)
-#   ./install.sh --user --video-wallpaper # + Hidamari (Flatpak) + wallpaper de vídeo (SPRINT 21)
+#   ./install.sh --user --video-wallpaper # + wallpaper de vídeo (xwinwrap + mpv, SPRINT 30)
 #   ./install.sh --user --all        # tudo acima
 #   ./install.sh --user --apt-hook   # + instala hook que reaplica tema pós apt upgrade
 #   ./install.sh --bootstrap         # checa ambiente, baixa upstreams, build, install --user --all, diagnóstico
@@ -48,7 +48,7 @@ for arg in "$@"; do
         --bootstrap) BOOTSTRAP=1 ;;
         # --all: SPICETIFY não é incluído porque APP_THEMES já chama
         # aplicar_spicetify() (que roda instalar_spicetify.sh). Evita duplicação.
-        --all) ATIVAR=1; APP_THEMES=1; POP_SHELL_CSS=1; SOUNDS=1; KEYBINDINGS=1; GNOME_EXT=1; GIMP=1; VIDEO_WALLPAPER=1 ;;
+        --all) ATIVAR=1; APP_THEMES=1; POP_SHELL_CSS=1; SOUNDS=1; KEYBINDINGS=1; GNOME_EXT=1; GIMP=1; VIDEO_WALLPAPER=1; APT_HOOK=1 ;;
     esac
 done
 
@@ -90,6 +90,21 @@ C_RESET='\033[0m'
 _info() { echo -e "  ${C_CYAN}>>${C_RESET} $*"; }
 _ok()   { echo -e "  ${C_GREEN}OK${C_RESET} $*"; }
 _warn() { echo -e "  ${C_YELLOW}!!${C_RESET} $*" >&2; }
+
+# Idempotência: dark.css do Pop!_Shell/Cosmic já idêntico ao fonte? (evita pedir sudo à toa)
+_pop_css_ja_aplicado() {
+    local ok=1 alvo
+    local pares=(
+        "src/shell/pop-shell-dark.css|/usr/share/gnome-shell/extensions/pop-shell@system76.com/dark.css"
+        "src/shell/pop-cosmic-dark.css|/usr/share/gnome-shell/extensions/pop-cosmic@system76.com/dark.css"
+    )
+    for alvo in "${pares[@]}"; do
+        local src="$REPO_ROOT/${alvo%%|*}" dst="${alvo##*|}"
+        [[ -f "$dst" ]] || continue          # extensão não instalada: nada a reaplicar
+        cmp -s "$src" "$dst" || ok=0          # divergiu: precisa reaplicar
+    done
+    [[ $ok -eq 1 ]]
+}
 
 case "$MODO" in
     user)
@@ -152,8 +167,12 @@ fi
 # ─── Pop!_Shell dark.css (requer sudo) ───
 if [[ $POP_SHELL_CSS -eq 1 ]]; then
     echo ""
-    _info "Substituindo Pop!_Shell dark.css (pede sudo)"
-    sudo "$REPO_ROOT/scripts/instalar_pop_shell_css.sh" install || _warn "Pop!_Shell CSS falhou"
+    if _pop_css_ja_aplicado; then
+        _ok "Pop!_Shell/Cosmic dark.css já idêntico ao fonte (skip — sem sudo)"
+    else
+        _info "Substituindo Pop!_Shell dark.css (pede sudo)"
+        sudo "$REPO_ROOT/scripts/instalar_pop_shell_css.sh" install || _warn "Pop!_Shell CSS falhou"
+    fi
 
     echo ""
     _info "Localizando launcher Pop!_Cosmic em pt-BR (cópia para ~/.local/share)"
@@ -175,7 +194,7 @@ fi
 if [[ $APP_THEMES -eq 1 ]]; then
     echo ""
     _info "Aplicando app themes"
-    "$REPO_ROOT/scripts/instalar_app_themes.sh"
+    "$REPO_ROOT/scripts/instalar_app_themes.sh" || _warn "instalar_app_themes.sh falhou (não-fatal)"
 fi
 
 # ─── Spicetify (atalho dedicado; se --app-themes já rodou, é no-op idempotente) ───
@@ -192,10 +211,10 @@ if [[ $GIMP -eq 1 && "$MODO" == "user" ]]; then
     "$REPO_ROOT/scripts/instalar_gimp.sh" || _warn "instalar_gimp.sh falhou (não-fatal)"
 fi
 
-# ─── Wallpaper de vídeo (Hidamari Flatpak + autostart) ───
+# ─── Wallpaper de vídeo (xwinwrap + mpv + autostart) ───
 if [[ $VIDEO_WALLPAPER -eq 1 && "$MODO" == "user" ]]; then
     echo ""
-    _info "Instalando Hidamari (Flatpak) + configurando wallpaper de vídeo"
+    _info "Configurando wallpaper de vídeo (xwinwrap + mpv, SPRINT 30)"
     "$REPO_ROOT/scripts/instalar_wallpaper_video.sh" || _warn "instalar_wallpaper_video.sh falhou (não-fatal)"
 fi
 
@@ -216,8 +235,12 @@ fi
 # ─── APT hook (requer sudo; reaplica tema após apt upgrade) ───
 if [[ $APT_HOOK -eq 1 ]]; then
     echo ""
-    _info "Instalando APT hook para reaplicação automática pós-upgrade (pede sudo)"
-    sudo "$REPO_ROOT/scripts/instalar_apt_hook.sh" install || _warn "Instalação do APT hook falhou"
+    if [[ -f /etc/apt/apt.conf.d/99-dracula-os-theme ]]; then
+        _ok "APT hook já instalado (skip — sem sudo)"
+    else
+        _info "Instalando APT hook para reaplicação automática pós-upgrade (pede sudo)"
+        sudo "$REPO_ROOT/scripts/instalar_apt_hook.sh" install || _warn "Instalação do APT hook falhou"
+    fi
 fi
 
 # ─── gsettings ativar ───
@@ -241,6 +264,13 @@ if [[ $ATIVAR -eq 0 ]]; then
     echo "  gsettings set org.gnome.desktop.interface gtk-theme 'Dracula-standard-buttons'"
     echo "  gsettings set org.gnome.desktop.interface cursor-theme 'Dracula-Cursor'"
     echo "  gsettings set org.gnome.shell.extensions.user-theme name 'Dracula-standard-buttons'"
+fi
+
+# ─── Resumo: verificação final do estado instalado (não-fatal) ───
+if [[ "$MODO" == "user" && -x "$REPO_ROOT/scripts/diagnostico.sh" ]]; then
+    echo ""
+    echo -e "${C_DIM}── Verificação final (diagnóstico) ──${C_RESET}"
+    "$REPO_ROOT/scripts/diagnostico.sh" || true
 fi
 
 # "Ad astra per aspera." -- aos astros, pelas dificuldades.

@@ -8,6 +8,10 @@ REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 APP_THEMES="$REPO_ROOT/app-themes"
 DRY_RUN=0
 
+# Lib compartilhada: fornece _purgar_antigos, validar_path_destrutivo, etc.
+# (as funções de log abaixo redefinem as do common com a mesma assinatura).
+source "$REPO_ROOT/scripts/lib/common.sh"
+
 for arg in "$@"; do
     [[ "$arg" == "--dry-run" ]] && DRY_RUN=1
 done
