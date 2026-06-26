@@ -36,6 +36,7 @@ vira commit/PR atômico e tem sua entrada referenciada no `CHANGELOG.md`.
 | 29 | [Wire das logos curadas do depósito apps-global](SPRINT_29_LOGOS_APPS_GLOBAL.md) | Concluída | 2026-06-25 |
 | 30 | [Wallpaper de vídeo via xwinwrap + mpv (substitui o Hidamari)](SPRINT_30_WALLPAPER_XWINWRAP.md) | Concluída | 2026-06-25 |
 | 31 | [Hardening de infra: vendorização, install idempotente, exceção do santuário](SPRINT_31_INFRA_HARDENING.md) | Concluída | 2026-06-26 |
+| 32 | [Fechamento do débito do estudo (resiliência, testes, docs)](SPRINT_32_DEBITO_ESTUDO.md) | Concluída | 2026-06-26 |
 
 ## Convenção de nomenclatura
 
