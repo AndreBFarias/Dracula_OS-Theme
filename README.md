@@ -22,7 +22,7 @@
 
 ### Descrição
 
-Experiência Dracula unificada para **Pop!_OS / GNOME** em um único monorepo portátil: ícones (2235 arquivos), cursor, tema GTK, tema do shell e temas internos de aplicativos (kitty, qBittorrent, Spotify via Spicetify, GNOME Terminal, Obsidian, Telegram, Discord, OnlyOffice). Build reprodutível, install/uninstall reversível, backups automáticos.
+Experiência Dracula unificada para **Pop!_OS / GNOME** em um único monorepo portátil: ícones (~4324 arquivos), cursor, tema GTK, tema do shell e temas internos de aplicativos (kitty, qBittorrent, Spotify via Spicetify, GNOME Terminal, Obsidian, Telegram, Discord, OnlyOffice). Build reprodutível, install/uninstall reversível, backups automáticos.
 
 Desenvolvido e testado em **Pop!_OS 22.04 LTS / GNOME 42.9 / X11**.
 
@@ -33,8 +33,8 @@ Desenvolvido e testado em **Pop!_OS 22.04 LTS / GNOME 42.9 / X11**.
 | Categoria | Funcionalidade |
 |-----------|---------------|
 | **Tema de ícones** | `Dracula-Icones` com herança de `dracula-icons-main` + `dracula-icons-circle` (fallback total de sistema) |
-| **Mapeamento declarativo** | `mapping.json` com 203 apps, gerado automaticamente a partir dos `.desktop` do sistema |
-| **Aliases humanos** | 48 apps ganham slugs amigáveis (`whatsapp`, `discord`, `apostrophe`) além do reverse-DNS |
+| **Mapeamento declarativo** | `mapping.json` com 208 apps, gerado automaticamente a partir dos `.desktop` do sistema (regeneração preserva entradas curadas) |
+| **Aliases humanos** | 53 apps ganham slugs amigáveis (`whatsapp`, `discord`, `apostrophe`) além do reverse-DNS |
 | **Mimetypes custom** | Ícones Dracula para `.md`, `.sh`, `.desktop`, `.mp4` (cobrindo 16 convenções XDG) |
 | **Multiplas resoluções** | PNGs em 16, 22, 24, 32, 48, 64, 128, 256 px gerados via `rsvg-convert` ou ImageMagick |
 | **Cursor** | `Dracula-Cursor` preservado |
@@ -42,7 +42,7 @@ Desenvolvido e testado em **Pop!_OS 22.04 LTS / GNOME 42.9 / X11**.
 | **Pop!_Shell + Pop!_Cosmic** | Substitui `dark.css` das duas extensões por versão Dracula (com backup) |
 | **Pop!_Cosmic em pt-BR** | Cópia user-local da extensão (precedência sobre `/usr/share/`) com strings traduzidas: `Library Home` → `Início`, `Create Folder` → `Criar pasta`, diálogos de criar/excluir/renomear pasta em pt-BR — sobrevive a `apt upgrade pop-cosmic` |
 | **Higiene do app-grid** | Esconde `gnome-session-properties.desktop` (rótulo "Aplicativos iniciais de sessão") e remove pastas vendor `Utilities`/`YaST` do rodapé do launcher |
-| **Symbolic icons completos** | Build do `Dracula-Icones` propaga ~1.558 ícones symbolic dos heritages (lookup local sem depender de `Inherits=`) |
+| **Symbolic icons completos** | Build do `Dracula-Icones` propaga ~1.574 ícones symbolic dos heritages (lookup local sem depender de `Inherits=`) |
 | **Ícones de jogos Steam** | Patcher `atualizar_icones_steam.sh` gera PNG 256x256 de cada jogo a partir das capsules em `~/.steam/.../librarycache/`; idempotente, re-aplicado por APT hook |
 | **App themes** | kitty, qBittorrent, GNOME Terminal (dconf), Spicetify/Spotify, Obsidian (itera vaults), Telegram, Discord (BetterDiscord/Vesktop/Vencord), OnlyOffice |
 | **Overrides `.desktop`** | ZapZap → "WhatsApp" com ícone próprio; Snap `whatsapp-linux-app` oculto por `NoDisplay` para evitar duplicata |
@@ -100,12 +100,13 @@ cd Dracula_OS-Theme-v1.1.0
 ./install.sh --user --app-themes         # instala + aplica temas internos de apps
 ./install.sh --user --spicetify          # instala + aplica somente Spicetify (autônomo, SPRINT 18)
 ./install.sh --user --gimp               # instala GIMP (Flatpak) + aplica PhotoGIMP (autônomo, SPRINT 20)
+./install.sh --user --video-wallpaper    # wallpaper de vídeo (xwinwrap + mpv, SPRINT 30)
 ./install.sh --user --pop-shell-css      # instala + substitui dark.css das extensões (requer sudo)
-./install.sh --user --sounds             # instala tema de som Pop + ativa via gsettings
+./install.sh --user --sounds             # instala tema de som Dracula + ativa via gsettings
 ./install.sh --user --keybindings        # aplica snapshot de atalhos + silencia shutter
-./install.sh --user --gnome-extensions   # reinstala + configura 13 extensões GNOME
-./install.sh --user --apt-hook           # instala hook APT (reaplica tema automaticamente pós upgrade)
-./install.sh --user --all                # tudo acima, incl. --gimp (~150 MB Flatpak); não inclui --apt-hook
+./install.sh --user --gnome-extensions   # reinstala + configura 14 extensões GNOME
+./install.sh --user --apt-hook           # instala hook APT (já incluído em --all; disponível avulso)
+./install.sh --user --all                # tudo acima, incl. --gimp (~150 MB Flatpak), --video-wallpaper e --apt-hook
 ./install.sh --bootstrap                 # rota completa para máquina Pop!_OS limpa
 ```
 
@@ -138,7 +139,7 @@ cd Dracula_OS-Theme-v1.1.0
 ### Componentes instalados
 
 ```
-~/.local/share/icons/Dracula-Icones/          # 2235 arquivos (203 apps × 8 tamanhos + aliases + mimetypes)
+~/.local/share/icons/Dracula-Icones/          # ~4324 arquivos (208 apps × 8 tamanhos + symbolic + aliases + mimetypes)
 ~/.local/share/icons/Dracula-Cursor/
 ~/.local/share/icons/dracula-icons-main/      # upstream (herança)
 ~/.local/share/icons/dracula-icons-circle/    # upstream (herança)
@@ -165,6 +166,11 @@ cd Dracula_OS-Theme-v1.1.0
 ~/.local/share/applications/org.gimp.GIMP.desktop  # launcher "PhotoGIMP" (sombreia o do Flatpak)
 ~/.local/share/icons/hicolor/**/apps/photogimp.png # ícone PhotoGIMP
 ~/.cache/dracula_os_backup/gimp_<timestamp>/  # backup da config anterior (manifest sha256, retém 10)
+
+# Com --video-wallpaper:
+~/.local/bin/dracula-xwinwrap                 # xwinwrap compilado (janela de desktop X11)
+~/.local/bin/dracula-video-wallpaper          # launcher (um mpv por monitor)
+~/.config/autostart/dracula-video-wallpaper.desktop  # religa o wallpaper no login
 ```
 
 ---
@@ -234,7 +240,7 @@ Dracula_OS-Theme/
 ├── assets/
 │   └── logo.png                # gerado a partir de src/icons/new-sessao-atual/bat.svg
 ├── catalog.json                # descrição dos 295 SVGs estilizados (categorias, cores, tamanhos)
-├── mapping.json                # 203 apps → ícone (revisável manualmente)
+├── mapping.json                # 208 apps → ícone (revisável; regeneração preserva entradas curadas)
 ├── build.sh                    # SVG → PNGs + index.theme + caches
 ├── install.sh                  # --user | --system | --all | --activate | --app-themes | --pop-shell-css
 ├── uninstall.sh
@@ -242,19 +248,23 @@ Dracula_OS-Theme/
 ├── src/
 │   ├── icons/
 │   │   ├── upstream/           # (git-ignored) via scripts/baixar_upstreams.sh
-│   │   ├── current/            # 3437 SVGs customizados + PNGs 48×48
+│   │   ├── current/            # 3399 SVGs customizados + PNGs 48×48
 │   │   ├── new-sessao-atual/   # 295 SVGs estilizados gótico/fantasia
-│   │   └── projects/           # 19 ícones de projetos pessoais
+│   │   └── projects/           # 20 ícones de projetos pessoais
+│   ├── gtk/                    # tema GTK Dracula-standard-buttons (vendorizado, SPRINT 31)
+│   ├── cursors/                # Dracula-Cursor (vendorizado, SPRINT 31)
+│   ├── wallpaper/              # xwinwrap.c (compilado no install, SPRINT 30)
 │   ├── shell/
 │   │   ├── pop-shell-dracula.css  # regras anexadas ao gnome-shell.css
 │   │   ├── pop-shell-dark.css     # substitui dark.css do Pop!_Shell
 │   │   └── pop-cosmic-dark.css    # substitui dark.css do Pop!_Cosmic
 │   └── sounds/
-│       └── Pop/                # tema de som Pop!_OS (26 .oga do upstream)
+│       ├── Dracula/            # tema de som Dracula (default; 25 .oga, Kenney CC0)
+│       └── Pop/                # tema de som Pop!_OS (25 .oga do upstream)
 │
 ├── app-themes/                 # kitty, qBittorrent, terminal, spicetify, obsidian, telegram, discord, onlyoffice
 │   ├── keybindings/            # dconf snapshots (media-keys, terminal, sound)
-│   └── gnome-extensions/       # manifesto das 13 extensões + dconf dumps
+│   └── gnome-extensions/       # manifesto das 14 extensões + dconf dumps
 ├── overrides/                  # .desktop overrides (ZapZap → WhatsApp, Snap oculto)
 ├── dist/                       # (git-ignored) saída do build
 └── scripts/
