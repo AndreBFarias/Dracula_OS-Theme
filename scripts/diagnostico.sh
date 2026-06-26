@@ -52,10 +52,12 @@ check "Tema GTK Dracula-standard-buttons em ~/.local/share/themes" \
     "[[ -d \"\$HOME/.local/share/themes/Dracula-standard-buttons\" ]]"
 
 # ─── Pop!_Shell / Pop!_Cosmic dark.css ───
+# Guard [[ ! -f ]]: extensão não instalada não é regressão (evita falso-positivo
+# numa máquina sem pop-shell/pop-cosmic). Espelha o gate do reaplicar_tema.sh.
 check "Pop!_Shell dark.css Dracula aplicado" \
-    "cmp -s '$REPO_ROOT/src/shell/pop-shell-dark.css' /usr/share/gnome-shell/extensions/pop-shell@system76.com/dark.css 2>/dev/null"
+    "[[ ! -f /usr/share/gnome-shell/extensions/pop-shell@system76.com/dark.css ]] || cmp -s '$REPO_ROOT/src/shell/pop-shell-dark.css' /usr/share/gnome-shell/extensions/pop-shell@system76.com/dark.css"
 check "Pop!_Cosmic dark.css Dracula aplicado" \
-    "cmp -s '$REPO_ROOT/src/shell/pop-cosmic-dark.css' /usr/share/gnome-shell/extensions/pop-cosmic@system76.com/dark.css 2>/dev/null"
+    "[[ ! -f /usr/share/gnome-shell/extensions/pop-cosmic@system76.com/dark.css ]] || cmp -s '$REPO_ROOT/src/shell/pop-cosmic-dark.css' /usr/share/gnome-shell/extensions/pop-cosmic@system76.com/dark.css"
 
 # ─── Overrides .desktop ───
 check "Override ZapZap→WhatsApp" \

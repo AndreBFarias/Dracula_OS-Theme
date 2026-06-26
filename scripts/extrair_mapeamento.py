@@ -398,6 +398,23 @@ def main() -> None:
         }
 
     out = REPO / "mapping.json"
+
+    # Merge nao-destrutivo: preserva entradas curadas a mao que este gerador NAO
+    # reproduz (origem 'logo-usuario' ou campo '"curado": true'). Sem isto,
+    # regenerar apagaria a curadoria (firefox/citrix/dbeaver/photogimp/Clapper).
+    if out.exists():
+        try:
+            antigo = json.loads(out.read_text(encoding="utf-8"))
+            preservadas = 0
+            for app_id, entrada in antigo.items():
+                if entrada.get("curado") is True or entrada.get("origem") == "logo-usuario":
+                    mapeamento[app_id] = entrada
+                    preservadas += 1
+            if preservadas:
+                print(f"  Merge: {preservadas} entrada(s) curada(s) preservada(s).")
+        except (json.JSONDecodeError, OSError) as exc:
+            print(f"  Aviso: nao li mapping.json antigo para merge ({exc}).")
+
     out.write_text(json.dumps(mapeamento, ensure_ascii=False, indent=2, sort_keys=True))
 
     # Relatorio
