@@ -47,5 +47,17 @@ if [[ $estado_regredido -ne 1 ]]; then
     exit 1
 fi
 
-echo "OK: diagnóstico retornou 1 quando tema foi regredido, restaurado para '$tema_original'."
+# Cenário 3: após restaurar, o diagnóstico deve voltar ao estado original
+# (simetria). Se o ambiente estava saudável, isso confirma o exit 0 explicitamente.
+"$DIAG" --quiet
+estado_restaurado=$?
+if [[ $estado_restaurado -ne $estado_atual ]]; then
+    echo "FAIL: após restaurar, diagnóstico não voltou ao estado original ($estado_atual -> $estado_restaurado)." >&2
+    exit 1
+fi
+if [[ $estado_atual -eq 0 ]]; then
+    echo "OK: caso saudável confirmado (exit 0 com tema bem aplicado)."
+fi
+
+echo "OK: diagnóstico retornou 1 na regressão e voltou a $estado_atual ao restaurar (tema '$tema_original')."
 exit 0

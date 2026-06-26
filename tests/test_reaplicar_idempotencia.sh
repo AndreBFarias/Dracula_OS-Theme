@@ -21,6 +21,17 @@ snapshot() {
     echo "$sum"
 }
 
+# Evita aprovação vácua: se nenhum arquivo-alvo existe, o snapshot fica vazio e
+# "" == "" passaria sem testar nada. Nesse caso, SKIP honesto (não falso-OK).
+existe_algum=0
+for f in "${ARQUIVOS_CRITICOS[@]}"; do
+    [[ -f "$f" ]] && existe_algum=1
+done
+if [[ $existe_algum -eq 0 ]]; then
+    echo "SKIP: nenhum arquivo-alvo presente (tema não instalado neste ambiente)."
+    exit 0
+fi
+
 echo "=== Rodada 1 de reaplicar_tema.sh ==="
 "$REPO_ROOT/scripts/reaplicar_tema.sh" >/dev/null 2>&1 || true
 
