@@ -15,9 +15,9 @@ Dracula:
 
 ## Automação via `instalar_app_themes.sh`
 
-O script de instalação de app themes **define o tema escuro built-in
-como default** via `gsettings` (quando aplicável) ou manipulando o
-arquivo de configuração em
-`~/.var/app/org.onlyoffice.desktopeditors/config/`.
+Não há automação. O OnlyOffice guarda a preferência de tema num formato
+fechado e não expõe `gsettings` nem CSS editável. A função
+`aplicar_onlyoffice()` do `instalar_app_themes.sh` apenas **imprime a
+instrução manual acima** e segue — por isso o passo continua manual.
 
 Não há CSS custom para commitar neste diretório — documentação apenas.
