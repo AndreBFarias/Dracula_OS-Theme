@@ -58,7 +58,7 @@ fi
 
 # ─── 3. Scripts em ~/.local/bin ───
 mkdir -p "$HOME/.local/bin"
-for s in relatorio_fontfix relatorio_pdf; do
+for s in relatorio_fontfix relatorio_pdf docx_doctor; do
     alvo="$HOME/.local/bin/$s"
     if cmp -s "$SRC/$s" "$alvo"; then
         _ok "$s já em dia (skip)"
