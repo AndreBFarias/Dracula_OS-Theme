@@ -1,17 +1,18 @@
 #!/usr/bin/env bash
-# Gera PDF final do relatorio MEC a partir do docx: LibreOffice headless
-# (usa as fontes/aliases certos do sistema) + pdftocairo (perfil TrueType/WinAnsi
-# que renderiza integro em qualquer visualizador web, incl. assinador gov.br).
-# Uso: relatorio_pdf <arquivo.docx> [pasta_saida]
+# Lava o PDF exportado do OnlyOffice para o perfil que renderiza integro em
+# qualquer visualizador web (TrueType/WinAnsi, via pdftocairo) — substitui o
+# ritual iLovePDF + imprimir-para-PDF.
+# Fluxo mensal: editar docx no OnlyOffice -> exportar PDF -> relatorio_pdf <pdf>
+# Uso: relatorio_pdf <arquivo.pdf> [pasta_saida]
 set -euo pipefail
-[ $# -ge 1 ] || { echo "uso: relatorio_pdf <arquivo.docx> [pasta_saida]"; exit 1; }
-DOCX="$1"; SAIDA="${2:-$(dirname "$DOCX")}"
-TMP=$(mktemp -d)
-trap 'rm -rf "$TMP"' EXIT
-/usr/bin/soffice --headless --convert-to pdf --outdir "$TMP" "$DOCX" >/dev/null
-BRUTO="$TMP/$(basename "${DOCX%.docx}").pdf"
-[ -f "$BRUTO" ] || { echo "ERRO: conversao falhou"; exit 1; }
-FINAL="$SAIDA/$(basename "${DOCX%.docx}")_final.pdf"
-pdftocairo -pdf "$BRUTO" "$FINAL"
+[ $# -ge 1 ] || { echo "uso: relatorio_pdf <arquivo.pdf> [pasta_saida]"; exit 1; }
+PDF="$1"; SAIDA="${2:-$(dirname "$PDF")}"
+case "$PDF" in
+  *.pdf) ;;
+  *.docx) echo "ERRO: exporte o PDF pelo OnlyOffice primeiro (Arquivo > Baixar como > PDF) e rode com o .pdf"; exit 1 ;;
+  *) echo "ERRO: esperado .pdf"; exit 1 ;;
+esac
+FINAL="$SAIDA/$(basename "${PDF%.pdf}")_final.pdf"
+pdftocairo -pdf "$PDF" "$FINAL"
 echo "PDF pronto: $FINAL"
-pdffonts "$FINAL" | awk 'NR<=2 || $2=="TrueType"' | head -5
+pdffonts "$FINAL" | head -6

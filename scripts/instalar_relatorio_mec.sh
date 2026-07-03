@@ -74,14 +74,16 @@ done
 _pacote_instalado() {
     [[ "$(dpkg-query -W -f='${Status}' "$1" 2>/dev/null)" == "install ok installed" ]]
 }
+# NOTA: libreoffice-writer foi REMOVIDO das dependências de propósito (2026-07-02):
+# o motor de layout oficial é o OnlyOffice (o LO renderizava bordas/margens diferente).
+# O fluxo é: OnlyOffice exporta o PDF -> relatorio_pdf lava com pdftocairo.
 FALTAM=()
-_pacote_instalado libreoffice-writer || FALTAM+=(libreoffice-writer)
 _pacote_instalado poppler-utils || FALTAM+=(poppler-utils)
 # [[ -n $(...) ]] em vez de pipe com grep -q: com pipefail, grep -q fecha o pipe
 # cedo e o SIGPIPE no fc-list vira falso-negativo
 [[ -n "$(fc-list :family=Arial 2>/dev/null)" ]] || FALTAM+=(ttf-mscorefonts-installer)
 if [[ ${#FALTAM[@]} -eq 0 ]]; then
-    _ok "dependências apt presentes (writer, poppler, mscorefonts)"
+    _ok "dependências apt presentes (poppler, mscorefonts)"
 elif [[ $APT -eq 1 ]]; then
     _info "instalando via apt: ${FALTAM[*]} (pede sudo)"
     sudo apt-get install -y "${FALTAM[@]}" || _warn "apt falhou — instale manualmente: sudo apt install ${FALTAM[*]}"
