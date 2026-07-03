@@ -58,7 +58,7 @@ fi
 
 # ─── 3. Scripts em ~/.local/bin ───
 mkdir -p "$HOME/.local/bin"
-for s in relatorio_fontfix relatorio_pdf docx_doctor; do
+for s in relatorio_fontfix docx_doctor pdf_lavar pdf_lavar_watch; do
     alvo="$HOME/.local/bin/$s"
     if cmp -s "$SRC/$s" "$alvo"; then
         _ok "$s já em dia (skip)"
@@ -67,6 +67,34 @@ for s in relatorio_fontfix relatorio_pdf docx_doctor; do
         _info "$s instalado/atualizado"
     fi
 done
+# sinônimo legado: relatorio_pdf -> pdf_lavar
+if [[ "$(readlink "$HOME/.local/bin/relatorio_pdf" 2>/dev/null)" != "$HOME/.local/bin/pdf_lavar" ]]; then
+    ln -sf "$HOME/.local/bin/pdf_lavar" "$HOME/.local/bin/relatorio_pdf"
+    _info "symlink relatorio_pdf -> pdf_lavar"
+else
+    _ok "symlink relatorio_pdf já em dia (skip)"
+fi
+
+# ─── 3b. Vigia systemd: lavagem automática de qualquer export PDF do OnlyOffice ───
+MUDOU_UNIT=0
+mkdir -p "$HOME/.config/systemd/user"
+for u in onlyoffice-pdf-lavar.service onlyoffice-pdf-lavar.path; do
+    alvo="$HOME/.config/systemd/user/$u"
+    if cmp -s "$SRC/$u" "$alvo"; then
+        _ok "$u já em dia (skip)"
+    else
+        cp "$SRC/$u" "$alvo"; MUDOU_UNIT=1
+        _info "$u instalado/atualizado"
+    fi
+done
+[[ $MUDOU_UNIT -eq 1 ]] && systemctl --user daemon-reload 2>/dev/null
+if [[ "$(systemctl --user is-enabled onlyoffice-pdf-lavar.path 2>/dev/null)" != "enabled" ]]; then
+    systemctl --user enable --now onlyoffice-pdf-lavar.path 2>/dev/null \
+        && _info "vigia onlyoffice-pdf-lavar habilitado" || _warn "não consegui habilitar o vigia (sem sessão systemd?)"
+else
+    [[ $MUDOU_UNIT -eq 1 ]] && systemctl --user restart onlyoffice-pdf-lavar.path 2>/dev/null
+    _ok "vigia onlyoffice-pdf-lavar já habilitado (skip)"
+fi
 
 # ─── 4. Dependências apt ───
 # dpkg-query com Status explícito: "dpkg -s" retorna 0 até para pacote removido

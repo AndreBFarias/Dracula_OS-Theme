@@ -5,9 +5,9 @@
 # O docx e a fonte da verdade; o PDF cru e descartavel.
 # Uso: relatorio_pdf <arquivo.pdf> [-o saida.pdf]
 set -euo pipefail
-[ $# -ge 1 ] || { echo "uso: relatorio_pdf <arquivo.pdf> [-o saida.pdf]"; exit 1; }
+[ $# -ge 1 ] || { echo "uso: pdf_lavar <arquivo.pdf> [-o saida.pdf]"; exit 1; }
 PDF="$1"; SAIDA="$PDF"
-[ "${2:-}" = "-o" ] && SAIDA="${3:?uso: relatorio_pdf <arquivo.pdf> -o <saida.pdf>}"
+[ "${2:-}" = "-o" ] && SAIDA="${3:?uso: pdf_lavar <arquivo.pdf> -o <saida.pdf>}"
 case "$PDF" in
   *.pdf) ;;
   *.docx) echo "ERRO: exporte o PDF pelo OnlyOffice primeiro (Arquivo > Baixar como > PDF)"; exit 1 ;;

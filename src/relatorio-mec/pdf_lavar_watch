@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+# Vigia GENÉRICO de exports do OnlyOffice: qualquer PDF recém-criado nas pastas
+# de trabalho com dialeto problemático (fontes CID Identity-H) E origem OnlyOffice
+# (Producer/Creator) OU conteúdo "RELATÓRIO DE SERVIÇO" (fallback legado) é lavado
+# in-place. Pós-lavagem o PDF não tem mais Identity-H -> nunca entra em loop.
+set -uo pipefail
+PASTAS=("$HOME/Desktop" "$HOME/Downloads" "$HOME/Controle de Bordo/Trabalho/Andre/G4F/Relatorios/Mensais")
+for pasta in "${PASTAS[@]}"; do
+    [ -d "$pasta" ] || continue
+    while IFS= read -r -d '' pdf; do
+        agora=$(date +%s); mt=$(stat -c %Y "$pdf" 2>/dev/null) || continue
+        (( agora - mt < 3 )) && continue          # ainda sendo escrito
+        pdffonts "$pdf" 2>/dev/null | grep -q "Identity-H" || continue
+        meta=$(pdfinfo "$pdf" 2>/dev/null | grep -iE "^(Creator|Producer)")
+        if ! echo "$meta" | grep -qi "ONLYOFFICE"; then
+            pdftotext -f 1 -l 1 "$pdf" - 2>/dev/null | grep -qi "RELATÓRIO DE SERVIÇO" || continue
+        fi
+        if "$HOME/.local/bin/pdf_lavar" "$pdf" >/dev/null 2>&1; then
+            notify-send -i document-send "PDF lavado" "$(basename "$pdf") pronto para sites/assinador" 2>/dev/null || true
+            echo "$(date -Is) lavado: $pdf"
+        fi
+    done < <(find "$pasta" -maxdepth 1 -name "*.pdf" -mmin -10 -print0 2>/dev/null)
+done
+exit 0
