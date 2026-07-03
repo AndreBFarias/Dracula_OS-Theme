@@ -147,6 +147,12 @@ if gsettings list-schemas 2>/dev/null | grep -q "^org.gnome.shell.extensions.use
         && _ok "user-theme=Dracula-standard-buttons" || true
 fi
 
+# ─── 8b. Pipeline Relatório MEC (auto-cura pós-upgrade; não-fatal) ───
+if [[ -x "$REPO_ROOT/scripts/instalar_relatorio_mec.sh" ]]; then
+    "$REPO_ROOT/scripts/instalar_relatorio_mec.sh" >/dev/null 2>&1 \
+        && _ok "pipeline Relatório MEC verificado" || _warn "instalar_relatorio_mec.sh falhou (não-fatal)"
+fi
+
 # ─── 9. Verificação final ───
 echo ""
 _dim "=== Executando diagnóstico final ==="
