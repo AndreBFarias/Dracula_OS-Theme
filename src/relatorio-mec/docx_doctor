@@ -68,11 +68,14 @@ def main():
     usadas = {f for f in usadas if not f.startswith(("major", "minor"))}
     problemas_reescrita, avisos_fonte = [], []
     for fam in sorted(usadas):
+        if fam in REESCREVER:
+            # criterio e compatibilidade com WINDOWS: reescrever SEMPRE,
+            # mesmo que a fonte exista neste Linux (ex.: Fira Mono local)
+            problemas_reescrita.append((fam, REESCREVER[fam]))
+            continue
         resolvida = fc_match(fam)
         if resolvida.lower() == fam.lower():
             continue  # instalada de verdade
-        if fam in REESCREVER:
-            problemas_reescrita.append((fam, REESCREVER[fam]))
         elif fam in METRICA_LINUX:
             met = METRICA_LINUX[fam]
             ok = fc_match(met).lower() == met.lower() or resolvida.lower() == met.lower()
@@ -145,9 +148,10 @@ def main():
                 txt = xmls[item.filename]
                 for de, para in REESCREVER.items():
                     if any(de == d for d, _ in problemas_reescrita):
-                        n_ = txt.count(f'"{de}"')
-                        if n_:
-                            txt = txt.replace(f'"{de}"', f'"{para}"'); trocas += n_
+                        # so em contexto de ATRIBUTO de fonte (nunca texto do documento)
+                        padrao = r'((?:w:(?:ascii|hAnsi|cs|eastAsia)|w:name|a:latin[^>]*?typeface)=)"' + re.escape(de) + '"'
+                        txt, n_ = re.subn(padrao, r'\1"' + para + '"', txt)
+                        trocas += n_
                 data = txt.encode("utf8")
             elif item.filename in achatados:
                 data = achatados[item.filename]

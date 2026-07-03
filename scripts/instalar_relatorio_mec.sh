@@ -75,7 +75,24 @@ else
     _ok "symlink relatorio_pdf já em dia (skip)"
 fi
 
+# ─── 3a. Função zsh (comando `relatorio`) ───
+ZSH_FUNC="$HOME/.config/zsh/functions/relatorio-mec.zsh"
+if [[ -d "$HOME/.config/zsh/functions" ]]; then
+    if cmp -s "$SRC/relatorio-mec.zsh" "$ZSH_FUNC"; then
+        _ok "função zsh relatorio já em dia (skip)"
+    else
+        cp "$SRC/relatorio-mec.zsh" "$ZSH_FUNC"
+        _info "função zsh relatorio instalada/atualizada"
+    fi
+else
+    _warn "sem ~/.config/zsh/functions — comando 'relatorio' não instalado (scripts continuam no PATH)"
+fi
+
 # ─── 3b. Vigia systemd: lavagem automática de qualquer export PDF do OnlyOffice ───
+# Sem bus de sessão (ex.: hook APT roda via su -), systemctl --user não funciona:
+# instala os arquivos e deixa a habilitação para a próxima sessão gráfica.
+TEM_BUS=1
+[[ -z "${DBUS_SESSION_BUS_ADDRESS:-}" && -z "${XDG_RUNTIME_DIR:-}" ]] && TEM_BUS=0
 MUDOU_UNIT=0
 mkdir -p "$HOME/.config/systemd/user"
 for u in onlyoffice-pdf-lavar.service onlyoffice-pdf-lavar.path; do
@@ -87,13 +104,17 @@ for u in onlyoffice-pdf-lavar.service onlyoffice-pdf-lavar.path; do
         _info "$u instalado/atualizado"
     fi
 done
-[[ $MUDOU_UNIT -eq 1 ]] && systemctl --user daemon-reload 2>/dev/null
-if [[ "$(systemctl --user is-enabled onlyoffice-pdf-lavar.path 2>/dev/null)" != "enabled" ]]; then
-    systemctl --user enable --now onlyoffice-pdf-lavar.path 2>/dev/null \
-        && _info "vigia onlyoffice-pdf-lavar habilitado" || _warn "não consegui habilitar o vigia (sem sessão systemd?)"
+if [[ $TEM_BUS -eq 0 ]]; then
+    _warn "sem bus de sessão — units instaladas; habilitação fica para a próxima sessão gráfica"
 else
-    [[ $MUDOU_UNIT -eq 1 ]] && systemctl --user restart onlyoffice-pdf-lavar.path 2>/dev/null
-    _ok "vigia onlyoffice-pdf-lavar já habilitado (skip)"
+    [[ $MUDOU_UNIT -eq 1 ]] && systemctl --user daemon-reload 2>/dev/null
+    if [[ "$(systemctl --user is-enabled onlyoffice-pdf-lavar.path 2>/dev/null)" != "enabled" ]]; then
+        systemctl --user enable --now onlyoffice-pdf-lavar.path 2>/dev/null \
+            && _info "vigia onlyoffice-pdf-lavar habilitado" || _warn "não consegui habilitar o vigia"
+    else
+        [[ $MUDOU_UNIT -eq 1 ]] && systemctl --user restart onlyoffice-pdf-lavar.path 2>/dev/null
+        _ok "vigia onlyoffice-pdf-lavar já habilitado (skip)"
+    fi
 fi
 
 # ─── 4. Dependências apt ───

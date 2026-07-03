@@ -27,10 +27,9 @@ with zipfile.ZipFile(docx) as zin, zipfile.ZipFile(tmp, "w", zipfile.ZIP_DEFLATE
         if item.filename.startswith("word/") and item.filename.endswith(".xml"):
             txt = data.decode("utf-8")
             for de, para in MAPA.items():  # ordem: nomes mais longos primeiro (dict preserva ordem)
-                n = txt.count(f'"{de}"')
-                if n:
-                    txt = txt.replace(f'"{de}"', f'"{para}"')
-                    trocas += n
+                padrao = r'((?:w:(?:ascii|hAnsi|cs|eastAsia)|w:name)=)"' + re.escape(de) + '"'
+                txt, n = re.subn(padrao, r'\1"' + para + '"', txt)
+                trocas += n
             data = txt.encode("utf-8")
         zout.writestr(item, data)
 os.replace(tmp, docx)

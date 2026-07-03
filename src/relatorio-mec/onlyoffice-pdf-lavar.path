@@ -2,11 +2,9 @@
 Description=Observa pastas de export de PDF do OnlyOffice
 
 [Path]
-PathModified=%h/Desktop
-PathModified=%h/Downloads
-PathModified=%h/Controle de Bordo/Trabalho/Andre/G4F/Relatorios/Mensais
-TriggerLimitIntervalSec=10s
-TriggerLimitBurst=1
+PathChanged=%h/Desktop
+PathChanged=%h/Downloads
+PathChanged=%h/Controle de Bordo/Trabalho/Andre/G4F/Relatorios/Mensais
 
 [Install]
 WantedBy=default.target
