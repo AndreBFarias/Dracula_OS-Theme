@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# Gera PDF final do relatorio MEC a partir do docx: LibreOffice headless
+# (usa as fontes/aliases certos do sistema) + pdftocairo (perfil TrueType/WinAnsi
+# que renderiza integro em qualquer visualizador web, incl. assinador gov.br).
+# Uso: relatorio_pdf <arquivo.docx> [pasta_saida]
+set -euo pipefail
+[ $# -ge 1 ] || { echo "uso: relatorio_pdf <arquivo.docx> [pasta_saida]"; exit 1; }
+DOCX="$1"; SAIDA="${2:-$(dirname "$DOCX")}"
+TMP=$(mktemp -d)
+trap 'rm -rf "$TMP"' EXIT
+/usr/bin/soffice --headless --convert-to pdf --outdir "$TMP" "$DOCX" >/dev/null
+BRUTO="$TMP/$(basename "${DOCX%.docx}").pdf"
+[ -f "$BRUTO" ] || { echo "ERRO: conversao falhou"; exit 1; }
+FINAL="$SAIDA/$(basename "${DOCX%.docx}")_final.pdf"
+pdftocairo -pdf "$BRUTO" "$FINAL"
+echo "PDF pronto: $FINAL"
+pdffonts "$FINAL" | awk 'NR<=2 || $2=="TrueType"' | head -5
