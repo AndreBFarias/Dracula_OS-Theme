@@ -101,6 +101,7 @@ cd Dracula_OS-Theme-v1.1.0
 ./install.sh --user --spicetify          # instala + aplica somente Spicetify (autônomo, SPRINT 18)
 ./install.sh --user --gimp               # instala GIMP (Flatpak) + aplica PhotoGIMP (autônomo, SPRINT 20)
 ./install.sh --user --video-wallpaper    # wallpaper de vídeo (xwinwrap + mpv, SPRINT 30)
+./install.sh --user --fontes-design      # fontes de design JetBrains Mono + Fira Code (corrige export de SVG, SPRINT 33)
 ./install.sh --user --pop-shell-css      # instala + substitui dark.css das extensões (requer sudo)
 ./install.sh --user --sounds             # instala tema de som Dracula + ativa via gsettings
 ./install.sh --user --keybindings        # aplica snapshot de atalhos + silencia shutter

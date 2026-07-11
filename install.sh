@@ -10,6 +10,7 @@
 #   ./install.sh --user --gimp       # + instala GIMP (Flatpak) e aplica PhotoGIMP (SPRINT 20)
 #   ./install.sh --user --video-wallpaper # + wallpaper de vídeo (xwinwrap + mpv, SPRINT 30)
 #   ./install.sh --user --relatorio-mec   # + pipeline do Relatório MEC (fontes universais + scripts)
+#   ./install.sh --user --fontes-design   # + fontes de design (JetBrains Mono + Fira Code; corrige export de SVG)
 #   ./install.sh --user --all        # tudo acima
 #   ./install.sh --user --apt-hook   # + instala hook que reaplica tema pós apt upgrade
 #   ./install.sh --bootstrap         # checa ambiente, baixa upstreams, build, install --user --all, diagnóstico
@@ -31,6 +32,7 @@ APT_HOOK=0
 GIMP=0
 VIDEO_WALLPAPER=0
 RELATORIO_MEC=0
+FONTES_DESIGN=0
 BOOTSTRAP=0
 
 for arg in "$@"; do
@@ -48,10 +50,11 @@ for arg in "$@"; do
         --gimp) GIMP=1 ;;
         --video-wallpaper) VIDEO_WALLPAPER=1 ;;
         --relatorio-mec) RELATORIO_MEC=1 ;;
+        --fontes-design) FONTES_DESIGN=1 ;;
         --bootstrap) BOOTSTRAP=1 ;;
         # --all: SPICETIFY não é incluído porque APP_THEMES já chama
         # aplicar_spicetify() (que roda instalar_spicetify.sh). Evita duplicação.
-        --all) ATIVAR=1; APP_THEMES=1; POP_SHELL_CSS=1; SOUNDS=1; KEYBINDINGS=1; GNOME_EXT=1; GIMP=1; VIDEO_WALLPAPER=1; APT_HOOK=1; RELATORIO_MEC=1 ;;
+        --all) ATIVAR=1; APP_THEMES=1; POP_SHELL_CSS=1; SOUNDS=1; KEYBINDINGS=1; GNOME_EXT=1; GIMP=1; VIDEO_WALLPAPER=1; APT_HOOK=1; RELATORIO_MEC=1; FONTES_DESIGN=1 ;;
     esac
 done
 
@@ -74,7 +77,7 @@ if [[ $BOOTSTRAP -eq 1 ]]; then
 fi
 
 if [[ -z "$MODO" ]]; then
-    echo "Uso: $0 --user|--system [--activate] [--app-themes] [--spicetify] [--gimp] [--video-wallpaper] [--pop-shell-css] [--sounds] [--keybindings] [--gnome-extensions] [--apt-hook] [--all]"
+    echo "Uso: $0 --user|--system [--activate] [--app-themes] [--spicetify] [--gimp] [--video-wallpaper] [--relatorio-mec] [--fontes-design] [--pop-shell-css] [--sounds] [--keybindings] [--gnome-extensions] [--apt-hook] [--all]"
     echo "     $0 --bootstrap  (rota completa para máquina limpa Pop!_OS)"
     exit 1
 fi
@@ -226,6 +229,13 @@ if [[ $RELATORIO_MEC -eq 1 && "$MODO" == "user" ]]; then
     echo ""
     _info "Verificando pipeline do Relatório MEC (fontes + fontconfig + scripts)"
     "$REPO_ROOT/scripts/instalar_relatorio_mec.sh" || _warn "instalar_relatorio_mec.sh falhou (não-fatal)"
+fi
+
+# ─── Fontes de design (JetBrains Mono + Fira Code; corrige export de SVG) ───
+if [[ $FONTES_DESIGN -eq 1 && "$MODO" == "user" ]]; then
+    echo ""
+    _info "Instalando fontes de design (JetBrains Mono + Fira Code)"
+    "$REPO_ROOT/scripts/instalar_fontes_design.sh" || _warn "instalar_fontes_design.sh falhou (não-fatal)"
 fi
 
 # ─── Extensões GNOME ───

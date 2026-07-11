@@ -37,6 +37,7 @@ vira commit/PR atômico e tem sua entrada referenciada no `CHANGELOG.md`.
 | 30 | [Wallpaper de vídeo via xwinwrap + mpv (substitui o Hidamari)](SPRINT_30_WALLPAPER_XWINWRAP.md) | Concluída | 2026-06-25 |
 | 31 | [Hardening de infra: vendorização, install idempotente, exceção do santuário](SPRINT_31_INFRA_HARDENING.md) | Concluída | 2026-06-26 |
 | 32 | [Fechamento do débito do estudo (resiliência, testes, docs)](SPRINT_32_DEBITO_ESTUDO.md) | Concluída | 2026-06-26 |
+| 33 | [Fontes de design (JetBrains Mono + Fira Code) + higiene Flatpak do Boxy SVG](SPRINT_33_FONTES_DESIGN_BOXY.md) | Concluída | 2026-07-10 |
 
 ## Convenção de nomenclatura
 
