@@ -7,7 +7,7 @@ de propósito, e a decodificação de vídeo passa a usar a GPU.
 > - **Ocultar, não desinstalar**, quando o app é do sistema ou tem outro
 >   consumidor. Vira `overrides/*.desktop` com `NoDisplay=true`, aplicado pelo
 >   `aplicar_overrides.sh` no `install.sh` — assim sobrevive a reinstalação.
-> - **Desinstalar** só o que o usuário não quer na máquina: `agente-desktop`,
+> - **Desinstalar** só o que o usuário não quer na máquina: `claude-desktop`,
 >   `gnome-text-editor`, `onboard`.
 > - **Ícone do Protocolo Ouroboros intocado** por pedido explícito.
 
@@ -27,7 +27,7 @@ menu.
 
 | Item | Como |
 |---|---|
-| `agente-desktop` | `apt purge` |
+| `claude-desktop` | `apt purge` |
 | `gnome-text-editor` | `apt purge` — o `Text Editor` duplicava o `gedit`, que é o tematizado |
 | `onboard` + `-common` + `-data` | `apt purge` |
 | NotebookLM, Google Photos | `.desktop` de webapp do Chrome, removidos de `~/.local/share/applications` |
