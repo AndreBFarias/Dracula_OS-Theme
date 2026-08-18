@@ -1,0 +1,12 @@
+[Desktop Entry]
+Name=LinuxToys
+Type=Application
+Exec=/usr/bin/linuxtoys
+Terminal=false
+Icon=linuxtoys
+Comment=A set of tools for Linux presented in a user-friendly way
+Categories=Development
+StartupNotify=true
+StartupWMClass=run.py
+# oculto do menu por escolha do usuario (Dracula_OS-Theme)
+NoDisplay=true

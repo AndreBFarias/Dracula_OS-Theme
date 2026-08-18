@@ -1,0 +1,22 @@
+[Desktop Entry]
+X-SnapInstanceName=ghostty
+Version=1.0
+Name=Ghostty
+Type=Application
+Comment=A terminal emulator
+X-SnapAppName=ghostty
+Exec=/snap/bin/ghostty --gtk-single-instance=true
+# Icon= apontava para /snap/.../com.mitchellh.ghostty.png; caminho absoluto
+# faz o GTK ignorar o tema de icones. Nome simbolico deixa o Dracula assumir.
+Icon=ghostty
+Categories=System;TerminalEmulator;
+Keywords=terminal;tty;pty;
+StartupNotify=true
+StartupWMClass=com.mitchellh.ghostty
+Terminal=false
+Actions=new-window;
+
+[Desktop Action new-window]
+Name=New Window
+X-SnapAppName=ghostty
+Exec=/snap/bin/ghostty --gtk-single-instance=true

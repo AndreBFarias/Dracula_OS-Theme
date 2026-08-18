@@ -1,0 +1,12 @@
+[Desktop Entry]
+Name=Mnemo
+Comment=Grava a call, escreve a ata, guarda as vozes
+Exec=/home/andrefarias/Desenvolvimento/Mnemo/run.sh
+Icon=mnemo
+Terminal=false
+Type=Application
+Categories=AudioVideo;Audio;Utility;
+StartupNotify=true
+StartupWMClass=Mnemo
+# oculto: duplicata do build de desenvolvimento; o Flatpak io.github.andrebfarias.Mnemo e o principal
+NoDisplay=true

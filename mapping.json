@@ -397,6 +397,20 @@
     "name": "Geoclue Demo agent",
     "origem": "upstream"
   },
+  "ghostty": {
+    "aliases": [
+      "ghostty",
+      "com.mitchellh.ghostty",
+      "ghostty_ghostty"
+    ],
+    "aliases_humanos": [
+      "ghostty"
+    ],
+    "fonte": "current/scalable/apps/025-candle-1.svg",
+    "icon_original": "ghostty",
+    "name": "Ghostty",
+    "origem": "override-novo"
+  },
   "gkbd-keyboard-display": {
     "aliases": [
       "gkbd-keyboard-display",
