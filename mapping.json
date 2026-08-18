@@ -1,115 +1,4 @@
 {
-  "LinuxToys": {
-    "aliases": [
-      "LinuxToys"
-    ],
-    "aliases_humanos": [
-      "linuxtoys"
-    ],
-    "fonte": "new-sessao-atual/toolbox.svg",
-    "icon_original": "linuxtoys",
-    "name": "LinuxToys",
-    "origem": "override-novo"
-  },
-  "Ubuntu": {
-    "aliases": [
-      "Ubuntu"
-    ],
-    "fonte": "projects/ubuntu-distrobox.png",
-    "icon_original": "Ubuntu",
-    "name": "Ubuntu",
-    "origem": "alias-heuristico"
-  },
-  "Ubuntu-configmgr": {
-    "aliases": [
-      "Ubuntu-configmgr"
-    ],
-    "fonte": "Ubuntu-configmgr",
-    "icon_original": "Ubuntu-configmgr",
-    "name": "Citrix Workspace (configmgr) (on Ubuntu)",
-    "origem": "nao-encontrado"
-  },
-  "Ubuntu-conncenter": {
-    "aliases": [
-      "Ubuntu-conncenter"
-    ],
-    "fonte": "Ubuntu-conncenter",
-    "icon_original": "Ubuntu-conncenter",
-    "name": "Citrix Workspace (conncenter) (on Ubuntu)",
-    "origem": "nao-encontrado"
-  },
-  "Ubuntu-fido2_llt": {
-    "aliases": [
-      "Ubuntu-fido2_llt"
-    ],
-    "fonte": "Ubuntu-fido2_llt",
-    "icon_original": "Ubuntu-fido2_llt",
-    "name": "Citrix Workspace Launcher (on Ubuntu)",
-    "origem": "nao-encontrado"
-  },
-  "Ubuntu-logmgr": {
-    "aliases": [
-      "Ubuntu-logmgr"
-    ],
-    "fonte": "Ubuntu-logmgr",
-    "icon_original": "Ubuntu-logmgr",
-    "name": "Citrix Workspace (logmgr) (on Ubuntu)",
-    "origem": "nao-encontrado"
-  },
-  "Ubuntu-nfcui": {
-    "aliases": [
-      "Ubuntu-nfcui"
-    ],
-    "fonte": "Ubuntu-nfcui",
-    "icon_original": "Ubuntu-nfcui",
-    "name": "Citrix Workspace (nfcui) (on Ubuntu)",
-    "origem": "nao-encontrado"
-  },
-  "Ubuntu-receiver": {
-    "aliases": [
-      "Ubuntu-receiver"
-    ],
-    "fonte": "Ubuntu-receiver",
-    "icon_original": "Ubuntu-receiver",
-    "name": "Citrix Workspace Launcher (on Ubuntu)",
-    "origem": "nao-encontrado"
-  },
-  "Ubuntu-receiver_fido2": {
-    "aliases": [
-      "Ubuntu-receiver_fido2"
-    ],
-    "fonte": "Ubuntu-receiver_fido2",
-    "icon_original": "Ubuntu-receiver_fido2",
-    "name": "Citrix Workspace Launcher (on Ubuntu)",
-    "origem": "nao-encontrado"
-  },
-  "Ubuntu-selfservice": {
-    "aliases": [
-      "Ubuntu-selfservice"
-    ],
-    "fonte": "Ubuntu-selfservice",
-    "icon_original": "Ubuntu-selfservice",
-    "name": "Citrix Workspace (on Ubuntu)",
-    "origem": "nao-encontrado"
-  },
-  "Ubuntu-sendfeedback": {
-    "aliases": [
-      "Ubuntu-sendfeedback"
-    ],
-    "fonte": "Ubuntu-sendfeedback",
-    "icon_original": "Ubuntu-sendfeedback",
-    "name": "Citrix Workspace (sendfeedback) (on Ubuntu)",
-    "origem": "nao-encontrado"
-  },
-  "Ubuntu-wfica": {
-    "aliases": [
-      "Ubuntu-wfica"
-    ],
-    "fonte": "Ubuntu-wfica",
-    "icon_original": "Ubuntu-wfica",
-    "name": "Citrix Workspace Engine (on Ubuntu)",
-    "origem": "nao-encontrado"
-  },
   "antigravity": {
     "aliases": [
       "antigravity"
@@ -180,6 +69,28 @@
     "name": "NotebookLM",
     "origem": "nao-encontrado"
   },
+  "citrix": {
+    "aliases": [
+      "citrix",
+      "Ubuntu-configmgr",
+      "Ubuntu-conncenter",
+      "Ubuntu-fido2_llt",
+      "Ubuntu-logmgr",
+      "Ubuntu-nfcui",
+      "Ubuntu-receiver",
+      "Ubuntu-receiver_fido2",
+      "Ubuntu-selfservice",
+      "Ubuntu-sendfeedback",
+      "Ubuntu-wfica"
+    ],
+    "aliases_humanos": [
+      "citrix"
+    ],
+    "fonte": "current/48x48/apps-global/citrix.png",
+    "icon_original": "citrix",
+    "name": "Citrix Workspace",
+    "origem": "logo-usuario"
+  },
   "com.beholder.app": {
     "aliases": [
       "com.beholder.app"
@@ -232,66 +143,6 @@
     "fonte": "current/48x48/apps-global/Clapper.png",
     "icon_original": "com.github.rafostar.Clapper",
     "name": "Clapper",
-    "origem": "logo-usuario"
-  },
-  "firefox": {
-    "aliases": [
-      "firefox",
-      "firefox-esr"
-    ],
-    "aliases_humanos": [
-      "firefox"
-    ],
-    "fonte": "current/48x48/apps-global/firefox.png",
-    "icon_original": "firefox",
-    "name": "Firefox",
-    "origem": "logo-usuario"
-  },
-  "citrix": {
-    "aliases": [
-      "citrix",
-      "Ubuntu-configmgr",
-      "Ubuntu-conncenter",
-      "Ubuntu-fido2_llt",
-      "Ubuntu-logmgr",
-      "Ubuntu-nfcui",
-      "Ubuntu-receiver",
-      "Ubuntu-receiver_fido2",
-      "Ubuntu-selfservice",
-      "Ubuntu-sendfeedback",
-      "Ubuntu-wfica"
-    ],
-    "aliases_humanos": [
-      "citrix"
-    ],
-    "fonte": "current/48x48/apps-global/citrix.png",
-    "icon_original": "citrix",
-    "name": "Citrix Workspace",
-    "origem": "logo-usuario"
-  },
-  "dbeaver": {
-    "aliases": [
-      "dbeaver",
-      "io.dbeaver.DBeaverCommunity"
-    ],
-    "aliases_humanos": [
-      "dbeaver"
-    ],
-    "fonte": "current/48x48/apps-global/dbeaver.png",
-    "icon_original": "dbeaver",
-    "name": "DBeaver",
-    "origem": "logo-usuario"
-  },
-  "photogimp": {
-    "aliases": [
-      "photogimp"
-    ],
-    "aliases_humanos": [
-      "photogimp"
-    ],
-    "fonte": "current/48x48/apps-global/gimp.png",
-    "icon_original": "photogimp",
-    "name": "PhotoGIMP",
     "origem": "logo-usuario"
   },
   "com.github.tchx84.Flatseal": {
@@ -442,6 +293,19 @@
     "name": "Visual Studio Code - URL Handler",
     "origem": "current-nome"
   },
+  "dbeaver": {
+    "aliases": [
+      "dbeaver",
+      "io.dbeaver.DBeaverCommunity"
+    ],
+    "aliases_humanos": [
+      "dbeaver"
+    ],
+    "fonte": "current/48x48/apps-global/dbeaver.png",
+    "icon_original": "dbeaver",
+    "name": "DBeaver",
+    "origem": "logo-usuario"
+  },
   "display-im6.q16": {
     "aliases": [
       "display-im6.q16"
@@ -468,6 +332,19 @@
     "icon_original": "extase-em-4r73",
     "name": "Extase em 4R73",
     "origem": "alias-heuristico"
+  },
+  "firefox": {
+    "aliases": [
+      "firefox",
+      "firefox-esr"
+    ],
+    "aliases_humanos": [
+      "firefox"
+    ],
+    "fonte": "current/48x48/apps-global/firefox.png",
+    "icon_original": "firefox",
+    "name": "Firefox",
+    "origem": "logo-usuario"
   },
   "flatpak-installer": {
     "aliases": [
@@ -1208,6 +1085,18 @@
     "name": "LibreOffice",
     "origem": "nao-encontrado"
   },
+  "LinuxToys": {
+    "aliases": [
+      "LinuxToys"
+    ],
+    "aliases_humanos": [
+      "linuxtoys"
+    ],
+    "fonte": "new-sessao-atual/toolbox.svg",
+    "icon_original": "linuxtoys",
+    "name": "LinuxToys",
+    "origem": "override-novo"
+  },
   "luna": {
     "aliases": [
       "luna"
@@ -1240,6 +1129,19 @@
     "icon_original": "menulibre",
     "name": "Menu Editor",
     "origem": "override-novo"
+  },
+  "mnemo": {
+    "aliases": [
+      "mnemo",
+      "io.github.andrebfarias.Mnemo"
+    ],
+    "aliases_humanos": [
+      "mnemo"
+    ],
+    "fonte": "projects/mnemo.svg",
+    "icon_original": "mnemo",
+    "name": "Mnemo",
+    "origem": "arte-propria"
   },
   "nautilus-autorun-software": {
     "aliases": [
@@ -1300,6 +1202,18 @@
     "icon_original": "nvidia-settings",
     "name": "NVIDIA X Server Settings",
     "origem": "alias-heuristico"
+  },
+  "nyx": {
+    "aliases": [
+      "nyx"
+    ],
+    "aliases_humanos": [
+      "nyx"
+    ],
+    "fonte": "projects/nyx.svg",
+    "icon_original": "nyx",
+    "name": "Nyx",
+    "origem": "arte-propria"
   },
   "ocs-url": {
     "aliases": [
@@ -1383,6 +1297,15 @@
     "name": "GNU Image Manipulation Program",
     "origem": "alias-heuristico"
   },
+  "org.gnome.baobab": {
+    "aliases": [
+      "org.gnome.baobab"
+    ],
+    "fonte": "upstream/dracula-icons-circle/scalable/apps/org.gnome.baobab.svg",
+    "icon_original": "org.gnome.baobab",
+    "name": "Disk Usage Analyzer",
+    "origem": "upstream"
+  },
   "org.gnome.Calculator": {
     "aliases": [
       "org.gnome.Calculator"
@@ -1422,6 +1345,15 @@
     "icon_original": "org.gnome.DiskUtility",
     "name": "Disks",
     "origem": "override-novo"
+  },
+  "org.gnome.eog": {
+    "aliases": [
+      "org.gnome.eog"
+    ],
+    "fonte": "upstream/dracula-icons-circle/scalable/apps/org.gnome.eog.svg",
+    "icon_original": "org.gnome.eog",
+    "name": "Image Viewer",
+    "origem": "upstream"
   },
   "org.gnome.Evince": {
     "aliases": [
@@ -1475,6 +1407,63 @@
     "name": "Archive Manager",
     "origem": "override-novo"
   },
+  "org.gnome.font-viewer": {
+    "aliases": [
+      "org.gnome.font-viewer"
+    ],
+    "fonte": "new-sessao-atual/scroll.svg",
+    "icon_original": "org.gnome.font-viewer",
+    "name": "Fonts",
+    "origem": "override-novo"
+  },
+  "org.gnome.gedit": {
+    "aliases": [
+      "org.gnome.gedit"
+    ],
+    "aliases_humanos": [
+      "gedit",
+      "text-editor"
+    ],
+    "fonte": "current/scalable/apps/com.system76.CosmicEdit.svg",
+    "icon_original": "org.gnome.gedit",
+    "name": "Editor de texto",
+    "origem": "alias-heuristico"
+  },
+  "org.gnome.gitlab.somas.Apostrophe": {
+    "aliases": [
+      "org.gnome.gitlab.somas.Apostrophe"
+    ],
+    "aliases_humanos": [
+      "apostrophe",
+      "ghostwriter"
+    ],
+    "fonte": "current/scalable/apps/ghostwriter.svg",
+    "icon_original": "org.gnome.gitlab.somas.Apostrophe",
+    "name": "Apostrophe",
+    "origem": "alias-heuristico"
+  },
+  "org.gnome.gThumb": {
+    "aliases": [
+      "org.gnome.gThumb"
+    ],
+    "aliases_humanos": [
+      "gthumb"
+    ],
+    "fonte": "new-sessao-atual/eye-ball.svg",
+    "icon_original": "org.gnome.gThumb",
+    "name": "gThumb",
+    "origem": "override-novo"
+  },
+  "org.gnome.gThumb.Import": {
+    "aliases": [
+      "org.gnome.gThumb.Import",
+      "org.gnome.gThumb"
+    ],
+    "fonte": "upstream/dracula-icons-circle/scalable/apps/org.gnome.gThumb.svg",
+    "icon_original": "org.gnome.gThumb",
+    "name": "Import with gThumb",
+    "origem": "upstream"
+  },
   "org.gnome.Nautilus": {
     "aliases": [
       "org.gnome.Nautilus"
@@ -1496,6 +1485,19 @@
     "icon_original": "org.gnome.PowerStats",
     "name": "Estatísticas de energia",
     "origem": "upstream"
+  },
+  "org.gnome.seahorse.Application": {
+    "aliases": [
+      "org.gnome.seahorse.Application"
+    ],
+    "aliases_humanos": [
+      "seahorse",
+      "passwords-and-keys"
+    ],
+    "fonte": "new-sessao-atual/key.svg",
+    "icon_original": "org.gnome.seahorse.Application",
+    "name": "Passwords and Keys",
+    "origem": "override-novo"
   },
   "org.gnome.Shell.Extensions": {
     "aliases": [
@@ -1528,103 +1530,6 @@
     "name": "Terminal",
     "origem": "alias-heuristico"
   },
-  "org.gnome.Weather": {
-    "aliases": [
-      "org.gnome.Weather"
-    ],
-    "fonte": "current/scalable/apps/org.gnome.Weather.svg",
-    "icon_original": "org.gnome.Weather",
-    "name": "Weather",
-    "origem": "current-nome"
-  },
-  "org.gnome.baobab": {
-    "aliases": [
-      "org.gnome.baobab"
-    ],
-    "fonte": "upstream/dracula-icons-circle/scalable/apps/org.gnome.baobab.svg",
-    "icon_original": "org.gnome.baobab",
-    "name": "Disk Usage Analyzer",
-    "origem": "upstream"
-  },
-  "org.gnome.eog": {
-    "aliases": [
-      "org.gnome.eog"
-    ],
-    "fonte": "upstream/dracula-icons-circle/scalable/apps/org.gnome.eog.svg",
-    "icon_original": "org.gnome.eog",
-    "name": "Image Viewer",
-    "origem": "upstream"
-  },
-  "org.gnome.font-viewer": {
-    "aliases": [
-      "org.gnome.font-viewer"
-    ],
-    "fonte": "new-sessao-atual/scroll.svg",
-    "icon_original": "org.gnome.font-viewer",
-    "name": "Fonts",
-    "origem": "override-novo"
-  },
-  "org.gnome.gThumb": {
-    "aliases": [
-      "org.gnome.gThumb"
-    ],
-    "aliases_humanos": [
-      "gthumb"
-    ],
-    "fonte": "new-sessao-atual/eye-ball.svg",
-    "icon_original": "org.gnome.gThumb",
-    "name": "gThumb",
-    "origem": "override-novo"
-  },
-  "org.gnome.gThumb.Import": {
-    "aliases": [
-      "org.gnome.gThumb.Import",
-      "org.gnome.gThumb"
-    ],
-    "fonte": "upstream/dracula-icons-circle/scalable/apps/org.gnome.gThumb.svg",
-    "icon_original": "org.gnome.gThumb",
-    "name": "Import with gThumb",
-    "origem": "upstream"
-  },
-  "org.gnome.gedit": {
-    "aliases": [
-      "org.gnome.gedit"
-    ],
-    "aliases_humanos": [
-      "gedit",
-      "text-editor"
-    ],
-    "fonte": "current/scalable/apps/com.system76.CosmicEdit.svg",
-    "icon_original": "org.gnome.gedit",
-    "name": "Editor de texto",
-    "origem": "alias-heuristico"
-  },
-  "org.gnome.gitlab.somas.Apostrophe": {
-    "aliases": [
-      "org.gnome.gitlab.somas.Apostrophe"
-    ],
-    "aliases_humanos": [
-      "apostrophe",
-      "ghostwriter"
-    ],
-    "fonte": "current/scalable/apps/ghostwriter.svg",
-    "icon_original": "org.gnome.gitlab.somas.Apostrophe",
-    "name": "Apostrophe",
-    "origem": "alias-heuristico"
-  },
-  "org.gnome.seahorse.Application": {
-    "aliases": [
-      "org.gnome.seahorse.Application"
-    ],
-    "aliases_humanos": [
-      "seahorse",
-      "passwords-and-keys"
-    ],
-    "fonte": "new-sessao-atual/key.svg",
-    "icon_original": "org.gnome.seahorse.Application",
-    "name": "Passwords and Keys",
-    "origem": "override-novo"
-  },
   "org.gnome.tweaks": {
     "aliases": [
       "org.gnome.tweaks"
@@ -1637,6 +1542,15 @@
     "icon_original": "org.gnome.tweaks",
     "name": "Tweaks",
     "origem": "override-novo"
+  },
+  "org.gnome.Weather": {
+    "aliases": [
+      "org.gnome.Weather"
+    ],
+    "fonte": "current/scalable/apps/org.gnome.Weather.svg",
+    "icon_original": "org.gnome.Weather",
+    "name": "Weather",
+    "origem": "current-nome"
   },
   "org.kde.krita": {
     "aliases": [
@@ -1976,6 +1890,18 @@
     "name": "PDForge",
     "origem": "alias-heuristico"
   },
+  "photogimp": {
+    "aliases": [
+      "photogimp"
+    ],
+    "aliases_humanos": [
+      "photogimp"
+    ],
+    "fonte": "current/48x48/apps-global/gimp.png",
+    "icon_original": "photogimp",
+    "name": "PhotoGIMP",
+    "origem": "logo-usuario"
+  },
   "pop-cosmic-applications": {
     "aliases": [
       "pop-cosmic-applications"
@@ -2002,6 +1928,18 @@
     "icon_original": "pop-cosmic-workspaces",
     "name": "Mostrar Áreas de Trabalho",
     "origem": "upstream"
+  },
+  "protocolo-ouroboros": {
+    "aliases": [
+      "protocolo-ouroboros"
+    ],
+    "aliases_humanos": [
+      "protocolo ouroboros"
+    ],
+    "fonte": "projects/protocolo-ouroboros.png",
+    "icon_original": "protocolo-ouroboros",
+    "name": "Protocolo Ouroboros",
+    "origem": "arte-propria"
   },
   "python3.10": {
     "aliases": [
@@ -2030,6 +1968,19 @@
     "name": "Repoman",
     "origem": "nao-encontrado"
   },
+  "rlogo_icon": {
+    "aliases": [
+      "rlogo_icon",
+      "R"
+    ],
+    "aliases_humanos": [
+      "R"
+    ],
+    "fonte": "new-sessao-atual/spell-book.svg",
+    "icon_original": "rlogo_icon",
+    "name": "R",
+    "origem": "override-novo"
+  },
   "setup-mozc": {
     "aliases": [
       "setup-mozc"
@@ -2038,6 +1989,18 @@
     "icon_original": "/usr/share/icons/mozc/product_icon_32bpp-128.png",
     "name": "Mozc Setup",
     "origem": "override-novo"
+  },
+  "sigilo": {
+    "aliases": [
+      "sigilo"
+    ],
+    "aliases_humanos": [
+      "sigilo"
+    ],
+    "fonte": "projects/sigilo.png",
+    "icon_original": "sigilo",
+    "name": "Sigilo",
+    "origem": "arte-propria"
   },
   "simple-scan": {
     "aliases": [
@@ -2079,6 +2042,118 @@
     "icon_original": "printer",
     "name": "Printers",
     "origem": "upstream"
+  },
+  "uad-ng": {
+    "aliases": [
+      "uad-ng"
+    ],
+    "aliases_humanos": [
+      "uad ng",
+      "universal android debloater"
+    ],
+    "fonte": "projects/uad-ng.png",
+    "icon_original": "uad-ng",
+    "name": "UAD-NG",
+    "origem": "arte-propria"
+  },
+  "Ubuntu": {
+    "aliases": [
+      "Ubuntu"
+    ],
+    "fonte": "projects/ubuntu-distrobox.png",
+    "icon_original": "Ubuntu",
+    "name": "Ubuntu",
+    "origem": "alias-heuristico"
+  },
+  "Ubuntu-configmgr": {
+    "aliases": [
+      "Ubuntu-configmgr"
+    ],
+    "fonte": "Ubuntu-configmgr",
+    "icon_original": "Ubuntu-configmgr",
+    "name": "Citrix Workspace (configmgr) (on Ubuntu)",
+    "origem": "nao-encontrado"
+  },
+  "Ubuntu-conncenter": {
+    "aliases": [
+      "Ubuntu-conncenter"
+    ],
+    "fonte": "Ubuntu-conncenter",
+    "icon_original": "Ubuntu-conncenter",
+    "name": "Citrix Workspace (conncenter) (on Ubuntu)",
+    "origem": "nao-encontrado"
+  },
+  "Ubuntu-fido2_llt": {
+    "aliases": [
+      "Ubuntu-fido2_llt"
+    ],
+    "fonte": "Ubuntu-fido2_llt",
+    "icon_original": "Ubuntu-fido2_llt",
+    "name": "Citrix Workspace Launcher (on Ubuntu)",
+    "origem": "nao-encontrado"
+  },
+  "Ubuntu-logmgr": {
+    "aliases": [
+      "Ubuntu-logmgr"
+    ],
+    "fonte": "Ubuntu-logmgr",
+    "icon_original": "Ubuntu-logmgr",
+    "name": "Citrix Workspace (logmgr) (on Ubuntu)",
+    "origem": "nao-encontrado"
+  },
+  "Ubuntu-nfcui": {
+    "aliases": [
+      "Ubuntu-nfcui"
+    ],
+    "fonte": "Ubuntu-nfcui",
+    "icon_original": "Ubuntu-nfcui",
+    "name": "Citrix Workspace (nfcui) (on Ubuntu)",
+    "origem": "nao-encontrado"
+  },
+  "Ubuntu-receiver": {
+    "aliases": [
+      "Ubuntu-receiver"
+    ],
+    "fonte": "Ubuntu-receiver",
+    "icon_original": "Ubuntu-receiver",
+    "name": "Citrix Workspace Launcher (on Ubuntu)",
+    "origem": "nao-encontrado"
+  },
+  "Ubuntu-receiver_fido2": {
+    "aliases": [
+      "Ubuntu-receiver_fido2"
+    ],
+    "fonte": "Ubuntu-receiver_fido2",
+    "icon_original": "Ubuntu-receiver_fido2",
+    "name": "Citrix Workspace Launcher (on Ubuntu)",
+    "origem": "nao-encontrado"
+  },
+  "Ubuntu-selfservice": {
+    "aliases": [
+      "Ubuntu-selfservice"
+    ],
+    "fonte": "Ubuntu-selfservice",
+    "icon_original": "Ubuntu-selfservice",
+    "name": "Citrix Workspace (on Ubuntu)",
+    "origem": "nao-encontrado"
+  },
+  "Ubuntu-sendfeedback": {
+    "aliases": [
+      "Ubuntu-sendfeedback"
+    ],
+    "fonte": "Ubuntu-sendfeedback",
+    "icon_original": "Ubuntu-sendfeedback",
+    "name": "Citrix Workspace (sendfeedback) (on Ubuntu)",
+    "origem": "nao-encontrado"
+  },
+  "Ubuntu-wfica": {
+    "aliases": [
+      "Ubuntu-wfica"
+    ],
+    "fonte": "Ubuntu-wfica",
+    "icon_original": "Ubuntu-wfica",
+    "name": "Citrix Workspace Engine (on Ubuntu)",
+    "origem": "nao-encontrado"
   },
   "ulauncher": {
     "aliases": [
@@ -2143,18 +2218,5 @@
     "icon_original": "org.gnome.Yelp",
     "name": "Ajuda",
     "origem": "upstream"
-  },
-  "rlogo_icon": {
-    "aliases": [
-      "rlogo_icon",
-      "R"
-    ],
-    "aliases_humanos": [
-      "R"
-    ],
-    "fonte": "new-sessao-atual/spell-book.svg",
-    "icon_original": "rlogo_icon",
-    "name": "R",
-    "origem": "override-novo"
   }
 }

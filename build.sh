@@ -144,6 +144,11 @@ gerar_tema_icones() {
             IFS=',' read -ra extras <<< "$grupo"
             for extra in "${extras[@]}"; do
                 [[ -z "$extra" ]] && continue
+                # Espaço no nome do arquivo faz gtk-update-icon-cache descartar o
+                # cache INTEIRO ("The generated cache was invalid"), não só a
+                # entrada. Como aliases_humanos aceita nome com espaço por
+                # natureza, normalizamos aqui em vez de confiar no mapping.
+                extra="${extra// /-}"
                 ja=0
                 for a in "${alvos[@]}"; do [[ "$a" == "$extra" ]] && { ja=1; break; }; done
                 [[ $ja -eq 0 ]] && alvos+=("$extra")
