@@ -45,6 +45,7 @@ declare -A PACOTE_APT=(
     [unzip]="unzip"
     [sha256sum]="coreutils"
     [readlink]="coreutils"
+    [vainfo]="vainfo"
 )
 
 check_bin() {
@@ -80,6 +81,12 @@ check_bin readlink
 
 # ─── GNOME / Pop!_OS ───
 check_bin gnome-extensions
+
+# ─── Diagnóstico de vídeo (opcional) ───
+# vainfo lista os codecs que a GPU decodifica em hardware. É o que prova se o
+# navegador está usando a GPU ou queimando CPU no vídeo — ver o proof-of-work
+# da SPRINT 35. Opcional: nada do tema deixa de instalar sem ele.
+check_bin vainfo 0
 
 # ─── Pelo menos um conversor SVG → PNG ───
 conversor_ok=0
