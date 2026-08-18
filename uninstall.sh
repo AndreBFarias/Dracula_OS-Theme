@@ -145,6 +145,25 @@ if [[ "$MODO" == "user" ]]; then
     fi
 fi
 
+# Reverter o patch do menu de sistema na tela secundária
+if [[ "$MODO" == "user" ]]; then
+    if [[ -x "$REPO_ROOT/scripts/instalar_patch_multi_monitors.sh" ]]; then
+        "$REPO_ROOT/scripts/instalar_patch_multi_monitors.sh" --reverter || true
+    fi
+fi
+
+# Restaurar o index.theme do hicolor anterior ao reparar_hicolor_index.sh.
+# Só restaura o .bak, que é o índice de terceiros de antes da primeira execução;
+# se ele não existe, o índice atual não foi criado por nós e fica como está.
+if [[ "$MODO" == "user" ]]; then
+    indice="$HOME/.local/share/icons/hicolor/index.theme"
+    if [[ -f "$indice.bak" ]]; then
+        mv "$indice.bak" "$indice" && echo "index.theme do hicolor restaurado."
+        command -v gtk-update-icon-cache &>/dev/null &&
+            gtk-update-icon-cache -f -t "$HOME/.local/share/icons/hicolor" &>/dev/null || true
+    fi
+fi
+
 echo "Desinstalação concluída. Reverta gsettings manualmente se necessário."
 
 # "Memento mori." -- lembra-te que és mortal.

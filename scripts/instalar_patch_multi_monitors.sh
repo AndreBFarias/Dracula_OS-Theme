@@ -21,14 +21,20 @@
 #
 # Idempotência:
 #   detecta _addStatusExtras no destino e sai sem tocar em nada.
-#   Guarda mmpanel.js.orig na primeira aplicação; --reverter restaura por ele.
+#   Guarda mmpanel.js.dracula-orig na primeira aplicação (nome próprio, para não
+#   pisar em .orig/.bak de outra ferramenta) junto da versão da extensão.
+#   --reverter recusa restaurar sobre uma versão diferente da que gerou o backup:
+#   um update da extensão apaga o patch, e restaurar o backup velho por cima
+#   seria downgrade silencioso.
 #
 # Variáveis de ambiente:
 #   DRACULA_DRY_RUN=1 — não grava; apenas informa o que faria.
 #
 # Saída:
 #   exit 0 — aplicado, revertido ou já aplicado.
-#   exit 1 — extensão ausente, arquivo inesperado ou patch resultou em JS inválido.
+#   exit 1 — extensão ausente, arquivo inesperado, patch resultou em JS inválido
+#            ou --reverter com backup de outra versão.
+#   Sem node instalado o patch é aplicado sem validação de sintaxe, com aviso.
 #   exit 2 — argumento inválido.
 #
 # Sem sudo. Após rodar, reinicie o Shell (X11: Alt+F2, r).
@@ -42,6 +48,8 @@ source "$SCRIPT_DIR/lib/common.sh"
 
 readonly EXT_DIR="$HOME/.local/share/gnome-shell/extensions/multi-monitors-add-on@spin83"
 readonly ALVO="$EXT_DIR/mmpanel.js"
+readonly BACKUP="$ALVO.dracula-orig"
+readonly BACKUP_VER="$ALVO.dracula-orig.version"
 readonly FRAGMENTO="$REPO_ROOT/src/shell/mm-status-extras.js"
 readonly DRY_RUN="${DRACULA_DRY_RUN:-0}"
 
@@ -68,12 +76,20 @@ if [[ ! -f "$ALVO" ]]; then
 fi
 
 if [[ "$ACAO" == "reverter" ]]; then
-    if [[ ! -f "$ALVO.orig" ]]; then
-        _warn "sem mmpanel.js.orig; nada a reverter"
+    if [[ ! -f "$BACKUP" ]]; then
+        _warn "sem $(basename "$BACKUP"); nada a reverter"
         exit 0
     fi
+    ver_atual=$(jq -r '.version // empty' "$EXT_DIR/metadata.json" 2>/dev/null || true)
+    ver_backup=$(cat "$BACKUP_VER" 2>/dev/null || true)
+    if [[ -n "$ver_backup" && -n "$ver_atual" && "$ver_backup" != "$ver_atual" ]]; then
+        _err "backup é da versão $ver_backup e a extensão está na $ver_atual"
+        _err "restaurar seria downgrade; apague $(basename "$BACKUP") se quiser mesmo"
+        exit 1
+    fi
     [[ "$DRY_RUN" == "1" ]] && { _info "[dry-run] restauraria $ALVO"; exit 0; }
-    mv "$ALVO.orig" "$ALVO"
+    mv "$BACKUP" "$ALVO"
+    rm -f "$BACKUP_VER"
     _ok "mmpanel.js restaurado — reinicie o Shell (Alt+F2, r)"
     exit 0
 fi
@@ -93,7 +109,12 @@ if [[ "$DRY_RUN" == "1" ]]; then
     exit 0
 fi
 
-cp "$ALVO" "$ALVO.orig"
+if [[ -e "$BACKUP" ]]; then
+    _warn "$(basename "$BACKUP") já existe; preservando o backup mais antigo"
+else
+    cp "$ALVO" "$BACKUP"
+    jq -r '.version // empty' "$EXT_DIR/metadata.json" 2>/dev/null > "$BACKUP_VER" || true
+fi
 
 if ! /usr/bin/python3 - "$ALVO" "$FRAGMENTO" <<'PY'
 import sys, pathlib
@@ -135,15 +156,19 @@ alvo.write_text(s)
 PY
 then
     _err "falha ao aplicar o patch; restaurando original"
-    mv "$ALVO.orig" "$ALVO"
+    cp "$BACKUP" "$ALVO"
     exit 1
 fi
 
 # node só valida sintaxe; não roda o arquivo (ele depende do runtime do Shell).
-if command -v node &>/dev/null && ! node --check "$ALVO" &>/dev/null; then
-    _err "patch gerou JS inválido; restaurando original"
-    mv "$ALVO.orig" "$ALVO"
-    exit 1
+if command -v node &>/dev/null; then
+    if ! node --check "$ALVO" &>/dev/null; then
+        _err "patch gerou JS inválido; restaurando original"
+        cp "$BACKUP" "$ALVO"
+        exit 1
+    fi
+else
+    _warn "node ausente: sintaxe do patch NÃO validada"
 fi
 
 _ok "menu de sistema replicado na tela secundária — reinicie o Shell (Alt+F2, r)"

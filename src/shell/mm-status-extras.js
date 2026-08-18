@@ -13,6 +13,11 @@
 //
 // Tudo em try/catch: isto depende do miolo de extensões de terceiros. Se uma
 // delas mudar de forma, esta tela perde o extra e o painel segue de pé.
+//
+// Limitação conhecida: o enable() da SDC faz um append_search_path no
+// Gtk.IconTheme que ela nunca desfaz, então cada criação deste painel (troca
+// de monitor, Alt+F2 r) repete o path. É uma string por reinício do Shell,
+// inofensiva; evitar exigiria reimplementar o enable() dela por inteiro.
 function _addStatusExtras(aggregateMenu) {
     let extras = { sdc: null, avatarItem: null };
 
@@ -61,8 +66,32 @@ function _removeStatusExtras(extras) {
     if (!extras)
         return;
     try {
-        if (extras.sdc)
-            extras.sdc.disable();
+        // NÃO chamar extras.sdc.disable(): ele abre removendo os keybindings
+        // "cycle-output-forward" e irmãos por nome GLOBAL, que pertencem à
+        // instância do monitor primário — desmontar esta tela apagaria os
+        // atalhos de áudio da outra. Repetimos aqui só a parte por instância.
+        let sdc = extras.sdc;
+        if (sdc) {
+            sdc._revertVolMenuChanges();
+            for (let campo of ['_outputInstance', '_inputInstance']) {
+                if (sdc[campo]) {
+                    sdc[campo].setVisible(false);
+                    sdc[campo].destroy();
+                    sdc[campo] = null;
+                }
+            }
+            for (let campo of ['_volumeMenuInstance', '_volumeMixerInstance']) {
+                if (sdc[campo]) {
+                    sdc[campo].destroy();
+                    sdc[campo] = null;
+                }
+            }
+            if (sdc._signalManager) {
+                sdc._signalManager.disconnectAll();
+                sdc._signalManager = null;
+            }
+            sdc._settings = null;
+        }
     } catch (e) {
         global.log('multi-monitors-add-on: falha ao desmontar seletor de audio: ' + e);
     }
