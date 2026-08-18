@@ -1,7 +1,7 @@
-# Sprint 35 — Higiene do lançador + IA local e GPU no Chrome
+# Sprint 35 — Higiene do lançador + Chrome sem IA local e com vídeo na GPU
 
-Limpeza do menu de aplicativos e correção da policy do Chrome, que bloqueava a
-IA local do navegador.
+Limpeza do menu de aplicativos e ajuste do Chrome: **IA local segue bloqueada**
+de propósito, e a decodificação de vídeo passa a usar a GPU.
 
 > **Decisões fixas**:
 > - **Ocultar, não desinstalar**, quando o app é do sistema ou tem outro
@@ -43,31 +43,45 @@ Caminho absoluto faz o GTK ignorar o tema de ícones — por isso o Ghostty nunc
 recebia arte Dracula. O override troca por `Icon=ghostty` e o `mapping.json`
 aponta para `current/scalable/apps/025-candle-1.svg`.
 
-## Chrome: IA local estava bloqueada
+## Chrome: IA local travada, vídeo na GPU
 
-`/etc/opt/chrome/policies/managed/aurora-no-ai-no-antigravity.json` desligava a
-IA local junto com a de nuvem:
+O modelo on-device do Chrome gasta CPU, RAM e disco **da máquina do usuário**
+para servir um recurso do Google. Fica desligado. O que se quer acelerado é o
+vídeo — o YouTube estava sendo decodificado em software.
 
-| Chave | Antes | Depois |
+`/etc/opt/chrome/policies/managed/aurora-no-ai-no-antigravity.json`:
+
+| Chave | Valor | Efeito |
 |---|---|---|
-| `OptimizationGuideOnDeviceModelExecutionEnabled` | `false` | `true` |
-| `GenAILocalFoundationalModelSettings` | `1` (não baixar modelo) | `0` |
-| `BuiltInAIAPIsEnabled` | `false` | `true` |
-| `HardwareAccelerationModeEnabled` | ausente | `true` |
+| `OptimizationGuideOnDeviceModelExecutionEnabled` | `false` | modelo on-device não executa |
+| `GenAILocalFoundationalModelSettings` | `1` | não baixa o modelo |
+| `BuiltInAIAPIsEnabled` | `false` | sem `window.ai` / Prompt API |
+| `HardwareAccelerationModeEnabled` | `true` | aceleração travada como ligada |
 
-As features de nuvem seguem desligadas (`HelpMeWrite`, `Compose`,
-`TabOrganizer`, `TabCompare`, `HistorySearch`, `CreateThemes`,
-`AutofillPrediction`, `DevToolsGenAi`) — elas mandam conteúdo ao Google; a IA
-local roda on-device.
+As de nuvem seguem desligadas (`HelpMeWrite`, `Compose`, `TabOrganizer`,
+`TabCompare`, `HistorySearch`, `CreateThemes`, `AutofillPrediction`,
+`DevToolsGenAi`).
 
-**A correção teve de ser feita na origem.** O `aurora-chrome-divert-apply.sh`
-reescreve a policy inteira com `sudo tee` a cada execução, e o hook
-`/etc/apt/apt.conf.d/99-aurora-postinvoke` o dispara em toda operação do apt.
-Editar só o JSON seria desfeito no próximo `apt install`.
+### Decodificação de vídeo por hardware
 
-Aceleração de GPU já estava ativa antes da mudança
-(`hardware_acceleration_mode_previous: true` no `Local State`); a policy agora
-trava esse estado.
+`vainfo` na iGPU AMD Radeon 660M (`radeonsi`) reporta `VAProfileVP9Profile0` e
+`VAProfileAV1Profile0` em `VAEntrypointVLD` — exatamente os codecs que o YouTube
+entrega. O wrapper passou a injetar:
+
+```
+--ignore-gpu-blocklist --enable-gpu-rasterization --enable-zero-copy
+--enable-features=VaapiVideoDecoder,VaapiVideoDecodeLinuxGL,VaapiIgnoreDriverChecks
+LIBVA_DRIVER_NAME=radeonsi
+```
+
+`LIBVA_DRIVER_NAME` fixa a iGPU: nesta máquina híbrida a NVIDIA dedicada não tem
+driver VA-API instalado, e sem a dica a escolha fica ao acaso.
+
+**As duas correções tiveram de ser feitas na origem.** O
+`aurora-chrome-divert-apply.sh` reescreve a policy com `sudo tee` e reinstala o
+wrapper a cada execução, e o hook `/etc/apt/apt.conf.d/99-aurora-postinvoke` o
+dispara em toda operação do apt. Editar só os arquivos finais seria desfeito no
+próximo `apt install`.
 
 ## Proof-of-work
 
@@ -76,4 +90,6 @@ trava esse estado.
 ~/.config/zsh/aurora/aurora-chrome-divert-apply.sh   # policy sobrevive ao self-heal
 /usr/bin/python3 -c "import json; d=json.load(open('/etc/opt/chrome/policies/managed/aurora-no-ai-no-antigravity.json')); print(d['BuiltInAIAPIsEnabled'], d['HardwareAccelerationModeEnabled'])"
 xdg-mime query default text/plain            # espera org.gnome.gedit.desktop
+LIBVA_DRIVER_NAME=radeonsi vainfo | grep -E "VP9|AV1"   # codecs em hardware
+timeout 30 /usr/bin/google-chrome-stable --headless=new --dump-dom about:blank
 ```
