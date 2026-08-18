@@ -142,6 +142,15 @@ for tema in Dracula-Icones dracula-icons-main dracula-icons-circle Dracula-Curso
 done
 _ok "ícones instalados"
 
+# ─── Índice do hicolor do usuário (não-fatal) ───
+# Precisa vir ANTES de qualquer script que grave ícone em ~/.local/share/icons/
+# hicolor: diretório fora de Directories= faz o GTK ignorar o arquivo, e é o
+# caso de 32x32/apps, usado como fallback pelo atualizar_icones_steam.sh.
+if [[ "$MODO" == "user" ]]; then
+    _info "Conferindo índice do hicolor do usuário (não-fatal)"
+    "$REPO_ROOT/scripts/reparar_hicolor_index.sh" || _warn "reparar_hicolor_index.sh falhou (não-fatal)"
+fi
+
 # ─── Ícones de jogos Steam (não-fatal) ───
 if [[ "$MODO" == "user" ]]; then
     _info "Atualizando ícones de jogos Steam (não-fatal)"
@@ -187,6 +196,10 @@ if [[ $POP_SHELL_CSS -eq 1 ]]; then
     echo ""
     _info "Higiene do app-grid Pop!_Cosmic (esconder gnome-session-properties + remover pasta Utilities)"
     "$REPO_ROOT/scripts/instalar_higiene_launcher.sh" || _warn "Higiene do launcher falhou (não-fatal)"
+
+    echo ""
+    _info "Menu de sistema na tela secundária (multi-monitors-add-on; não-fatal)"
+    "$REPO_ROOT/scripts/instalar_patch_multi_monitors.sh" || _warn "Patch multi-monitors falhou (não-fatal)"
 fi
 
 # ─── Sons (tema Pop) ───
