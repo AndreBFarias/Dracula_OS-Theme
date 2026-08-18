@@ -6,8 +6,8 @@ Implementação do que a SPRINT_01 desenhou em pseudo-código. O tema agora se a
 
 Auditoria pós `apt full-upgrade` (2026-04-17, Pop!_OS 22.04 + GNOME 42.9) identificou:
 
-- ✅ Tema **sobrevive a reboot** — gsettings/dconf persistem.
-- ⚠️ Tema **regride em componentes específicos** após upgrade:
+- [OK] Tema **sobrevive a reboot** — gsettings/dconf persistem.
+- [Atenção] Tema **regride em componentes específicos** após upgrade:
   - `/usr/share/gnome-shell/extensions/pop-shell@system76.com/dark.css` volta ao original (laranja).
   - `/usr/share/gnome-shell/extensions/pop-cosmic@system76.com/dark.css` idem.
   - `gsettings org.gnome.desktop.sound theme-name` volta para `'freedesktop'` (**confirmado no diagnóstico real em 2026-04-17**).

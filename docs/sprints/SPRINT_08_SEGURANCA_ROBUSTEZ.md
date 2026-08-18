@@ -52,8 +52,8 @@ Copia origem (arquivo ou diretório) para `destino_dir/` E gera `destino_dir/<no
 
 1. **Sintaxe bash** — `bash -n` em `lib/common.sh`, `uninstall.sh`, `limpar_duplicatas.sh`, `instalar_app_themes.sh` passou.
 2. **`validar_path_destrutivo` em 7 cenários:**
-   - ✅ aceita `$HOME/.local/share/icons/Dracula-Icones`, `/usr/share/gnome-shell/extensions/pop-shell@system76.com`.
-   - ✅ rejeita `/tmp/qualquer`, `/`, `$HOME` puro, `$HOME/Documentos`, string vazia.
+   - [OK] aceita `$HOME/.local/share/icons/Dracula-Icones`, `/usr/share/gnome-shell/extensions/pop-shell@system76.com`.
+   - [OK] rejeita `/tmp/qualquer`, `/`, `$HOME` puro, `$HOME/Documentos`, string vazia.
 3. **`backup_com_manifest`** — cria cópia + `.sha256`, validação sha256sum -c passa.
 4. **Idempotência kitty** — `instalar_app_themes.sh` rodado 2x em sequência; `grep -c "^include current-theme.conf$" ~/.config/kitty/kitty.conf` = 1.
 5. **`diagnostico.sh --quiet`** após todas as mudanças continua exit 0.

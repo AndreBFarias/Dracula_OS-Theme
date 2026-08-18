@@ -2,7 +2,7 @@
 
 # Install Vesktop
 
-### [INSTALL VESKTOP HERE 🧛‍♂️](https://github.com/Vencord/Vesktop/releases/)
+### [INSTALL VESKTOP HERE](https://github.com/Vencord/Vesktop/releases/)
 
 <br>
 

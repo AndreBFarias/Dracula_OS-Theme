@@ -18,14 +18,14 @@ final em `src/shell/pop-cosmic-dark.css`:
 
 **Investigação registrada (mantida para referência)**:
 
-- **H1 (extensões carregadas)**: ✓ `pop-cosmic` + `pop-shell` + `dash-to-dock-cosmic` ativas.
+- **H1 (extensões carregadas)**: [OK] `pop-cosmic` + `pop-shell` + `dash-to-dock-cosmic` ativas.
 - **H2 (sessão)**: X11.
-- **H3 (JS setters)**: ✓ descartado — `applications.js:721` só seta
+- **H3 (JS setters)**: [OK] descartado — `applications.js:721` só seta
   `height/width`, não `background`.
-- **H4 (teste CSS vermelho)**: ✓ appended `.cosmic-applications-dialog {
+- **H4 (teste CSS vermelho)**: [OK] appended `.cosmic-applications-dialog {
   background: #ff0000 !important; }` ao `dark.css` da extensão. Launcher
   ficou vermelho puro → seletor correto.
-- **H5 (alpha renderiza)**: ✓ appended `rgba(40,42,54,0.3)`. Launcher
+- **H5 (alpha renderiza)**: [OK] appended `rgba(40,42,54,0.3)`. Launcher
   ficou transparente → compositor aceita alpha. Causa do "bug" original:
   valor 0.70 era alto demais.
 - **H6 (dconf keys)**: descartado — sem keys de opacity/blur expostas.

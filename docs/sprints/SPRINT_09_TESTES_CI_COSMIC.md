@@ -53,9 +53,9 @@ Valores default (42/46) cobrem Pop!_OS 22.04 LTS (GNOME 42) até 24.04 (GNOME 46
 
 | Cenário | Status | Nota |
 |---|---|---|
-| Pop!_OS 22.04 GNOME 42 | ✅ Testado | Ambiente do autor; todo o pipeline validado. |
-| Pop!_OS 24.04 GNOME 46 | ⚠️ Preparado, não testado | `extensions.json` declara `shell-version-max: 46`; `checar_ambiente.sh` aceita; falta teste em VM real. |
-| Pop!_OS 24.04 COSMIC | ⚠️ Detecção graciosa | `instalar_gnome_extensions.sh` aborta com mensagem clara; ícones/GTK/sons aplicam normalmente. Pop!_Shell/Pop!_Cosmic CSS pode precisar ajuste (paths talvez mudem em COSMIC). |
+| Pop!_OS 22.04 GNOME 42 | [OK] Testado | Ambiente do autor; todo o pipeline validado. |
+| Pop!_OS 24.04 GNOME 46 | [Atenção] Preparado, não testado | `extensions.json` declara `shell-version-max: 46`; `checar_ambiente.sh` aceita; falta teste em VM real. |
+| Pop!_OS 24.04 COSMIC | [Atenção] Detecção graciosa | `instalar_gnome_extensions.sh` aborta com mensagem clara; ícones/GTK/sons aplicam normalmente. Pop!_Shell/Pop!_Cosmic CSS pode precisar ajuste (paths talvez mudem em COSMIC). |
 
 O teste real em 24.04 requer VM e fica como item não-bloqueante pós-sprint. Todos os mecanismos de detecção e fallback já estão prontos.
 
