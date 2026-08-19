@@ -42,28 +42,72 @@ fi
 #
 # rsync -c compara por CHECKSUM, não por mtime: o build.sh é determinístico
 # (exclude-chunk=date,tIME em redimensionar_png), então "nada transferido"
-# significa mesmo conteúdo. Sem --delete de propósito -- arquivos extras no
-# destino não são removidos, mesmo contrato do install.sh.
+# significa mesmo conteúdo.
+#
+# --delete: estes quatro diretórios são 100% gerados pelo build.sh, então o
+# destino tem que CONVERGIR para o dist/ -- arquivo que sobrou de um mapping
+# antigo continua sendo servido pelo tema (e pode sombrear o hicolor). Duas
+# guardas antes de deletar qualquer coisa:
+#   1. validar_path_destrutivo (allowlist de lib/common.sh);
+#   2. razão dist/destino: se o dist/ tem menos de 90% dos arquivos do destino,
+#      é build parcial ou interrompido -- ressincroniza sem deletar e avisa.
+# Sem backup a cada rodada de propósito: o conteúdo é integralmente regenerável
+# por ./build.sh && ./install.sh --user.
 if [[ -d "$REPO_ROOT/dist/icons" ]] && command -v rsync &>/dev/null; then
     _info "Conferindo temas de ícones contra dist/"
     total_ressync=0
+    total_removidos=0
     for tema in Dracula-Icones dracula-icons-main dracula-icons-circle Dracula-Cursor; do
-        [[ -d "$REPO_ROOT/dist/icons/$tema" ]] || continue
-        [[ -d "$HOME/.local/share/icons/$tema" ]] || continue
+        src_tema="$REPO_ROOT/dist/icons/$tema"
+        dest_tema="$HOME/.local/share/icons/$tema"
+        [[ -d "$src_tema" ]] || continue
+        [[ -d "$dest_tema" ]] || continue
+
+        delete_flag=()
+        if ! validar_path_destrutivo "$dest_tema" >/dev/null 2>&1; then
+            _warn "$tema: destino fora da allowlist destrutiva — sincronizo sem --delete"
+        else
+            n_src=$(find "$src_tema" -type f ! -name icon-theme.cache | wc -l)
+            n_dest=$(find "$dest_tema" -type f ! -name icon-theme.cache | wc -l)
+            if [[ "$n_dest" -gt 0 && $((n_src * 100 / n_dest)) -lt 90 ]]; then
+                _warn "$tema: dist/ tem $n_src arquivos contra $n_dest instalados" \
+                    "— build parcial? sincronizo sem --delete"
+            else
+                delete_flag=(--delete)
+            fi
+        fi
+
         # -l: os upstreams trazem diretórios @2x como symlink; sem ele o rsync
         #     imprime "skipping non-regular file" em stdout a cada rodada e a
         #     contagem nunca zera.
         # --exclude icon-theme.cache: gerado localmente pela seção 8; comparar
         #     contra a cópia do dist/ daria divergência eterna de 1 arquivo.
-        n=$(rsync -rlc --out-format='%n' --exclude=icon-theme.cache \
-            "$REPO_ROOT/dist/icons/$tema/" "$HOME/.local/share/icons/$tema/" \
-            2>/dev/null | grep -v '/$' | grep -cv '^skipping ' || true)
-        if [[ "$n" -gt 0 ]]; then
-            _warn "$tema: $n arquivo(s) divergiam do dist/ — ressincronizados"
-            total_ressync=$((total_ressync + n))
+        #     Item excluído também fica protegido do --delete.
+        mapfile -t linhas < <(rsync -rlc "${delete_flag[@]}" --out-format='%n' \
+            --exclude=icon-theme.cache "$src_tema/" "$dest_tema/" \
+            2>/dev/null | grep -v '/$' | grep -v '^skipping ')
+
+        n_upd=0
+        n_del=0
+        for linha in "${linhas[@]}"; do
+            [[ -z "$linha" ]] && continue
+            if [[ "$linha" == "deleting "* ]]; then
+                n_del=$((n_del + 1))
+            else
+                n_upd=$((n_upd + 1))
+            fi
+        done
+
+        if [[ "$n_upd" -gt 0 ]]; then
+            _warn "$tema: $n_upd arquivo(s) divergiam do dist/ — ressincronizados"
+            total_ressync=$((total_ressync + n_upd))
+        fi
+        if [[ "$n_del" -gt 0 ]]; then
+            _warn "$tema: $n_del órfão(s) removidos (não existem mais no dist/)"
+            total_removidos=$((total_removidos + n_del))
         fi
     done
-    if [[ "$total_ressync" -eq 0 ]]; then
+    if [[ "$total_ressync" -eq 0 && "$total_removidos" -eq 0 ]]; then
         _ok "Temas de ícones em sincronia com dist/"
     fi
 else

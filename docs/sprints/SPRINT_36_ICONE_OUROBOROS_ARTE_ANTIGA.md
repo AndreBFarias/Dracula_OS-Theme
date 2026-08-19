@@ -111,19 +111,41 @@ Verificado: regressão injetada (arte antiga escrita por cima do ícone instalad
 foi detectada como `1 arquivo(s) divergiam do dist/` e curada; rodada seguinte
 reporta `Temas de ícones em sincronia com dist/` sem escrever nada.
 
-### Órfãos no tema instalado (não corrigido — decisão consciente)
+### Órfãos no tema instalado (corrigido com --delete guardado)
 
-Nem o `install.sh` (`cp -r`) nem o heal (`rsync` sem `--delete`) removem
-arquivos que deixaram de existir no `dist/`. Hoje são 32 no
+Nem o `install.sh` (`cp -r`) nem a primeira versão da seção 1.5 removiam
+arquivos que deixaram de existir no `dist/`. Eram 32 no
 `~/.local/share/icons/Dracula-Icones`: `antigravity*`, `com.obsproject.Studio`,
 `guvcview`, três mimetypes `.svg` de vídeo substituídos por `.png` na SPRINT 22,
 e o `scalable/apps/protocolo-ouroboros.svg` copiado à mão na tentativa de
 correção das 20:20 de 2026-08-18.
 
-Nenhum deles sombreia nada hoje (`.png` vence `.svg` na ordem de extensões, e os
-demais nomes não estão mais no `mapping.json`), mas o destino não converge para o
-`dist/`. Remover exige `--delete` num diretório do usuário — operação destrutiva
-que fica para decisão explícita.
+Nenhum sombreava nada naquele momento, mas arte que sobra de um mapping antigo
+continua sendo servida pelo tema — é exatamente a classe de problema desta
+sprint, só que com a regressão latente em vez de visível.
+
+A seção 1.5 passa a usar `--delete`. Os quatro diretórios são 100% gerados pelo
+`build.sh`, então o destino tem que **convergir** para o `dist/`. Duas guardas
+antes de remover qualquer coisa:
+
+1. `validar_path_destrutivo` (allowlist de `lib/common.sh`, onde
+   `~/.local/share/icons` já constava);
+2. **razão dist/destino**: se o `dist/` tem menos de 90% dos arquivos do destino,
+   é build parcial ou interrompido — ressincroniza sem deletar e avisa.
+
+Sem backup a cada rodada de propósito: o conteúdo é integralmente regenerável
+por `./build.sh && ./install.sh --user`. Os 32 órfãos desta primeira remoção
+foram respaldados em
+`~/.cache/dracula_os_backup/icones_orfaos_20260818-225250/` (tar + manifest
+sha256, 32/32 conferidos) antes da execução.
+
+Verificado:
+
+- passada 1 removeu os 32 órfãos; passada 2 reporta sincronia sem escrever;
+- destino e `dist/` passam a ter as **mesmas 4413 entradas**;
+- guarda dos 90% testada removendo 10 dos 49 arquivos do `dist/` do
+  `Dracula-Cursor`: `dist/ tem 39 arquivos contra 49 instalados — build parcial?
+  sincronizo sem --delete`, e os 49 do destino ficaram intactos.
 
 ## Proof-of-work (parte 2)
 
@@ -136,4 +158,7 @@ INSTALL IDEMPOTENTE: 4445 arquivos identicos em 2 rodadas
 
 $ ./tests/test_reaplicar_idempotencia.sh
 OK: idempotência verificada (arquivos críticos inalterados entre execuções).
+
+$ ./scripts/diagnostico.sh --quiet
+exit 0
 ```
