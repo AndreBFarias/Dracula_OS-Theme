@@ -60,7 +60,8 @@ converter_svg() {
                 --export-width="$size" --export-height="$size" 2>/dev/null >/dev/null
             ;;
         magick)
-            "$MAGICK_CMD" -background none -resize "${size}x${size}" "$svg" "$out" 2>/dev/null
+            "$MAGICK_CMD" -background none -resize "${size}x${size}" \
+                -define png:exclude-chunk=date,tIME "$svg" "$out" 2>/dev/null
             ;;
     esac
     # Valida resultado
@@ -71,10 +72,18 @@ converter_svg() {
 }
 
 # Redimensiona PNG existente para outro tamanho (usa mesmo binário magick)
+#
+# exclude-chunk=date,tIME: sem isso o ImageMagick carimba a hora da conversão
+# dentro do PNG, e dois builds do MESMO source saem com bytes diferentes (784
+# de 4414 arquivos divergiam entre rodadas consecutivas). Isso quebra qualquer
+# verificação por hash -- inclusive a ressincronização por checksum que o
+# reaplicar_tema.sh usa para detectar regressão de arte no tema instalado. O
+# rsvg-convert (conversor preferido para SVG) já é determinístico.
 redimensionar_png() {
     local src="$1" out="$2" size="$3"
     local cmd="${MAGICK_CMD:-convert}"
-    "$cmd" "$src" -resize "${size}x${size}" "$out" 2>/dev/null
+    "$cmd" "$src" -resize "${size}x${size}" \
+        -define png:exclude-chunk=date,tIME "$out" 2>/dev/null
     [[ -s "$out" ]]
 }
 

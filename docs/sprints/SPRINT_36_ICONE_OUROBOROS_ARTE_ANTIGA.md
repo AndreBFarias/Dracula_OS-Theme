@@ -65,3 +65,75 @@ $ python3 -c "gi ... Gtk.IconTheme.lookup_icon('protocolo-ouroboros', 48, 0)"
 Lookup resolvido pelo tema (confirmando o sombreamento do `hicolor`), com a arte
 correta no destino. Ícone conferido visualmente em 48px e 256px: anel de
 serpente rosa/roxo.
+
+## Parte 2 — Por que o heal não teria curado isso
+
+Trocar a arte-mestre corrige o caso concreto, mas o caminho de auto-cura não
+detectava a regressão. Três achados, dois corrigidos:
+
+### Build não era reprodutível (corrigido)
+
+Duas rodadas de `build.sh` sobre o **mesmo** source produziam **784 de 4414
+arquivos** com bytes diferentes. Causa: `redimensionar_png` chama o ImageMagick
+sem excluir os chunks de data, e o `convert` carimba a hora da conversão dentro
+do PNG. Os pixels eram idênticos (mesma assinatura em `identify -format "%#"`);
+só o metadata mudava. O `rsvg-convert`, usado para as fontes SVG, já é
+determinístico — por isso a divergência ficava restrita às fontes PNG.
+
+Correção: `-define png:exclude-chunk=date,tIME` em `redimensionar_png` e no ramo
+`magick` de `converter_svg`. Verificado: duas rodadas consecutivas, 4414
+arquivos byte-idênticos.
+
+Isso não era cosmético — sem build determinístico, nenhuma verificação por hash
+entre `dist/` e o tema instalado consegue distinguir "arte regrediu" de "buildou
+de novo".
+
+### Heal não ressincronizava os ícones (corrigido)
+
+`reaplicar_tema.sh` conferia apenas a **existência** de
+`~/.local/share/icons/Dracula-Icones` e, adiante, regenerava o cache e reativava
+o `gsettings`. Nenhuma comparação de conteúdo: um arquivo de arte que regredisse
+no destino sobreviveria a quantos heals rodassem — e o cache regenerado a partir
+de arte errada continua errado.
+
+Nova seção 1.5: `rsync -rlc` (checksum) de `dist/icons/<tema>/` para o destino,
+nos quatro temas. Detalhes que custaram uma iteração:
+
+- **`-l` é obrigatório**: os upstreams trazem os diretórios `@2x` como symlink e
+  o `rsync` sem `-l` imprime `skipping non-regular file` **em stdout**, o que
+  inflava a contagem para 9438 (main) e 13342 (circle) a cada rodada.
+- **`--exclude=icon-theme.cache`**: o cache é gerado localmente pela seção 8;
+  comparar contra a cópia do `dist/` daria divergência eterna de 1 arquivo.
+- **Sem `--delete`**: mesmo contrato do `install.sh` — arquivos extras no
+  destino não são removidos.
+
+Verificado: regressão injetada (arte antiga escrita por cima do ícone instalado)
+foi detectada como `1 arquivo(s) divergiam do dist/` e curada; rodada seguinte
+reporta `Temas de ícones em sincronia com dist/` sem escrever nada.
+
+### Órfãos no tema instalado (não corrigido — decisão consciente)
+
+Nem o `install.sh` (`cp -r`) nem o heal (`rsync` sem `--delete`) removem
+arquivos que deixaram de existir no `dist/`. Hoje são 32 no
+`~/.local/share/icons/Dracula-Icones`: `antigravity*`, `com.obsproject.Studio`,
+`guvcview`, três mimetypes `.svg` de vídeo substituídos por `.png` na SPRINT 22,
+e o `scalable/apps/protocolo-ouroboros.svg` copiado à mão na tentativa de
+correção das 20:20 de 2026-08-18.
+
+Nenhum deles sombreia nada hoje (`.png` vence `.svg` na ordem de extensões, e os
+demais nomes não estão mais no `mapping.json`), mas o destino não converge para o
+`dist/`. Remover exige `--delete` num diretório do usuário — operação destrutiva
+que fica para decisão explícita.
+
+## Proof-of-work (parte 2)
+
+```
+$ ./build.sh && snapshot1 && ./build.sh && snapshot2
+IDEMPOTENTE: 4414 arquivos byte-identicos em 2 rodadas
+
+$ ./install.sh --user (x2)
+INSTALL IDEMPOTENTE: 4445 arquivos identicos em 2 rodadas
+
+$ ./tests/test_reaplicar_idempotencia.sh
+OK: idempotência verificada (arquivos críticos inalterados entre execuções).
+```

@@ -33,6 +33,43 @@ if [[ ! -d "$HOME/.local/share/icons/Dracula-Icones" ]]; then
     exit 2
 fi
 
+# ─── 1.5 Temas de ícones: ressincroniza a partir do dist/ ───
+# O install.sh copia dist/icons/* para ~/.local/share/icons/. Se um arquivo
+# instalado regredir depois disso (arte antiga que voltou, sobrescrita por
+# instalador de app, cópia manual), nada aqui detectava: as seções seguintes só
+# regeneram cache e reativam gsettings, e o cache regenerado a partir de arte
+# errada continua errado.
+#
+# rsync -c compara por CHECKSUM, não por mtime: o build.sh é determinístico
+# (exclude-chunk=date,tIME em redimensionar_png), então "nada transferido"
+# significa mesmo conteúdo. Sem --delete de propósito -- arquivos extras no
+# destino não são removidos, mesmo contrato do install.sh.
+if [[ -d "$REPO_ROOT/dist/icons" ]] && command -v rsync &>/dev/null; then
+    _info "Conferindo temas de ícones contra dist/"
+    total_ressync=0
+    for tema in Dracula-Icones dracula-icons-main dracula-icons-circle Dracula-Cursor; do
+        [[ -d "$REPO_ROOT/dist/icons/$tema" ]] || continue
+        [[ -d "$HOME/.local/share/icons/$tema" ]] || continue
+        # -l: os upstreams trazem diretórios @2x como symlink; sem ele o rsync
+        #     imprime "skipping non-regular file" em stdout a cada rodada e a
+        #     contagem nunca zera.
+        # --exclude icon-theme.cache: gerado localmente pela seção 8; comparar
+        #     contra a cópia do dist/ daria divergência eterna de 1 arquivo.
+        n=$(rsync -rlc --out-format='%n' --exclude=icon-theme.cache \
+            "$REPO_ROOT/dist/icons/$tema/" "$HOME/.local/share/icons/$tema/" \
+            2>/dev/null | grep -v '/$' | grep -cv '^skipping ' || true)
+        if [[ "$n" -gt 0 ]]; then
+            _warn "$tema: $n arquivo(s) divergiam do dist/ — ressincronizados"
+            total_ressync=$((total_ressync + n))
+        fi
+    done
+    if [[ "$total_ressync" -eq 0 ]]; then
+        _ok "Temas de ícones em sincronia com dist/"
+    fi
+else
+    _warn "dist/icons ausente ou rsync indisponível — pulei a conferência de ícones"
+fi
+
 # ─── 2. Pop!_Shell e Pop!_Cosmic dark.css (se regrediram) ───
 # Detecção robusta: compara byte-a-byte o dark.css instalado com o source
 # canônico do repo (src/shell/<ext>-dark.css). Qualquer divergência indica
