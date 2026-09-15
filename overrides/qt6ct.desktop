@@ -1,4 +1,9 @@
 [Desktop Entry]
+# [2026-09-15] Escondido do menu a pedido do dono — ferramenta que ele não
+# abre pelo launcher. Nada foi desinstalado: continua acessível por nome, por
+# associação de arquivo e pelos outros apps. Para trazer de volta, apague este
+# arquivo de overrides/ e rode aplicar_overrides.sh.
+NoDisplay=true
 X-Desktop-File-Install-Version=0.11
 Name=Qt6 Settings
 
@@ -80,7 +85,5 @@ Type=Application
 Categories=Settings;DesktopSettings;Qt;
 Keywords=settings;desktop;qt;qtsettings;qt6;
 
-# [2026-09-15] Escondido do menu a pedido do dono: o qt5ct/qt6ct é
 # infraestrutura do tema (cosmic-settings-daemon depende dele), não um app
 # para abrir no dia a dia. NoDisplay tira da grade sem desinstalar nada.
-NoDisplay=true

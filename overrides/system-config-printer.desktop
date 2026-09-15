@@ -1,0 +1,22 @@
+[Desktop Entry]
+# [2026-09-15] Escondido do menu a pedido do dono — ferramenta que ele não
+# abre pelo launcher. Nada foi desinstalado: continua acessível por nome, por
+# associação de arquivo e pelos outros apps. Para trazer de volta, apague este
+# arquivo de overrides/ e rode aplicar_overrides.sh.
+NoDisplay=true
+Name=Printers
+GenericName=Printers
+X-GNOME-FullName=Printers
+Comment=Configure printers
+Exec=system-config-printer
+Terminal=false
+Type=Application
+Icon=printer
+StartupNotify=true
+NotShowIn=KDE;
+X-Ubuntu-Gettext-Domain=system-config-printer
+Categories=GNOME;GTK;Settings;HardwareSettings;X-GNOME-Settings-Panel;X-Unity-Settings-Panel;System;Printing;
+X-GNOME-Settings-Panel=printing
+X-Unity-Settings-Panel=printing
+Keywords=Printer;Queue;Print;Paper;Ink;Toner;
+X-Desktop-File-Install-Version=0.27

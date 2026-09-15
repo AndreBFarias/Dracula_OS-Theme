@@ -1,0 +1,15 @@
+[Desktop Entry]
+# [2026-09-15] Escondido do menu a pedido do dono — ferramenta que ele não
+# abre pelo launcher. Nada foi desinstalado: continua acessível por nome, por
+# associação de arquivo e pelos outros apps. Para trazer de volta, apague este
+# arquivo de overrides/ e rode aplicar_overrides.sh.
+NoDisplay=true
+Type=Application
+Name=Elden Ring Tracker
+Comment=Dashboard interativo para rastrear progresso em Elden Ring
+Exec=bash -c "cd /opt/elden-ring-tracker && .venv/bin/python3 src/tray.py"
+Icon=elden-ring-tracker
+Terminal=false
+Categories=Game;Utility;
+Keywords=elden;ring;tracker;souls;
+StartupNotify=false

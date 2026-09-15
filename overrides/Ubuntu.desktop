@@ -1,0 +1,21 @@
+[Desktop Entry]
+# [2026-09-15] Escondido do menu a pedido do dono — ferramenta que ele não
+# abre pelo launcher. Nada foi desinstalado: continua acessível por nome, por
+# associação de arquivo e pelos outros apps. Para trazer de volta, apague este
+# arquivo de overrides/ e rode aplicar_overrides.sh.
+NoDisplay=true
+Name=Ubuntu
+GenericName=Terminal entering Ubuntu
+Comment=Terminal entering Ubuntu
+Categories=Distrobox;System;Utility
+Exec=/home/andrefarias/.local/bin/distrobox enter  Ubuntu
+Icon=Ubuntu
+Keywords=distrobox;
+Terminal=true
+TryExec=/home/andrefarias/.local/bin/distrobox
+Type=Application
+Actions=Remove;
+
+[Desktop Action Remove]
+Name=Remove Ubuntu from system
+Exec=/home/andrefarias/.local/bin/distrobox rm  Ubuntu

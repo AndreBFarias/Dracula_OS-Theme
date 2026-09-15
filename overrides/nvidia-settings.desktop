@@ -1,0 +1,14 @@
+[Desktop Entry]
+# [2026-09-15] Escondido do menu a pedido do dono — ferramenta que ele não
+# abre pelo launcher. Nada foi desinstalado: continua acessível por nome, por
+# associação de arquivo e pelos outros apps. Para trazer de volta, apague este
+# arquivo de overrides/ e rode aplicar_overrides.sh.
+NoDisplay=true
+Version=1.1
+Type=Application
+Name=NVIDIA X Server Settings
+Comment=Configure NVIDIA X Server Settings
+Icon=nvidia-settings
+Exec=/usr/bin/nvidia-settings
+Actions=
+Categories=Settings;Settings-System;System;

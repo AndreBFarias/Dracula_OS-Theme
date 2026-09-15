@@ -1,0 +1,34 @@
+[Desktop Entry]
+# [2026-09-15] Escondido do menu a pedido do dono — ferramenta que ele não
+# abre pelo launcher. Nada foi desinstalado: continua acessível por nome, por
+# associação de arquivo e pelos outros apps. Para trazer de volta, apague este
+# arquivo de overrides/ e rode aplicar_overrides.sh.
+NoDisplay=true
+Name=COSMIC Screenshot
+Name[ar]=لقطة شاشة COSMIC
+Name[cs]=Snímky obrazovky COSMIC
+Name[es]=Captura de pantalla
+Name[pl]=Zrzuty ekranu COSMIC
+Name[pt]=Captura de Tela
+Name[ru]=Снимок экрана
+Name[sv]=COSMIC Skärmbild
+Name[zh_CN]=COSMIC 截图
+Name[nl]=COSMIC schermafdrukken
+Name[af]=COSMIC skermafdrukke
+Name[hu]=COSMIC Képernyőkép
+Type=Application
+Exec=cosmic-screenshot
+Terminal=false
+Categories=COSMIC;Utility;
+Keywords=COSMIC;capture;screenshot;
+Keywords[ar]=لقطة;صورة;شاشة;لقطة شاشة;
+Keywords[cs]=Screenshot;snímek;snímky;zachytit;
+Keywords[es]=Screenshot;Captura;Imprimir;Print;
+Keywords[pt]=screenshot;print;
+Keywords[ru]=Скриншот;Снимок;Экрана;
+Keywords[sv]=COSMIC;fånga;skärmbild;inspelning;
+Keywords[nl]=COSMIC;afdruk;schermafdruk;
+Keywords[af]=COSMIC;afdruk;skermafdruk;
+Keywords[hu]=rögzítés;
+Icon=com.system76.CosmicScreenshot
+StartupNotify=true

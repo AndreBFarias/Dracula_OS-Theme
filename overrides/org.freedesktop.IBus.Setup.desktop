@@ -1,0 +1,20 @@
+[Desktop Entry]
+# [2026-09-15] Escondido do menu a pedido do dono — ferramenta que ele não
+# abre pelo launcher. Nada foi desinstalado: continua acessível por nome, por
+# associação de arquivo e pelos outros apps. Para trazer de volta, apague este
+# arquivo de overrides/ e rode aplicar_overrides.sh.
+NoDisplay=true
+Name=IBus Preferences
+Comment=Set IBus Preferences
+Exec=ibus-setup
+Icon=ibus-setup
+Terminal=false
+Type=Application
+StartupNotify=true
+Categories=Settings;
+# GNOME uses its own "input source" settings instead
+NotShowIn=GNOME;Unity;
+X-AppStream-Ignore=true
+Keywords=keyboard;input;
+X-Desktop-File-Install-Version=0.27
+X-Ubuntu-Gettext-Domain=ibus10
