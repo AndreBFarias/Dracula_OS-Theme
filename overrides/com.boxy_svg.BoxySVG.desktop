@@ -1,0 +1,20 @@
+[Desktop Entry]
+Name=Boxy SVG
+Comment=Scalable Vector Graphics (SVG) editor
+Exec=/usr/bin/flatpak run --branch=stable --arch=x86_64 --command=boxy-svg --file-forwarding com.boxy_svg.BoxySVG @@ %f @@
+Icon=com.boxy_svg.BoxySVG
+Type=Application
+Terminal=false
+Categories=Graphics
+# [2026-09-16] StartupWMClass corrigido: o .desktop do Flatpak declara
+# "Boxy SVG", mas a janela reporta app_id `boxy-svg-boxy-svg` (visto no tooltip
+# do dock do COSMIC). Sem casar, o dock nao encontra o .desktop da janela aberta
+# e desenha o icone generico de engrenagem — embora o icone do app exista em
+# nove lugares, inclusive em MeowSystem-Icons/48x48/apps/.
+# Os dois valores ficam declarados: o real primeiro, o do empacotador depois,
+# para o caso de outra versao voltar a reportar o antigo.
+StartupWMClass=boxy-svg-boxy-svg;Boxy SVG;
+MimeType=image/svg+xml;image/png;image/jpeg;image/gif;image/webp;application/pdf;application/illustrator;
+Keywords=SVG;Vector;Graphics;Editor;
+X-Flatpak-Tags=proprietary;
+X-Flatpak=com.boxy_svg.BoxySVG
