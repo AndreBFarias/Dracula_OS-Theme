@@ -1,0 +1,47 @@
+[Desktop Entry]
+# [2026-09-15] Escondido do menu a pedido do dono. Nada foi desinstalado:
+# continua instalado, lançável por nome e acessível por associação de arquivo.
+# Para trazer de volta, apague este arquivo de overrides/ e rode
+# aplicar_overrides.sh.
+NoDisplay=true
+Name[cs]=Účty on-line
+Name[da]=Onlinekonti
+Name[de]=Internetkonten
+Name[es]=Cuentas en línea
+Name[fa]=حساب های آنلاین
+Name[fi]=Verkkotilit
+Name[fr]=Comptes en ligne
+Name[ia]=Contos in linea
+Name[it]=Account online
+Name[nl]=Internetaccounts
+Name[pl]=Konta online
+Name[pt_BR]=Contas Online
+Name=Online Accounts
+Comment[cs]=Připojení k vašim datům v cloudu
+Comment[da]=Forbind til dine data i skyen
+Comment[de]=Mit Ihren Daten in der Cloud verbinden
+Comment[es]=Conéctese a sus datos en la nube
+Comment[fa]=اتصال به داده های شما در فضای ابری
+Comment[fi]=Muodosta yhteys pilvessä oleviin tietoihisi
+Comment[fr]=Connexion à vos données du nuage
+Comment[ia]=Connecte te a tu datos in le nube
+Comment[it]=Usare i propri dati nel cloud
+Comment[nl]=Verbinden met uw gegevens in de wolkdienst
+Comment[pl]=Łączenie z danymi w chmurze
+Comment[pt_BR]=Conecte seus dados na nuvem
+Comment[ru]=Подключение к данным в облаке
+Comment=Connect to your data in the cloud
+Type=Application
+Icon=gnome-online-accounts-gtk
+Exec=/usr/bin/gnome-online-accounts-gtk
+Keywords[da]=google;facebook;twitter;yahoo;web;online;chat;kalender;mail;kontakt;kontaktperson;owncloud;kerberos;imap;smtp;pocket;readitlater;konto;
+Keywords[de]=google;facebook;twitter;yahoo;web;online;chat;calendar;mail;contact;owncloud;kerberos;imap;smtp;pocket;readitlater;account;Kalender;E-Mail;email;Kontakt;Nextcloud;cloud;
+Keywords[es]=google;facebook;twitter;yahoo;web;en línea;chat;calendario;correo;contacto;owncloud;kerberos;imap;smtp;pocket;leer más tarde;cuenta;
+Keywords[fa]=گوگل؛فیسبوک؛توییتر؛Yahoo؛وب؛آنلاین؛گفتگو؛تقویم؛نامه؛تماس؛owncloud؛kerberos؛imap؛smtp؛pocket؛readitlater؛حساب؛
+Keywords[fi]=google;facebook;twitter;yahoo;web;online;chat;calendar;mail;contact;owncloud;kerberos;imap;smtp;pocket;readitlater;account;
+Keywords[fr]=google;facebook;twitter;yahoo;web;online;chat;calendar;mail;contact;owncloud;kerberos;imap;smtp;pocket;readitlater;account;
+Keywords[it]=google;facebook;twitter;yahoo;web;online;chat;calendario;mail;contatto;owncloud;kerberos;imap;smtp;pocket;readitlater;account;
+Keywords[nl]=google;facebook;twitter;yahoo;web;online;chat;kalender;mail;contact;owncloud;kerberos;imap;smtp;pocket;readitlater;account;
+Keywords[pl]=google;facebook;twitter;yahoo;web;sieć;online;czat;kalendarz;poczta;kontakt;owncloud;kerberos;imap;smtp;pocket;readitlater;konto;
+Keywords[pt_BR]=google;facebook;twitter;yahoo;web;online;chat;calendar;mail;contact;owncloud;kerberos;imap;smtp;pocket;readitlater;account;
+Keywords=google;facebook;twitter;yahoo;web;online;chat;calendar;mail;contact;owncloud;kerberos;imap;smtp;pocket;readitlater;account;
