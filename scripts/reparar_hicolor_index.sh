@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+printf '%s\n' "reparar_hicolor_index.sh: o index.theme do hicolor do usuário é do MeowSystem (hicolor.sh, conferido pelo meow doctor)"; exit 0  #vizinhos+:dracula-hicolor#
 # reparar_hicolor_index.sh — mantém o index.theme do hicolor do usuário coerente
 # com os diretórios que existem em disco.
 #

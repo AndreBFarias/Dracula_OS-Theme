@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+printf '%s\n' "instalar_spicetify.sh: o Spicetify e o tema do Spotify são do MeowSystem; as extensões seguem no spicetify_reparar"; exit 0  #vizinhos+:dracula-spicetify#
 # instalar_spicetify.sh — instalador autônomo do Spicetify para o
 # Dracula_OS-Theme. Detecta Spotify (Flatpak/snap/nativo), instala o
 # binário Spicetify (via curl|sh oficial), clona spicetify/spicetify-themes,

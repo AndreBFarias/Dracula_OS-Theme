@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+printf '%s\n' "normalizar_desktops.sh: o Icon= de caminho absoluto é do MeowSystem (icones_absolutos.sh, conferido pelo meow doctor)"; exit 0  #vizinhos+:dracula-icones-absolutos#
 # normalizar_desktops.sh — reescreve .desktop que usam path absoluto em Icon=
 # para referências simples por nome (que o tema resolve).
 #

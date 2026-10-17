@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+printf '%s\n' "reaplicar_tema.sh: o tema, o cursor, os ícones, os sons e os lançadores são do MeowSystem, e o meow doctor confere todo dia"; exit 0  #vizinhos+:dracula-reaplicar-tema#
 # reaplicar_tema.sh — reaplicação idempotente do Dracula_OS-Theme após upgrades.
 #
 # Pode rodar múltiplas vezes sem efeito colateral. Projetado para ser chamado:

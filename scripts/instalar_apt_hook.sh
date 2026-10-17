@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+printf '%s\n' "instalar_apt_hook.sh: quem reaplica depois do apt é o MeowSystem (99-meow-lancador e meow-pos-apt)"; exit 0  #vizinhos+:dracula-gancho-apt#
 # instalar_apt_hook.sh — instala/remove hook APT que dispara reaplicar_tema.sh
 # automaticamente após apt install/upgrade/full-upgrade.
 #
