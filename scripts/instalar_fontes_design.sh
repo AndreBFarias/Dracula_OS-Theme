@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # instalar_fontes_design.sh — fontes de design no padrão do tema (SPRINT 33)
 #
-# Instala JetBrains Mono + Fira Code em ~/.local/share/fonts/ para que o texto
+# Instala JetBrains Mono + Fira Code + Zrnic em ~/.local/share/fonts/ para que o texto
 # vivo de SVGs (e do desktop) renderize e EXPORTE correto. Corrige na raiz o
 # bug em que a exportação PNG de um .svg no Boxy SVG perdia o texto por ausência
 # das fontes no sistema.
@@ -35,8 +35,8 @@ for familia_dir in "$SRC"/*/; do
     familia="$(basename "$familia_dir")"
     alvo_dir="$DEST_FONTES/$familia"
     mkdir -p "$alvo_dir"
-    # Copia .ttf e a licença OFL (redistribuição correta)
-    for f in "$familia_dir"*.ttf "$familia_dir"OFL.txt; do
+    # Copia .ttf/.otf e a licença OFL (redistribuição correta)
+    for f in "$familia_dir"*.ttf "$familia_dir"*.otf "$familia_dir"OFL.txt; do
         [[ -e "$f" ]] || continue
         alvo="$alvo_dir/$(basename "$f")"
         if cmp -s "$f" "$alvo"; then
@@ -69,7 +69,7 @@ if flatpak info "$BOXY_APP" >/dev/null 2>&1; then
         _warn "reinicie o Boxy SVG para as novas fontes aparecerem"
     fi
     # Prova opcional: o Boxy VAI enxergar a fonte (export corrigido na raiz).
-    for fam in "JetBrains Mono" "Fira Code"; do
+    for fam in "JetBrains Mono" "Fira Code" "Zrnic"; do
         res="$(timeout 20 flatpak run --command=fc-match "$BOXY_APP" "$fam" 2>/dev/null || true)"
         if [[ -n "$res" ]]; then
             _ok "Boxy fc-match '$fam' -> $res"
@@ -85,9 +85,9 @@ fi
 # Casa a saída bruta do fc-match (inclui o nome do arquivo) — se resolveu para
 # a fonte instalada, o arquivo é JetBrainsMono-*.ttf / FiraCode-*.ttf; se caísse
 # no fallback, seria DejaVuSans.ttf ou similar.
-for fam in "JetBrains Mono" "Fira Code"; do
+for fam in "JetBrains Mono" "Fira Code" "Zrnic"; do
     res="$(fc-match "$fam" 2>/dev/null)"
-    if echo "$res" | grep -qiE 'jetbrainsmono|firacode'; then
+    if echo "$res" | grep -qiE 'jetbrainsmono|firacode|zrnic'; then
         _ok "fc-match '$fam' -> $res"
     else
         _warn "fc-match '$fam' -> $res (não resolveu para a fonte esperada!)"

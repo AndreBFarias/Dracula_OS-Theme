@@ -3,5 +3,6 @@
 set -uo pipefail
 rm -rf "$HOME/.local/share/fonts/JetBrainsMono"
 rm -rf "$HOME/.local/share/fonts/FiraCode"
+rm -rf "$HOME/.local/share/fonts/Zrnic"
 fc-cache -f >/dev/null 2>&1
-echo "fontes de design (JetBrains Mono, Fira Code) removidas"
+echo "fontes de design (JetBrains Mono, Fira Code, Zrnic) removidas"

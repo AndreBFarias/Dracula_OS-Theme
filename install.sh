@@ -10,7 +10,7 @@
 #   ./install.sh --user --gimp       # + instala GIMP (Flatpak) e aplica PhotoGIMP (SPRINT 20)
 #   ./install.sh --user --video-wallpaper # + wallpaper de vídeo (xwinwrap + mpv, SPRINT 30)
 #   ./install.sh --user --relatorio-mec   # + pipeline do Relatório MEC (fontes universais + scripts)
-#   ./install.sh --user --fontes-design   # + fontes de design (JetBrains Mono + Fira Code; corrige export de SVG)
+#   ./install.sh --user --fontes-design   # + fontes de design (JetBrains Mono + Fira Code + Zrnic; corrige export de SVG)
 #   ./install.sh --user --all        # tudo acima
 #   ./install.sh --user --apt-hook   # + instala hook que reaplica tema pós apt upgrade
 #   ./install.sh --bootstrap         # checa ambiente, baixa upstreams, build, install --user --all, diagnóstico
@@ -251,7 +251,7 @@ fi
 # ─── Fontes de design (JetBrains Mono + Fira Code; corrige export de SVG) ───
 if [[ $FONTES_DESIGN -eq 1 && "$MODO" == "user" ]]; then
     echo ""
-    _info "Instalando fontes de design (JetBrains Mono + Fira Code)"
+    _info "Instalando fontes de design (JetBrains Mono + Fira Code + Zrnic)"
     "$REPO_ROOT/scripts/instalar_fontes_design.sh" || _warn "instalar_fontes_design.sh falhou (não-fatal)"
 fi
 
